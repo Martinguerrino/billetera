@@ -1,4 +1,5 @@
-acomodar el revisar nomenclatura ver de usar claves foraneas
+acomodar el revisar nomenclatura 
+ver de usar claves foraneas
 cuando esta asi
 for (int i = 0; i < 3; i++) {
             
