@@ -1,4 +1,4 @@
-package Modelo;
+package billetera.Modelo;
 
 import java.io.IOException;
 import java.net.URI;

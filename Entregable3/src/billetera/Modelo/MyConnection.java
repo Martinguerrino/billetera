@@ -1,4 +1,4 @@
-package Modelo;
+package billetera.Modelo;
 import java.sql.*;
 
 public class MyConnection 
@@ -7,7 +7,7 @@ public class MyConnection
  static 
  {
     try {
-       con = DriverManager.getConnection("jdbc:sqlite:wallet.db");
+       con = DriverManager.getConnection("jdbc:sqlite:billetera.db");
    } catch (java.sql.SQLException e) {
    System.out.println("Error de SQL: "+e.getMessage());
    } 
@@ -51,7 +51,8 @@ private static void creaciónDeTablasEnBD(Connection connection) throws SQLExcep
 			+ " ID_PERSONA       INTEGER   NOT NULL, "
 			+ " PASSWORD       VARCHAR(50)    NOT NULL, "
 			+ " ACEPTA_TERMINOS       BOOLEAN    NOT NULL, "
-			+ " FOREIGN KEY(ID_PERSONA) REFERENCES PERSONA(ID)"
+			+ " MAIL	   VARCHAR(50)    NOT NULL, "
+			+ " FOREIGN KEY(ID_PERSONA) REFERENCES PERSONA(ID)" 
 			+ ")";
 	stmt.executeUpdate(sql);
 			
@@ -91,13 +92,21 @@ private static void creaciónDeTablasEnBD(Connection connection) throws SQLExcep
 			+ "("
 			+ " ID     INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
 			+ " RESUMEN VARCHAR(1000)   NOT NULL, "
-			+ " FECHA_HORA		DATETIME  NOT NULL "
+			+ " FECHA_HORA		DATETIME  NOT NULL, "
 			+ " ID_USUARIO INTEGER    NOT NULL, "
 			+ " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID)"
 			+ ")";
 	stmt.executeUpdate(sql);
 	
 	stmt.close();
+}
+public static void main(String[] args) 
+{
+	try {
+		creaciónDeTablasEnBD(MyConnection.getCon());
+	} catch (SQLException e) {
+		System.out.println("Error de SQL: "+e.getMessage());
+	}
 }
 
 }
