@@ -2,9 +2,11 @@ package billetera.Modelo.DAO;
 import billetera.Modelo.MyConnection;
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class TransaccionDAOjdbc 
+public class TransaccionDAOjdbc implements TransaccionDAO 
 {
 
     
@@ -29,5 +31,33 @@ public class TransaccionDAOjdbc
             throw new SQLException("Error al crear transaccion: " + e.getMessage(), e);
         }
         
+    }
+    public static List<Transaccion> listarTransacciones() throws SQLException 
+    {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        List<Transaccion> transacciones = new ArrayList<>();
+        Transaccion transaccion= new Transaccion();
+        conn = MyConnection.getCon();
+        try 
+        {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM TRANSACCION");
+            while (rs.next()) 
+            {
+                transaccion.setId(rs.getInt("ID"));
+                transaccion.setDescripcion(rs.getString("RESUMEN"));
+                transaccion.setFecha_hora(rs.getTimestamp("FECHA_HORA").toLocalDateTime());
+                transaccion.setId_Usuario(rs.getInt("ID_USUARIO"));
+                transacciones.add(transaccion);
+
+            }
+            return transacciones;
+        } 
+        catch (SQLException e) 
+        {
+            throw new SQLException("el acceso a las transacciones fue erroneo");
+        }
     }
 }

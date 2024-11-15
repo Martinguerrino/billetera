@@ -14,6 +14,10 @@ public class Transaccion
    
     
 
+    public Transaccion() {
+    }
+
+
     public Transaccion(int id, String descripcion, java.time.LocalDateTime fecha_hora, int id_Usuario) {
         this.id = id;
         this.descripcion = descripcion;
