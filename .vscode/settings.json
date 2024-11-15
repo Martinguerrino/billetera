@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "Entregable3\\src"
+    ],
+    "java.project.referencedLibraries": [
+        "Entregable3\\lib\\json-20240303.jar",
+        "c:\\Users\\Users\\Desktop\\martin\\facu\\taller_lenguajes2\\Entregable3GITHUB\\billetera\\Entregable3\\lib\\sqlite-jdbc-3.46.1.2.jar"
+    ]
+}
