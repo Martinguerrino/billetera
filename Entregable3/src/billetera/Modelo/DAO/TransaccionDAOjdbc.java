@@ -10,7 +10,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
 {
 
     
-    public void crearTransaccion(Transaccion transaccion) throws SQLException
+    public static void crearTransaccion(Transaccion transaccion) throws SQLException
     {
         Connection conn = null;
         PreparedStatement stmt = null;

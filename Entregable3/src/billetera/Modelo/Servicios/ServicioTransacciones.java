@@ -9,9 +9,9 @@ public class ServicioTransacciones
 {
     public void crearTransaccion(Transaccion transaccion) throws SQLException
     {
-        TransaccionDAOjdbc transaccionDAO = new TransaccionDAOjdbc();
+        
         try{
-            transaccionDAO.crearTransaccion(transaccion);
+            TransaccionDAOjdbc.crearTransaccion(transaccion);
             }
         catch (SQLException e){
             System.out.println("Error al crear la transaccion");
@@ -19,7 +19,6 @@ public class ServicioTransacciones
     }
     public List<Transaccion> listarTransacciones() throws SQLException
     {
-        TransaccionDAOjdbc transaccionDAO = new TransaccionDAOjdbc();
         try 
         {
             List<Transaccion> transacciones = TransaccionDAOjdbc.listarTransacciones();
