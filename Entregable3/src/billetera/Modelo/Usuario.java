@@ -52,7 +52,7 @@ public class Usuario
         this.password = password;
     }
 
-    public boolean isAceptaTerminos() {
+    public boolean getAceptaTerminos() {
         return aceptaTerminos;
     }
 

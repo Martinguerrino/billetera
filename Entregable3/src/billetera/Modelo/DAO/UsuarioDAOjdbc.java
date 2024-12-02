@@ -9,7 +9,21 @@ public class UsuarioDAOjdbc implements UsuarioDAO
     @Override
     public void cargarUsuario(Usuario usuario) throws SQLException 
     {
-        
+        //cargar un usuario en la base de datos
+        String sql = "INSERT INTO USUARIO (ID_PERSONA, PASSWORD, ACEPTA_TERMINOS, MAIL) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = MyConnection.getCon().prepareStatement(sql)) 
+        {
+            //habria que hacer un metodo el cual cargue primero la persona consiga el id y luego lo cargue en el usuario
+            stmt.setInt(1, usuario.getIdPersona());
+            stmt.setString(2, usuario.getPassword());
+            stmt.setBoolean(3, usuario.getAceptaTerminos());
+            stmt.setString(4, usuario.getMail());
+            stmt.executeUpdate();
+        } 
+        catch (SQLException e) 
+        {
+            throw new SQLException("Error al cargar el usuario: " + e.getMessage(), e);
+        }
         
     }
 
