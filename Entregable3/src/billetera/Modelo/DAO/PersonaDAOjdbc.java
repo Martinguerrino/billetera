@@ -1,6 +1,6 @@
 package billetera.Modelo.DAO;
-import java.sql.*;
 import billetera.Modelo.MyConnection;
+import java.sql.*;
 
 public class PersonaDAOjdbc implements PersonaDAO
 {
@@ -49,5 +49,8 @@ public class PersonaDAOjdbc implements PersonaDAO
         catch(SQLException e)
         {
             e.printStackTrace();
-
+            
+        }
+                return -1;
+    }
 }

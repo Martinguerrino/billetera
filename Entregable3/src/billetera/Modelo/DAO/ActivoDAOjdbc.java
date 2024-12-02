@@ -1,7 +1,5 @@
 package billetera.Modelo.DAO;
 
-import java.sql.Connection;
-
 import billetera.Modelo.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -69,4 +67,7 @@ public class ActivoDAOjdbc
         catch(SQLException e)
         {
             e.printStackTrace();
+        }
+                return null;
+    }
 }
