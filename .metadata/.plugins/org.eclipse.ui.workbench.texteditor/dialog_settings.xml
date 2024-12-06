@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="monedaDao"/>
+		<item value="compra de"/>
+		<item value="descripcion"/>
+		<item value="transaccion"/>
+		<item value="como desea ord"/>
+		<item value="crearmoneda"/>
+		<item value="crear"/>
+		<item value="scanner"/>
+		<item value="scann"/>
+		<item value="scanner.next"/>
+		<item value="scanner.nextFloat"/>
+		<item value="scanner.nextLine"/>
+		<item value="scanner.nextFloat();"/>
+		<item value="scanner.nextLine();"/>
+		<item value="scanne"/>
+	</list>
+	<list key="replacehistory">
+		<item value="Interfaz.pedirString"/>
+		<item value="Interfaz.pedirFloat"/>
+		<item value="Interfaz.pedirFloat();"/>
+		<item value="Interfaz.pedirString();"/>
+	</list>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="Usuario"/>
+		</list>
+	</section>
+</section>

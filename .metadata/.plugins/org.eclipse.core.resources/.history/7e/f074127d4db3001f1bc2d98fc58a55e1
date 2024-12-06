@@ -1,0 +1,5 @@
+package billetera.Modelo;
+
+public class FactoryDAO {
+
+}
