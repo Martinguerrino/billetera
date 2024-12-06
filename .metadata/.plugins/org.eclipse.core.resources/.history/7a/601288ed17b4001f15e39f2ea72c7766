@@ -1,0 +1,38 @@
+package Vista;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+public class Login extends JFrame {
+    JButton buttonLogin;
+    JLabel titulo;
+    JLabel linkRegister;
+
+    public Login() {
+        super("Login");
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super.setSize(800, 400);
+        super.setLayout(null); // Usaremos diseño absoluto (sin LayoutManager)
+
+        // Crear componentes
+        titulo = new JLabel("Cripto Martucho");
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        titulo.setBounds(50, 20, 300, 30); // Definir posición y tamaño manualmente
+
+        buttonLogin = new JButton("Iniciar Sesión");
+        buttonLogin.setBounds(150, 100, 100, 30); // Posición y tamaño del botón
+        
+        super.setResizable(false);
+
+        // Agregar componentes al JFrame
+        add(titulo);
+        add(buttonLogin);
+    }
+
+    public static void main(String[] args) {
+        Login login = new Login();
+        login.setVisible(true); // Mostrar la ventana
+    }
+}

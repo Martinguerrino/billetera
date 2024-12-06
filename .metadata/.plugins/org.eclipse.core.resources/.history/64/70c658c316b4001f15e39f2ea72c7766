@@ -1,0 +1,18 @@
+package Vista;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+public class Login extends JFrame{
+	JButton buttonLogin;
+	JLabel titulo= new JLabel("Iniciar Sesion:");
+	JLabel linkRegister;
+	
+	public Login() {
+		super("Login");
+		titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		
+	}
+	
+}
