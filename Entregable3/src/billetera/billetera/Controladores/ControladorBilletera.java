@@ -1,13 +1,18 @@
 package billetera.Controladores;
 
-public class ControladorBilletera 
-{
-    //para mostrar los activos deberia la vista acceder al servicio activos
-    Vista vista = new Vista();
-    vista.mostrarActivos();
-    vista.mostrarBalance();
-    while(!botonDeirse)
-    {
+public class ControladorBilletera {
+    private Vista vista;
+
+    public ControladorBilletera(Vista vista) {
+        this.vista = vista;
     }
-    this.controladorCuenta();
+
+    public void controladorBilletera() {
+        vista.mostrarActivos();
+        vista.mostrarBalance();
+        // Lógica para manejar la billetera
+        while (!botonDeirse) {
+            // Esperar acción del usuario
+        }
+    }
 }

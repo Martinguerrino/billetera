@@ -1,46 +1,32 @@
-package billetera.billetera.Controladores;
+package billetera.Controladores;
 
-import billetera.Modelo.Servicios.ServicioLogin;
+public class ControladorCuenta {
+    private Vista vista;
 
-public class ControladorCuenta
-{
-    
-    
-    
-    
-    
-    public void controladorCuenta()
-    {
-        Vista vista = new Vista();
+    public ControladorCuenta(Vista vista) {
+        this.vista = vista;
+    }
+
+    public void controladorCuenta() {
         vista.mostrarMenuCuenta();
         int opcion = vista.pedirOpcion();
-        switch(opcion)
-        {
+        switch (opcion) {
             case 1:
-                //controlador de la billetera que permitira ver balance y activos
-                this.controladorBilletera();
+                new ControladorBilletera(vista).controladorBilletera();
                 break;
             case 2:
-                //controlador de la compra
-                this.controladorCompra();
+                new ControladorCompra(vista).controladorCompra();
                 break;
-            
             case 4:
-                //controlador de cotizaciones
-                this.controladorCotizaciones();
+                new ControladorCotizaciones(vista, new ServicioCotizaciones()).mostrarCotizaciones();
                 break;
-            
             case 6:
-                //controlador de la inversion
-                this.controladorCerrarSesion();
+                new ControladorCerrarSesion(vista).controladorCerrarSesion();
                 break;
             default:
                 vista.mostrarErrorOpcion();
-                this.controladorCuenta();
+                controladorCuenta();
                 break;
         }
     }
-    
-
-
 }

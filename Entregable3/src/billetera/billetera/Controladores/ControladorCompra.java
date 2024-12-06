@@ -1,16 +1,22 @@
 package billetera.Controladores;
 
-public class ControladorCompra 
-{
-    Vista vista = new Vista();
-    vista.mostrarCompra();
-    //aca deberia mostrar la lista de productos y el boton de comprar
-    //aca deberia acceder al servicioCompra
-    while(Modelo.ServicioCompra.comprar(monedaFiat,cantidad,moneda))
-    {
-        vista.mostrarErrorCompra();
-        vista.mostrarCompra();
+import billetera.Modelo.ServicioCompra;
+
+public class ControladorCompra {
+    private Vista vista;
+    private ServicioCompra servicioCompra;
+
+    public ControladorCompra(Vista vista, ServicioCompra servicioCompra) {
+        this.vista = vista;
+        this.servicioCompra = servicioCompra;
     }
 
-    this.controladorCuenta();
+    public void controladorCompra() {
+        vista.mostrarCompra();
+        // Lógica para manejar la compra
+        while (!servicioCompra.comprar(monedaFiat, cantidad, moneda)) {
+            vista.mostrarErrorCompra();
+            vista.mostrarCompra();
+        }
+    }
 }

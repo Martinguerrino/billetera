@@ -1,9 +1,14 @@
 package billetera.Controladores;
 
-public class ControladorCerrarSesion 
-{
-    Vista vista = new Vista();
+public class ControladorCerrarSesion {
+    private Vista vista;
+
+    public ControladorCerrarSesion(Vista vista) {
+        this.vista = vista;
+    }
+
+    public void controladorCerrarSesion() {
         vista.mostrarCerrarSesion();
-        //aca nose si deberia mostrar el login y la otra opcion de cerrar la app 
-        // o que corte directamente la app
+        // Lógica para manejar el cierre de sesión
+    }
 }

@@ -1,17 +1,24 @@
 package billetera.Controladores;
 
-public class ControladorLogin 
-{
-    Vista vista = new Vista();
-    boolean accedio = false;
-    vista.mostrarLogin();
-    //asumo que me devuelve las variables mail y password Y aceptaTerminos
-    while(!ServicioLogin.login(mail, password, aceptaTerminos))
-    {
-        vista.mostrarErrorLogin();
-        //vuelvo a pedir los datos
-        vista.mostrarLogin();
+import billetera.Modelo.ServicioLogin;
+
+public class ControladorLogin {
+    private Vista vista;
+    private ServicioLogin servicioLogin;
+
+    public ControladorLogin(Vista vista, ServicioLogin servicioLogin) {
+        this.vista = vista;
+        this.servicioLogin = servicioLogin;
     }
-    //controlador de la cuenta
-    this.controladorCuenta();
+
+    public void main(String[] args) {
+        boolean accedio = false;
+        vista.mostrarLogin();
+        // Lógica para manejar el login
+        while (!servicioLogin.login(mail, password, aceptaTerminos)) {
+            vista.mostrarErrorLogin();
+            vista.mostrarLogin();
+        }
+        new ControladorCuenta(vista).controladorCuenta();
+    }
 }

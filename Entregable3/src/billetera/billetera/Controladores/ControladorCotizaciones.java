@@ -1,17 +1,22 @@
 package billetera.Controladores;
 
-public class ControladorCotizaciones 
-{
-    Vista vista = new Vista();
-    vista.mostrarCotizaciones();
-    //aca deberia mostrar la lista de cotizaciones
-    //aca deberia acceder al servicioCotizaciones
-    while(Modelo.ServicioCotizaciones.obtenerCotizaciones())
-    {
-        vista.mostrarErrorCotizaciones();
-        vista.mostrarCotizaciones();
+import billetera.Modelo.ServicioCotizaciones;
+
+public class ControladorCotizaciones {
+    private Vista vista;
+    private ServicioCotizaciones servicioCotizaciones;
+
+    public ControladorCotizaciones(Vista vista, ServicioCotizaciones servicioCotizaciones) {
+        this.vista = vista;
+        this.servicioCotizaciones = servicioCotizaciones;
     }
 
-    this.controladorCuenta();
+    public void mostrarCotizaciones() {
+        vista.mostrarCotizaciones(servicioCotizaciones.obtenerCotizaciones());
+    }
 
+    public void manejarErrores() {
+        vista.mostrarErrorCotizaciones();
+        mostrarCotizaciones();
+    }
 }
