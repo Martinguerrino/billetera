@@ -1,8 +1,9 @@
 package billetera.Modelo.Servicios;
 import billetera.Modelo.DAO.UsuarioDAOjdbc;
+import java.sql.SQLException;
 public class ServicioLogin 
 {
-    private boolean login(String mail, String password)
+    private static boolean login(String mail, String password)
     {
         UsuarioDAOjdbc usuarioDAO = new UsuarioDAOjdbc();
         try {
@@ -11,13 +12,13 @@ public class ServicioLogin
             } else {
                 return false;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return false;
         }
 
 
     }
-    public boolean login(String mail, String password, boolean aceptaTerminos)
+    public static boolean login(String mail, String password, boolean aceptaTerminos)
     {
         if (aceptaTerminos) {
             return login(mail, password);
