@@ -14,16 +14,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import billetera.Controladores.ControladorLogin;
+
 public class VistaLogin extends JFrame {
 	    private JButton buttonLogin;
 	    private JLabel hipervinculoRegistrar;
 	    private JLabel titulo;
 	    private JTextField txtGmail;
 	    private JPasswordField txtPassword;
-	    private Controlador miControlador;
+	    private ControladorLogin miControlador;
 
 	    // Constructor
-	    public Login(Controlador miControlador) {
+	    public VistaLogin(ControladorLogin miControlador) {
 	        super("Login");
 	        this.miControlador= miControlador;
 	        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +87,7 @@ public class VistaLogin extends JFrame {
             
 			if (gmail.isEmpty() || password.isEmpty()) {
                 // Mostrar mensaje de error si falta información
-                JOptionPane.showMessageDialog(Login.this, 
+                JOptionPane.showMessageDialog(VistaLogin.this, 
                     "Por favor, ingrese tanto su Gmail como su contraseña.", 
                     "Error de inicio de sesión", 
                     JOptionPane.ERROR_MESSAGE);
@@ -93,7 +95,7 @@ public class VistaLogin extends JFrame {
 				if(miControlador.verificarUsuario(gmail,password)){
 					miControlador.redirigirPantallaActivos();
 				}else {
-					JOptionPane.showMessageDialog(Login.this, 
+					JOptionPane.showMessageDialog(VistaLogin.this, 
 		                    "Error, no existe dicho Usuario coincidente con la contraseña ingresada","Error de inicio de sesión",
 		                    JOptionPane.ERROR_MESSAGE);
 				}
@@ -104,9 +106,5 @@ public class VistaLogin extends JFrame {
     	
     }
 
-    public static void main(String[] args) {
-        Login login = new Login();
-        login.setVisible(true);
-    }
 }
 

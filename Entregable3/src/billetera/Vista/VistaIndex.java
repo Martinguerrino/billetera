@@ -1,5 +1,8 @@
 package Vista;
 import javax.swing.*;
+
+import billetera.Controladores.ControladorIndex;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +11,12 @@ public class VistaIndex extends JFrame {
     private JButton btnBalanceActivos;
     private JButton btnTransacciones;
     private JButton btnCompra;
-    private Controlador miControlador;
+    private JButton btnCotizaciones;
+    private JButton btnLogOut;
 
-    public VistaIndex(Controlador miControlador) {
+    private ControladorIndex miControlador;
+
+    public VistaIndex(ControladorIndex miControlador) {
     	super("Opciones");
         this.miControlador = miControlador;
 
@@ -30,7 +36,7 @@ public class VistaIndex extends JFrame {
         btnTransacciones.addActionListener(new LTransacciones());
         btnCompra.addActionListener(new LCompra());
         btnCotizaciones.addActionListener(new LCotizaciones());
-
+        btnLogOut.addActionListener(new LLogOut());
         // Layout para organizar los botones en 2 columnas y 2 filas
         setLayout(new GridLayout(2, 2, 10, 10)); // 2 filas, 2 columnas con espacio entre ellas
 
@@ -39,6 +45,7 @@ public class VistaIndex extends JFrame {
         add(btnTransacciones);
         add(btnCompra);
         add(btnCotizaciones);
+        add(btnLogOut);
     }
 
     // Clase interna para manejar el botón "Visualización de Balance y Mis Activos"
@@ -63,4 +70,20 @@ public class VistaIndex extends JFrame {
         public void actionPerformed(ActionEvent e) {
             miControlador.redirigirCompra();
         }
+
+
+    }
+    
+    private class LCotizaciones implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            miControlador.redirigirCotizaciones();
+        }
+    }
+    
+    private class LLogOut implements ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		miControlador.LogOut();
+    	}
+    }
 }

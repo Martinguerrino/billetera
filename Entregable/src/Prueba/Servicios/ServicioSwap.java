@@ -2,13 +2,14 @@ package Prueba.Servicios;
 
 import Prueba.FactoryDAO;
 import Prueba.Interfaz;
-import Prueba.Activos.Activo;
 import Prueba.Activos.ActivoCriptoDAOjdbc;
 import Prueba.Transaccion.Transaccion;
 import Prueba.Transaccion.TransaccionDAOjdbc;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+
+import Aux.Activo;
 
 public class ServicioSwap 
 {

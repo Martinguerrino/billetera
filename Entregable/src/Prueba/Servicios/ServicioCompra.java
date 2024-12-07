@@ -1,11 +1,9 @@
 package Prueba.Servicios;
 
-import Prueba.Activos.Activo;
 import Prueba.Activos.ActivoCriptoDAOjdbc;
 import Prueba.Activos.ActivoFiatDAOjdbc;
 import Prueba.FactoryDAO;
 import Prueba.Interfaz;
-import Prueba.Monedas.Moneda;
 import Prueba.Monedas.MonedaDAOjdbc;
 import Prueba.Transaccion.Transaccion;
 import Prueba.Transaccion.TransaccionDAOjdbc;
@@ -13,6 +11,9 @@ import Prueba.Transaccion.TransaccionDAOjdbc;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+
+import Aux.Activo;
+import Aux.Moneda;
 
 public class ServicioCompra 
 {

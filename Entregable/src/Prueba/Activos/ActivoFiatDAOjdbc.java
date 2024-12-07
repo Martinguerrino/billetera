@@ -1,11 +1,13 @@
 package Prueba.Activos;
 
-import Prueba.Monedas.Moneda;
 import Prueba.Monedas.MonedaDAOjdbc;
 import Prueba.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import Aux.Activo;
+import Aux.Moneda;
 
 public class ActivoFiatDAOjdbc implements ActivoDAO
 {

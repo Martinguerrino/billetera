@@ -26,9 +26,19 @@
 		<item value="Interfaz.pedirString();"/>
 	</list>
 	<section name="java.lang.Class">
-		<item key="replaceBarOpen" value="false"/>
+		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
+			<item value="incon"/>
+			<item value="incono"/>
+			<item value="tablaTransacciones"/>
+			<item value="LRegistro"/>
+			<item value="L"/>
+			<item value="addAction"/>
+			<item value="addact"/>
 			<item value="Usuario"/>
+		</list>
+		<list key="replacehistory">
+			<item value="tablaCotizacion"/>
 		</list>
 	</section>
 </section>

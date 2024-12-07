@@ -1,4 +1,9 @@
+package Vista;
+
 import javax.swing.*;
+
+import billetera.Controladores.ControladorCompra;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,9 +12,9 @@ public class VistaCompra extends JFrame {
     private JComboBox<String> comboCripto;
     private JTextField txtCantidad;
     private JButton btnComprar;
-    private Controlador miControlador;
+    private ControladorCompra miControlador;
 
-    public VistaCompra(Controlador miControlador) {
+    public VistaCompra(ControladorCompra miControlador) {
         super("Compra de Criptomonedas");
         this.miControlador = miControlador;
 
@@ -56,19 +61,17 @@ public class VistaCompra extends JFrame {
                 return;
             }
 
-            try {
                 // Validar que la cantidad es un número
                 double cantidad = Double.parseDouble(cantidadStr);
                 if (cantidad <= 0) {
                     JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Llamada al controlador para realizar la compra
-                    miControlador.comprarCripto(criptoSeleccionada, cantidad);
+                    if(!miControlador.comprarCripto(criptoSeleccionada, cantidad)) {
+                    	JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente Stock de dicha"+ criptoSeleccionada, "Error", JOptionPane.ERROR_MESSAGE);
+                    	
+                    }
                 }
-            } catch (NumberFormatException ex) {
-                // Si la cantidad no es un número válido
-                JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente Stock de dicha"+ criptoSeleccionada, "Error", JOptionPane.ERROR_MESSAGE);
-            }
         }
     }
 

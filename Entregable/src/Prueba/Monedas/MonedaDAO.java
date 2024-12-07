@@ -2,6 +2,8 @@ package Prueba.Monedas;
 import java.sql.SQLException;
 import java.util.List;
 
+import Aux.Moneda;
+
 public interface MonedaDAO 
 {
     void crearMoneda(Moneda moneda) throws SQLException;

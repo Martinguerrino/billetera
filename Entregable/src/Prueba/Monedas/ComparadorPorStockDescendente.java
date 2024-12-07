@@ -1,5 +1,7 @@
 package Prueba.Monedas;
 import java.util.Comparator;
+
+import Aux.Moneda;
 // Comparador para ordenar por stock descendente
 public class ComparadorPorStockDescendente implements Comparator<Moneda> {
     

@@ -2,6 +2,8 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -9,16 +11,28 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
+import billetera.Controladores.ControladorCotizaciones;
+
 public class VistaCotizaciones extends JFrame{
-	Controlador miControlador;
+	ControladorCotizaciones miControlador;
 	JLabel lblTitulo;
 	JTable tablaCotizacion;
-	public VistaCotizaciones() {
+	public VistaCotizaciones(ControladorCotizaciones miControlador) {
 		super("Cotizaciones");
         this.miControlador = miControlador;
-
+        actualizarCotizaciones();
+        int intervalo = 900000; // 15 minutos en milisegundos
+        Timer timer = new Timer(intervalo, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // El código que deseas ejecutar cada 15 minutos
+                actualizarCotizaciones();
+            }
+        });
+        timer.start();
         // Configuración de la ventana
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,8 +58,9 @@ public class VistaCotizaciones extends JFrame{
         add(lblTitulo, BorderLayout.NORTH); // Título en la parte superior
         add(scrollPane, BorderLayout.CENTER); // Tabla al centro
     }
-	public void agregarDatosTabla(Object[][] cotizaciones) {
+	public void actualizarCotizaciones() {
 		DefaultTableModel modeloTabla = (DefaultTableModel) tablaCotizacion.getModel();
+		Object[][] cotizaciones=miControlador.obtenerCotizaciones();
 		modeloTabla.setRowCount(0);
 		for(Object[] cotizacion : cotizaciones) {
 			modeloTabla.addRow(cotizacion);

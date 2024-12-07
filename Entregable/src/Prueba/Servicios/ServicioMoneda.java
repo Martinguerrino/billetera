@@ -3,11 +3,12 @@ import Prueba.FactoryDAO;
 import Prueba.Interfaz;
 import Prueba.Monedas.ComparadorPorNomenclatura;
 import Prueba.Monedas.ComparadorPorStockDescendente;
-import Prueba.Monedas.Moneda;
 import Prueba.Monedas.MonedaDAOjdbc;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+
+import Aux.Moneda;
 
 public class ServicioMoneda {
     @SuppressWarnings("ConvertToTryWithResources")

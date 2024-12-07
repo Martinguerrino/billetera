@@ -2,6 +2,8 @@ package Prueba.Activos;
 import java.sql.SQLException;
 import java.util.List;
 
+import Aux.Activo;
+
 public interface ActivoDAO  {
     
     /**

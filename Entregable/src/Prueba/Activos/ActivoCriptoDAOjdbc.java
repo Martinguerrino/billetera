@@ -1,6 +1,5 @@
 package Prueba.Activos;
 
-import Prueba.Monedas.Moneda;
 import Prueba.Monedas.MonedaDAOjdbc;
 import Prueba.MyConnection;
 import java.sql.Connection;
@@ -10,6 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import Aux.Activo;
+import Aux.Moneda;
 
 public class ActivoCriptoDAOjdbc implements ActivoDAO {
 

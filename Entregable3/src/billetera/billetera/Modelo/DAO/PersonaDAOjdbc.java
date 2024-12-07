@@ -2,6 +2,8 @@ package billetera.Modelo.DAO;
 import billetera.Modelo.MyConnection;
 import java.sql.*;
 
+import Aux.Persona;
+
 public class PersonaDAOjdbc implements PersonaDAO
 {
     @Override

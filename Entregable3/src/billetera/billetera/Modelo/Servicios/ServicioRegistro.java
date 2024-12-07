@@ -1,11 +1,12 @@
 package billetera.Modelo.Servicios;
 
-import billetera.Modelo.DAO.Persona;
 import billetera.Modelo.DAO.PersonaDAO;
 import billetera.Modelo.DAO.PersonaDAOjdbc;
 import billetera.Modelo.DAO.UsuarioDAOjdbc;
 import billetera.Modelo.Usuario;
 import java.sql.SQLException;
+
+import Aux.Persona;
 
 public class ServicioRegistro 
 {
