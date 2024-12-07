@@ -1,6 +1,6 @@
 package billetera.Modelo.Servicios;
 
-import billetera.Modelo.DAO.Persona;
+import billetera.Auxiliar.Persona;
 import billetera.Modelo.DAO.PersonaDAO;
 import billetera.Modelo.DAO.PersonaDAOjdbc;
 import billetera.Modelo.DAO.UsuarioDAOjdbc;

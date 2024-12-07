@@ -1,5 +1,6 @@
 package billetera.Modelo.DAO;
 
+import billetera.Auxiliar.Activo;
 import java.util.List;
 
 public interface ActivoDAO 

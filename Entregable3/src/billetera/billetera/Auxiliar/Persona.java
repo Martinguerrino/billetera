@@ -1,4 +1,4 @@
-package billetera.Modelo.DAO;
+package billetera.Auxiliar;
 
 public class Persona 
 {

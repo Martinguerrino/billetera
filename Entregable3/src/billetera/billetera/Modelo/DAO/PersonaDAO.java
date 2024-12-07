@@ -1,4 +1,7 @@
 package billetera.Modelo.DAO;
+
+import billetera.Auxiliar.Persona;
+
 public interface  PersonaDAO 
 {
     void cargarPersona(Persona persona);

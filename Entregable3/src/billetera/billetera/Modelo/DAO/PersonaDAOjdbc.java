@@ -1,4 +1,5 @@
 package billetera.Modelo.DAO;
+import billetera.Auxiliar.Persona;
 import billetera.Modelo.MyConnection;
 import java.sql.*;
 
