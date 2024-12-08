@@ -58,14 +58,14 @@ public class ControladorCompra {
             //no hay stock
             return;
         }
-        String nomenclaturaFiat = miModeloActivoFiat.buscarActivoFiatPorId(fiat.getId()).getNomenclatura();
+        Moneda monedaFiat = miModeloMoneda.buscarMonedaPorId(fiat.getId_moneda());
         float stock_restante = miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getStock()-cant_compra;
     	float fiatRestante = (float )(fiat.getCantidad()-cantidadFiat);
-        miModeloCompra.comprar(criptoSeleccionada,stock_restante,nomenclaturaFiat, fiatRestante, miUsuario.getId());
+        miModeloCompra.comprar(criptoSeleccionada,stock_restante,monedaFiat, fiatRestante, miUsuario.getId());
     }
 
     public String[] obtenerCriptos() {
-    	List<Moneda> monedas= miModelo.obtenerCriptos();//JKASJDKAS RE XD ESTE METODO
+    	List<Moneda> monedas= miModeloMoneda.listarMonedas();//JKASJDKAS RE XD ESTE METODO
     	String[] array = monedas.toArray(new String[0]);//parseo crazy son las 3 am me quiero dormir
     	return array;//xd
     }
