@@ -28,6 +28,20 @@ public class PersonaDAOjdbc implements PersonaDAO
     @Override
     public void actualizarPersona(Persona persona) 
     {
+        Connection con = null;
+        con = MyConnection.getCon();
+        String sql = "UPDATE persona SET nombre = ?, apellido = ? WHERE id = ?";
+        try(PreparedStatement ps = con.prepareStatement(sql);)
+        {
+            ps.setString(1, persona.getNombre());
+            ps.setString(2, persona.getApellido());
+            ps.setInt(3, persona.getId());
+            ps.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

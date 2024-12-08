@@ -2,8 +2,9 @@ package billetera.Controladores;
 
 import java.util.List;
 
-import Aux.Activo;
+import Auxiliar.Activo;
 import Vista.VistaBalanceYMisActivos;
+import billetera.Auxiliar.Activo;
 
 public class ControladorBalanceYMisActivos {
 

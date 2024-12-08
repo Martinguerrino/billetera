@@ -2,17 +2,19 @@ package billetera.Modelo.DAO;
 
 import billetera.Auxiliar.Activo;
 import billetera.Modelo.MyConnection;
+import billetera.billetera.Auxiliar.Activo;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivoDAOjdbc implements ActivoDAO
+public class ActivoFiatDAOjdbc implements ActivoDAO
 {
     public void cargarActivo(Activo activo) 
     {
         Connection conn = null;
         conn = MyConnection.getCon();
-        String sql = "INSERT INTO activo (id_usuario, id_moneda, cantidad) VALUES (?,?,?)";
+        String sql = "INSERT INTO ACTIVO_FIAT (id_usuario, id_moneda, cantidad) VALUES (?,?,?)";
         try(PreparedStatement ps = conn.prepareStatement(sql))
         {
             ps.setInt(1, activo.getId_usuario());
@@ -30,7 +32,7 @@ public class ActivoDAOjdbc implements ActivoDAO
     {
         Connection conn = null;
         conn = MyConnection.getCon();
-        String sql = "UPDATE activo SET cantidad = ? WHERE id_usuario = ? AND id_moneda = ?";
+        String sql = "UPDATE ACTIVO_FIAT SET cantidad = ? WHERE id_usuario = ? AND id_moneda = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql))
         {
             ps.setFloat(1, cantidad);
@@ -49,7 +51,7 @@ public class ActivoDAOjdbc implements ActivoDAO
         Connection conn = null;
         conn = MyConnection.getCon();
         List<Activo> activos = new ArrayList<>();
-        String sql = "SELECT * FROM activo WHERE id_usuario = ?";
+        String sql = "SELECT * FROM ACTIVO_FIAT WHERE id_usuario = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql))
         {
             ps.setInt(1, id_usuario);
