@@ -5,6 +5,7 @@ import java.util.List;
 import Aux.Moneda;
 import Vista.VistaCotizaciones;
 import billetera.Modelo.DAO.MonedaDAOjdbc;
+import billetera.Modelo.Servicios.ServicioMoneda;
 
 public class ControladorCotizaciones {
     private VistaCotizaciones miVista;
@@ -23,6 +24,7 @@ public class ControladorCotizaciones {
 			vectorRetorno[contadorsito][2]=moneda.getNombreIncono();
 			vectorRetorno[contadorsito][3]=moneda.getValorDolar();
 			vectorRetorno[contadorsito][4]=moneda.getVolatilidad();
+			vectorRetorno[contadorsito][5]=moneda.getStock();
 			contadorsito++;
 		}
     	 
