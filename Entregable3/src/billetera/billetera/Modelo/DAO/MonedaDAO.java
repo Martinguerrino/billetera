@@ -12,4 +12,5 @@ public interface MonedaDAO
     Moneda buscarMonedaPorNomenclatura(String nomenclatura) throws SQLException;
     boolean existeNomenclatura(String nomenclatura) throws SQLException;
     void actualizarStock(Moneda moneda,float stock) throws SQLException;
+    Moneda buscarMonedaPorId(int id) throws SQLException;
 }

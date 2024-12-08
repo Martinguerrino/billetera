@@ -2,20 +2,22 @@ package billetera.Modelo.Servicios;
 
 import billetera.Auxiliar.Activo;
 import billetera.Modelo.DAO.ActivoDAOjdbc;
+import billetera.Modelo.DAO.ActivoCriptoDAOjdbc;
+
 import java.util.List;
 
-public class ServicioActivos 
+public class ServicioActivosFiat 
 {
     public  List<Activo> obtenerActivos(int id_usuario)
     {
-        ActivoDAOjdbc activoDAO = new ActivoDAOjdbc();
+        ActivoCriptoDAOjdbc activoDAO = new ActivoCriptoDAOjdbc();
         
         return activoDAO.listarActivos(id_usuario);
     }
     public void agregarActivo(Activo activo)
     {
         //Agrega un activo a la billetera
-        ActivoDAOjdbc activoDAO = new ActivoDAOjdbc();
+        ActivoCriptoDAOjdbc activoDAO = new ActivoCriptoDAOjdbc();
         activoDAO.cargarActivo(activo);
 
 
@@ -25,12 +27,12 @@ public class ServicioActivos
         //Elimina un activo de la billetera
         //por ahora no se implementa ya que no se pide en el entregable
     }
-    public void modificarActivo()
+    public void modificarActivo(int id_usuario,int id_moneda, float cantidad)
     {
         //Modifica un activo de la billetera
         //que hago
-        
-
+        ActivoCriptoDAOjdbc activoDAO = new ActivoCriptoDAOjdbc();
+        activoDAO.actualizarActivo(id_usuario, id_moneda, cantidad);
     }
 
 }

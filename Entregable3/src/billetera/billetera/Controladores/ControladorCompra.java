@@ -4,10 +4,15 @@ import java.util.List;
 
 import Aux.Moneda;
 import Vista.VistaCompra;
+import billetera.Modelo.Servicios.ServicioMoneda;
 
 public class ControladorCompra {
     private VistaCompra miVista;
-    private ModeloCripto miModelo;//pense una re buena martucho, los modelos son de las cosas de bases de datos, asi obtenemos las cosas q necesitamos de ahi y desp los metodos de controlador parsean todo lo q pidan la vista re loco mal
+    private Usuario miUsuario;
+    private ServicioMoneda miModeloMoneda;//pense una re buena martucho, los modelos son de las cosas de bases de datos, asi obtenemos las cosas q necesitamos de ahi y desp los metodos de controlador parsean todo lo q pidan la vista re loco mal. Martin:muy buena idea bro
+    private ServicioActivoFiat miModeloActivoFiat;
+    private ServicioCompra miModeloCompra;
+    private ServicioActivoCripto miModeloActivoCripto;
     /*private ServicioCompra servicioCompra;
 
     public ControladorCompra(Vista vista, ServicioCompra servicioCompra) {
@@ -23,12 +28,31 @@ public class ControladorCompra {
             vista.mostrarCompra();
         }
     }*/
-    public boolean comprarCripto(String criptoSeleccionada, double cantidad) {
+    //cambie el codiog para que la cripto seleccionada sea la nomenclatura
+    //esto deberia de hacer la compra de la cripto?
+    /*public boolean comprarCripto(String criptoSeleccionada, double cantidad) {
     	if(!miModelo.getCripto(criptoSeleccionada)) {
     		return false;
     	}
     	return true;
+    }*/
+    public void comprarCripto(String criptoSeleccionada,billetera.Auxiliar.Moneda fiat, double cantidadFiat) 
+    {
+        if(fiat.getValorDolar()*cantidadFiat>miUsuario.getSaldo()) {
+            //no tiene saldo suficiente
+            return;
+        }
+        if(fiat.getValorDolar()*cantidadFiat<) {
+            //no se puede comprar una cantidad negativa
+            return;
+        }
+        {
+            //no existe la moneda
+            return;
+        }
+    	miModelo.comprarCripto(miUsuario,criptoSeleccionada, cantidad);
     }
+
     public String[] obtenerCriptos() {
     	List<Moneda> monedas= miModelo.obtenerCriptos();//JKASJDKAS RE XD ESTE METODO
     	String[] array = monedas.toArray(new String[0]);//parseo crazy son las 3 am me quiero dormir

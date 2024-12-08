@@ -16,7 +16,7 @@ public class MonedaDAOjdbc
     //buscarMonedaPorNomenclatura
     //existeNomenclatura
     //actualizarStock
-    public crearMoneda(Moneda moneda) throws SQLException
+    public void crearMoneda(Moneda moneda) throws SQLException
     {
         Connection con = null;
         con = MyConnection.getCon();
@@ -117,5 +117,25 @@ public class MonedaDAOjdbc
             e.printStackTrace();
         }
     }
-
+    public Moneda buscarMonedaPorId(int id) throws SQLException
+    {
+        Connection con = null;
+        con = MyConnection.getCon();
+        Moneda moneda = null;
+        String sql = "SELECT * FROM MONEDA WHERE ID = ?";
+        try(PreparedStatement ps = con.prepareStatement(sql);)
+        {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+            {
+                moneda = new Moneda(rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getFloat("STOCK"), rs.getString("NOMBRE_ICONO"));
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return moneda;
+    }
 }

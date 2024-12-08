@@ -4,14 +4,17 @@ import java.util.List;
 
 import Aux.Moneda;
 import Vista.VistaCotizaciones;
+import billetera.Modelo.DAO.MonedaDAOjdbc;
 
 public class ControladorCotizaciones {
     private VistaCotizaciones miVista;
-    private ModeloMoneda miModeloMoneda;//estoy descendiendo a la locura
+    //private ModeloMoneda miModeloMoneda;//estoy descendiendo a la locura
+	//me imagino te referis con modelo moneda al monedaDAO o al servicio
+	private ServicioMoneda miModeloMoneda;
 
 	public Object[][] obtenerCotizaciones() {
 		// TODO Auto-generated method stub
-    	List<Moneda> monedas = miModeloMoneda.obtenerMonedas();//devuelve todas las monedas papu como monedas nomas owo reutilizamos codigos de servisios wiiiiiiiiiiiiiiiiiii
+    	List<Moneda> monedas = miModeloMoneda.listarMonedas();//devuelve todas las monedas papu como monedas nomas owo reutilizamos codigos de servisios wiiiiiiiiiiiiiiiiiii
     	Object[][] vectorRetorno= new Object[monedas.size()][5]; 
 		int contadorsito=0;
     	for (Moneda moneda : monedas) {
