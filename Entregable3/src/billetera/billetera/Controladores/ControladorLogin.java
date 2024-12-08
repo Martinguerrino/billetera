@@ -1,10 +1,13 @@
 package billetera.Controladores;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import Aux.Usuario;
 import Vista.VistaIndex;
 import Vista.VistaLogin;
+import billetera.Vista.VistaRegistro;
+import billetera.billetera.Modelo.DAO.UsuarioDAOjdbc;
 
 public class ControladorLogin {
     private VistaLogin miVista;
@@ -33,6 +36,17 @@ public class ControladorLogin {
 	public boolean verificarUsuario(String gmail, String password) {
 		// TODO Auto-generated method stub
 		//ESTO VOY A PENSAR QUE EL MODELO TRAE TODOS LOS USUARIOS PERO NO SE SI POR TEMAS DE SEGURIDAD DIRECTAMENTE EL MODELO DEBERIA DEVOLVER TRUE O FALSE SI EXISTE ALGUNO Q COINCIDA EN PASSWD Y MAIL, ES RE FACIL CAMBIARLO IGUAL
+		//AMIGO FIJATE SI TE GUSTA ESTA ALTERNATIVO QUE NO ES TRAER TODO SINO QUE BUSCA AL UNICO USUARIO QUE USE ESE MAIL Y COMPARA SI ES SU CONTRASEÑA
+		/*UsuarioDAOjdbc usuarioDAO = new UsuarioDAOjdbc();
+        try {
+            if (usuarioDAO.obtenerUsuarioPorMail(mail).getPassword().equals(password)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            return false;
+        }*/
 		List<Usuario> Usuarios= miModeloUsuario.obtenerUsuarios;
 		for (Usuario usuario : Usuarios) {
 			if(usuario.getGmail()==gmail && usuario.getPasswd()==password) {
