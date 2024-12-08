@@ -8,6 +8,9 @@ import billetera.Auxiliar.Activo;
 import billetera.Auxiliar.Moneda;
 import billetera.Auxiliar.Usuario;
 import billetera.Modelo.DAO.ActivoCriptoDAOjdbc;
+import billetera.Modelo.DAO.ActivoFiatDAOjdbc;
+import billetera.Modelo.DAO.MonedaDAOjdbc;
+import java.sql.SQLException;
 
 public class ControladorBalanceYMisActivos {
 
@@ -95,6 +98,26 @@ public class ControladorBalanceYMisActivos {
 		}
 		
 		return returnArray;
+	}
+	public float ObtenerSaldo() throws SQLException {
+		// TODO Auto-generated method stub
+		ActivoFiatDAOjdbc activoDAO = new ActivoFiatDAOjdbc();
+		ActivoCriptoDAOjdbc activoCriptoDAO = new ActivoCriptoDAOjdbc();
+		float saldo=0;
+		List<Activo> misFiat= activoDAO.listarActivos(miUsuario.getId());
+		List<Activo> misCripto= activoCriptoDAO.listarActivos(miUsuario.getId());
+		float valor_dolar;
+		MonedaDAOjdbc monedaDAO = new MonedaDAOjdbc();
+		for (Activo activo : misFiat) {
+			valor_dolar = monedaDAO.buscarMonedaPorId(activo.getId_moneda()).getValorDolar();
+			saldo+=activo.getCantidad()*valor_dolar;
+		}
+		for (Activo activo : misCripto) {
+			
+			valor_dolar = monedaDAO.buscarMonedaPorId(activo.getId_moneda()).getValorDolar();
+			saldo+=activo.getCantidad()*valor_dolar;
+		}
+		return saldo;
 	}
 
 	public void setVista(VistaBalanceYMisActivos nuevaVista) {
