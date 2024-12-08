@@ -87,7 +87,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO {
     @Override
     public boolean actualizarActivo(String nomenclatura, float cantidad) throws SQLException {
         Connection connection = MyConnection.getCon(); // Obtener la conexión desde el Singleton
-        String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = ? WHERE NOMENCLATURA = ?";
+        String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = ? WHERE NOMENCLATURA = ? ";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setFloat(1, cantidad);

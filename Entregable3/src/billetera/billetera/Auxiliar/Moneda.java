@@ -8,9 +8,9 @@ public class Moneda
     float valorDolar;
     float volatilidad;
     String nombreIcono;
+    float stock;
 
-    public Moneda(int id, String tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad,
-            String nombreIcono) {
+    public Moneda(int id, String tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad, String nombreIcono, float stock) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -18,6 +18,7 @@ public class Moneda
         this.valorDolar = valorDolar;
         this.volatilidad = volatilidad;
         this.nombreIcono = nombreIcono;
+        this.stock = stock;
     }
 
     public int getId() {
@@ -75,6 +76,15 @@ public class Moneda
     public void setNombreIcono(String nombreIcono) {
         this.nombreIcono = nombreIcono;
     }
+
+    public float getStock() {
+        return stock;
+    }
+
+    public void setStock(float stock) {
+        this.stock = stock;
+    }
+    
     
     
 }

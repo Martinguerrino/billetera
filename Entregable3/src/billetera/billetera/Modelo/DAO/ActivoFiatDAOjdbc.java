@@ -73,4 +73,27 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
         }
                 return null;
     }
+    public Activo obtenerActivo(String nomenclatura)
+    {
+        Connection con = null;
+        con = MyConnection.getCon();
+        Activo activo = null;
+        String sql = "SELECT * FROM ACTIVO_FIAT WHERE NOMENCLATURA = ?";
+        try(PreparedStatement ps = con.prepareStatement(sql);)
+        {
+            ps.setString(1, nomenclatura);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+            {
+                activo = new Activo(rs.getInt("ID"), rs.getInt("ID_USUARIO"), rs.getInt("ID_MONEDA"), rs.getFloat("CANTIDAD"));
+                
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+    }
+    return activo;
+    }
+}
 }

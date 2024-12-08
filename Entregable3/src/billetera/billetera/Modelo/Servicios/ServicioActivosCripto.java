@@ -6,7 +6,7 @@ import billetera.Modelo.DAO.ActivoCriptoDAOjdbc;
 
 import java.util.List;
 
-public class ServicioActivosFiat 
+public class ServicioActivosCripto 
 {
     public  List<Activo> obtenerActivos(int id_usuario)
     {

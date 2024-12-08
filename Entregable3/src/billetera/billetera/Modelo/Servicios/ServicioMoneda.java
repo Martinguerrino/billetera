@@ -21,18 +21,16 @@ public class ServicioMoneda
         return monedaDAO.listarMonedas();
 
     }
-    public void buscarMonedaPorNomenclatura()
-    {
-        //Busca una moneda por nomenclatura
-
-    }
+    
     public void existeNomenclatura()
     {
         //Verifica si existe una nomenclatura
     }
-    public void actualizarStock()
+    public void actualizarStock(String nomenclatura, float stock) throws SQLException
     {
         //Actualiza el stock de una moneda
+        MonedaDAOjdbc monedaDAO = new MonedaDAOjdbc();
+        monedaDAO.actualizarStock(nomenclatura, stock);
     }
     public Moneda buscarMonedaPorId(int id) throws SQLException
     {

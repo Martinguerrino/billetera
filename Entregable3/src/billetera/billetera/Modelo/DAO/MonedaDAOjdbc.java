@@ -101,7 +101,7 @@ public class MonedaDAOjdbc
         return false;
     }
 
-    public void actualizarStock(Moneda moneda, float stock) throws SQLException
+    public void actualizarStock(String nomenclatura, float stock) throws SQLException
     {
         Connection con = null;
         con = MyConnection.getCon();
@@ -109,7 +109,7 @@ public class MonedaDAOjdbc
         try(PreparedStatement ps = con.prepareStatement(sql);)
         {
             ps.setFloat(1, stock);
-            ps.setString(2, moneda.getNomenclatura());
+            ps.setString(2, nomenclatura);
             ps.executeUpdate();
         }
         catch(SQLException e)

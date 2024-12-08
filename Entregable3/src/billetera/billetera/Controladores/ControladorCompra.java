@@ -5,6 +5,7 @@ import java.util.List;
 import Aux.Moneda;
 import Vista.VistaCompra;
 import billetera.Modelo.Servicios.ServicioMoneda;
+import java.sql.SQLException;
 
 public class ControladorCompra {
     private VistaCompra miVista;
@@ -36,9 +37,9 @@ public class ControladorCompra {
     	}
     	return true;
     }*/
-    public void comprarCripto(String criptoSeleccionada,billetera.Auxiliar.Moneda fiat, double cantidadFiat) 
+    public void comprarCripto(String criptoSeleccionada,billetera.Auxiliar.Activo fiat, double cantidadFiat) throws SQLException 
     {
-        if(fiat.getValorDolar()*cantidadFiat>miUsuario.getSaldo()) {
+        if(miModeloMoneda.buscarMonedaPorId(fiat.getId_moneda()).getValorDolar()*cantidadFiat>fiat.getCantidad()) {
             //no tiene saldo suficiente
             return;
         }
@@ -46,11 +47,21 @@ public class ControladorCompra {
             //no se puede comprar una cantidad negativa
             return;
         }
+        if(miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada)==null)
         {
             //no existe la moneda
             return;
         }
-    	miModelo.comprarCripto(miUsuario,criptoSeleccionada, cantidad);
+        float cant_compra = (float) (fiat.getValorDolar()*cantidadFiat/miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getValorDolar());
+        if(miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getStock()<=cant_compra)
+        {
+            //no hay stock
+            return;
+        }
+        String nomenclaturaFiat = miModeloActivoFiat.buscarActivoFiatPorId(fiat.getId()).getNomenclatura();
+        float stock_restante = miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getStock()-cant_compra;
+    	float fiatRestante = (float )(fiat.getCantidad()-cantidadFiat);
+        miModeloCompra.comprar(criptoSeleccionada,stock_restante,nomenclaturaFiat, fiatRestante, miUsuario.getId());
     }
 
     public String[] obtenerCriptos() {
