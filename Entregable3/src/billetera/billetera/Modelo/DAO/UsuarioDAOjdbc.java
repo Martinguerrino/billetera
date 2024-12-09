@@ -9,30 +9,53 @@ import java.util.List;
 public class UsuarioDAOjdbc implements UsuarioDAO 
 {
     
-	@Override
-    public void registrarUsuario(Usuario usuario) throws SQLException 
-    {
-        //cargar a la persona adentro del usuario
-        //cargar un usuario en la base de datos
-        String sql = "INSERT INTO USUARIO (ID_PERSONA, PASSWORD, ACEPTA_TERMINOS, MAIL) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = MyConnection.getCon().prepareStatement(sql)) 
-        {
-            //habria que hacer un metodo el cual cargue primero la persona consiga el id y luego lo cargue en el usuario
-            
-            PersonaDAO personaDAO = new PersonaDAOjdbc();
-            stmt.setInt(1,personaDAO.cargarPersona(usuario.getPersona()));
-            stmt.setString(2, usuario.getPasswd());
-            stmt.setBoolean(3, usuario.isAceptaTerminos());
-            stmt.setString(4, usuario.getGmail());
-            stmt.executeUpdate();
-        } 
-        catch (SQLException e) 
-        {
-            throw new SQLException("Error al cargar el usuario: " + e.getMessage(), e);
-        }
-        
-    }
     
+	@Override
+	public void registrarUsuario(Usuario usuario) throws SQLException {
+	    String sqlPersona = "INSERT INTO PERSONA (NOMBRES, APELLIDOS) VALUES (?, ?)";
+	    String sqlUsuario = "INSERT INTO USUARIO (ID_PERSONA, PASSWORD, ACEPTA_TERMINOS, MAIL) VALUES (?, ?, ?, ?)";
+
+	    try  {
+	        // Iniciar una transacción para asegurarse de que ambas inserciones sean atómicas
+	    	Connection conn = MyConnection.getCon();
+	    	conn.setAutoCommit(false); // Desactivar auto commit
+
+	        try (PreparedStatement stmtPersona = conn.prepareStatement(sqlPersona, Statement.RETURN_GENERATED_KEYS)) {
+	            // Insertar la persona
+	            stmtPersona.setString(1, usuario.getPersona().getNombre());
+	            stmtPersona.setString(2, usuario.getPersona().getApellido());
+	            stmtPersona.executeUpdate();
+
+	            // Obtener el ID generado para la persona
+	            ResultSet rs = stmtPersona.getGeneratedKeys();
+	            int idPersona = 0;
+	            if (rs.next()) {
+	                idPersona = rs.getInt(1);  // El ID generado es el primer valor
+	            }
+
+	            // Insertar el usuario utilizando el ID de la persona
+	            try (PreparedStatement stmtUsuario = conn.prepareStatement(sqlUsuario)) {
+	                stmtUsuario.setInt(1, idPersona);  // Usamos el ID de la persona
+	                stmtUsuario.setString(2, usuario.getPasswd());
+	                stmtUsuario.setBoolean(3, usuario.isAceptaTerminos());
+	                stmtUsuario.setString(4, usuario.getGmail());
+	                stmtUsuario.executeUpdate();
+	            }
+
+	            // Confirmar la transacción si todo fue bien
+	            conn.commit();
+	        } catch (SQLException e) {
+	            conn.rollback();
+	            throw new SQLException("Error al registrar el usuario: " + e.getMessage(), e);
+	        } finally {
+	            // Restablecer auto commit
+	        	System.out.println(99);
+	            conn.setAutoCommit(true); 
+	        }
+	    } catch (SQLException e) {
+	        throw new SQLException("Error al registrar el usuario: " + e.getMessage(), e);
+	    }
+	}
     @Override
 public List<Usuario> listarUsuarios() throws SQLException {
     List<Usuario> usuarios = new ArrayList<>();

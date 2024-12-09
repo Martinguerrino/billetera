@@ -33,6 +33,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="setDefaultCloseOperation("/>
 			<item value="LRegistro"/>
 			<item value="setF"/>
 			<item value="La cabtudad"/>
@@ -47,7 +48,6 @@
 			<item value="incono"/>
 			<item value="tablaTransacciones"/>
 			<item value="L"/>
-			<item value="addAction"/>
 		</list>
 		<list key="replacehistory">
 			<item value="tablaCotizacion"/>
