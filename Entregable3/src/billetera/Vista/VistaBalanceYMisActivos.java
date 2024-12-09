@@ -6,6 +6,7 @@ import javax.swing.table.TableColumn;
 import billetera.Controladores.ControladorBalanceYMisActivos;
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class VistaBalanceYMisActivos extends JFrame {
     private JTable tableCripto;
     private ControladorBalanceYMisActivos miControlador;
 
-    public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) {
+    public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) throws SQLException {
         super("Balance y Mis Activos");
         this.miControlador = miControlador;
 

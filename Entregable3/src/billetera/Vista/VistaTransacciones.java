@@ -6,13 +6,14 @@ import javax.swing.table.DefaultTableModel;
 import billetera.Controladores.ControladorTransacciones;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class VistaTransacciones extends JFrame {
     private JTable tablaTransacciones;
     private JLabel lblTitulo;
     private ControladorTransacciones miControlador;
 
-    public VistaTransacciones(ControladorTransacciones miControlador) {
+    public VistaTransacciones(ControladorTransacciones miControlador) throws SQLException {
         super("Transacciones");
         this.miControlador = miControlador;
 
