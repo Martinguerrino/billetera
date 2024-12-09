@@ -2,6 +2,7 @@ package billetera.Controladores;
 
 import Vista.VistaBalanceYMisActivos;
 import billetera.Auxiliar.Activo;
+import billetera.Auxiliar.GeneradorMonedas;
 import billetera.Auxiliar.Usuario;
 import billetera.Modelo.DAO.ActivoCriptoDAOjdbc;
 import billetera.Modelo.DAO.ActivoDAO;
@@ -106,5 +107,11 @@ public class ControladorBalanceYMisActivos {
     	miVista.setVisible(true);
 
     }
+
+	public void generarDatosDePrueba() throws SQLException {
+		// TODO Auto-generated method stub
+		GeneradorMonedas generador=new GeneradorMonedas();
+		generador.crearMonedas();
+	}
 
 }

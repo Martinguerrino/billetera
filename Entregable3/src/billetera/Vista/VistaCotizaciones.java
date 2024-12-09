@@ -36,7 +36,7 @@ public class VistaCotizaciones extends JFrame{
         setLayout(new BorderLayout()); // Layout principal para organizar componentes
 
         // Crear el título
-        lblTitulo = new JLabel("Transacciones", SwingConstants.CENTER);
+        lblTitulo = new JLabel("Cotizaciones", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espacio alrededor del título
 

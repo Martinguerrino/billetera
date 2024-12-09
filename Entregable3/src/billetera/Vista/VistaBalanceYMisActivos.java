@@ -1,18 +1,18 @@
 package Vista;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import billetera.Controladores.ControladorBalanceYMisActivos;
-
-import java.awt.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VistaBalanceYMisActivos extends JFrame {
     private JTable tableFiat;
     private JTable tableCripto;
+    private JLabel lblSaldo; // Etiqueta para mostrar el saldo
     private ControladorBalanceYMisActivos miControlador;
 
     public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) throws SQLException {
@@ -23,38 +23,64 @@ public class VistaBalanceYMisActivos extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-        setLayout(new GridLayout(2, 1)); // Disposición en 2 filas
+        setLayout(new BorderLayout()); // Layout principal
 
-        // Crear título para la vista
+        // Crear panel superior con título y saldo
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        JPanel panelSaldo = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lblTextoSaldo = new JLabel("Saldo:");
+        lblTextoSaldo.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblSaldo = new JLabel(); // Saldo inicial
+        lblSaldo.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblSaldo.setText(String.format("$ %.2f", miControlador.ObtenerSaldo())); // Mostrar saldo inicial
+        panelSaldo.add(lblTextoSaldo);
+        panelSaldo.add(lblSaldo);
+
         JLabel lblTitulo = new JLabel("Balance y Mis Activos", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        add(lblTitulo, BorderLayout.NORTH);
 
-        String[] columnNames = {"Nombre", "Nomenclatura", "Valor en Dólar", "Icono"};
-        Object[][] datos= miControlador.ObtenerActivosFiat();
-        DefaultTableModel modelFiat = new DefaultTableModel(datos, columnNames);
+        panelSuperior.add(panelSaldo, BorderLayout.WEST); // Mover el saldo a la izquierda
+        panelSuperior.add(lblTitulo, BorderLayout.CENTER);
+
+        // Tablas de activos Fiat y Cripto
+        JPanel panelTablas = new JPanel(new GridLayout(2, 1, 10, 10));
+        String[] columnNames = {"Nombre", "Nomenclatura", "Cantidad", "Icono", "Valor en Dólar"};
+
+        DefaultTableModel modelFiat = new DefaultTableModel(miControlador.ObtenerActivosFiat(), columnNames);
         tableFiat = new JTable(modelFiat);
-        JScrollPane scrollPaneFiat = new JScrollPane(tableFiat);
-        JPanel fiatPanel = new JPanel();
-        fiatPanel.setLayout(new BorderLayout());
-        fiatPanel.add(new JLabel("Activos Fiat", SwingConstants.CENTER), BorderLayout.NORTH);
-        fiatPanel.add(scrollPaneFiat, BorderLayout.CENTER);
-        datos= miControlador.obtenerActivosCripto();
-        DefaultTableModel modelCripto = new DefaultTableModel(datos, columnNames);
-        tableCripto = new JTable(modelCripto);
-        // Configurar la tabla de activos Cripto
-        JScrollPane scrollPaneCripto = new JScrollPane(tableCripto);
-        JPanel criptoPanel = new JPanel();
-        criptoPanel.setLayout(new BorderLayout());
-        criptoPanel.add(new JLabel("Activos Cripto", SwingConstants.CENTER), BorderLayout.NORTH);
-        criptoPanel.add(scrollPaneCripto, BorderLayout.CENTER);
-        
-        
 
-        // Crear panel para los botones o acciones si es necesario
-        JPanel panel = new JPanel();
-        add(fiatPanel);
-        add(criptoPanel);
-        add(panel, BorderLayout.SOUTH);
+        DefaultTableModel modelCripto = new DefaultTableModel(miControlador.obtenerActivosCripto(), columnNames);
+        tableCripto = new JTable(modelCripto);
+
+        panelTablas.add(new JScrollPane(tableFiat));
+        panelTablas.add(new JScrollPane(tableCripto));
+
+        // Panel inferior con botón para generar datos de prueba
+        JPanel panelInferior = new JPanel();
+        JButton btnGenerarDatos = new JButton("Generar Datos de Prueba");
+        btnGenerarDatos.addActionListener( new LGenerarAleatorio());
+        panelInferior.add(btnGenerarDatos);
+
+        // Agregar componentes al JFrame
+        add(panelSuperior, BorderLayout.NORTH);
+        add(panelTablas, BorderLayout.CENTER);
+        add(panelInferior, BorderLayout.SOUTH);
+    }
+
+
+    // Listener para el botón "Generar Datos de Prueba"
+    private class LGenerarAleatorio implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                miControlador.generarDatosDePrueba(); // Llama al método del controlador
+                JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this, 
+                        "Datos de prueba generados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this, 
+                        "Error al generar datos de prueba: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }

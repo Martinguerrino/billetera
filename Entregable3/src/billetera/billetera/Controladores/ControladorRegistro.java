@@ -28,6 +28,8 @@ public class ControladorRegistro {
                 //aca ver que constructor usar porque nose que datos pide para registar
                 Usuario usuario = new Usuario(persona, password, aceptaTerminos, mail);
                 miUsuarioDAO.registrarUsuario(usuario);
+                this.controladorPrincipal.ReActivarVentana();
+                this.miVista.dispose();
                 return true;
             } else {
                 return false;

@@ -33,6 +33,10 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="Transacci"/>
+			<item value="CSV"/>
+			<item value="saldo"/>
+			<item value="getCon"/>
 			<item value="setDefaultCloseOperation("/>
 			<item value="LRegistro"/>
 			<item value="setF"/>
@@ -44,10 +48,6 @@
 			<item value="obtener"/>
 			<item value="USUARIO"/>
 			<item value="Balance"/>
-			<item value="incon"/>
-			<item value="incono"/>
-			<item value="tablaTransacciones"/>
-			<item value="L"/>
 		</list>
 		<list key="replacehistory">
 			<item value="tablaCotizacion"/>

@@ -5,4 +5,5 @@
     <fullyQualifiedTypeName name="billetera.Modelo.DAO.MonedaDAOjdbc"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="billetera.Modelo.DAO.FactoryDAO"/>
+    <fullyQualifiedTypeName name="billetera.Auxiliar.GeneradorMonedas"/>
 </qualifiedTypeNameHistroy>

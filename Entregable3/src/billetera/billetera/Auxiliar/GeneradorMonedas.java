@@ -7,10 +7,10 @@ import java.util.Random;
 
 public class GeneradorMonedas {
 
-    private static final String[] NOMBRES_FIAT = {"Dólar", "Euro", "Yen", "Libra", "Peso"};
-    private static final String[] NOMENCLATURAS_FIAT = {"USD", "EUR", "JPY", "GBP", "ARS"};
-    private static final String[] NOMBRES_CRIPTO = {"Bitcoin", "Ethereum", "Dogecoin", "Litecoin", "Ripple"};
-    private static final String[] NOMENCLATURAS_CRIPTO = {"BTC", "ETH", "DOGE", "LTC", "XRP"};
+    private static final String[] NOMBRES_FIAT = {"Dólar", "Euro",  "Peso"};
+    private static final String[] NOMENCLATURAS_FIAT = {"USD", "EUR", "ARS"};
+    private static final String[] NOMBRES_CRIPTO = {"Bitcoin", "Ethereum", "Dogecoin","Ripple"};
+    private static final String[] NOMENCLATURAS_CRIPTO = {"BTC", "ETH", "DOGE",  "XRP"};
 
     private static final Random RANDOM = new Random();
     private MonedaDAO monedaDAO;
@@ -25,7 +25,7 @@ public class GeneradorMonedas {
         String nomenclatura = NOMENCLATURAS_FIAT[index];
         float valorDolar = 1.0f + RANDOM.nextFloat() * 100; // Valor aleatorio entre 1 y 100
         float volatilidad = RANDOM.nextFloat(); // Volatilidad aleatoria
-        String nombreIcono = nombre.toLowerCase() + ".png"; // Nombre del icono basado en el nombre
+        String nombreIcono = nomenclatura.toLowerCase() + ".png"; // Nombre del icono basado en el nombre
         float stock = RANDOM.nextFloat() * 1000; // Stock aleatorio entre 0 y 1000
         return new Moneda("Fiat", nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
     }
@@ -36,7 +36,7 @@ public class GeneradorMonedas {
         String nomenclatura = NOMENCLATURAS_CRIPTO[index];
         float valorDolar = 1.0f + RANDOM.nextFloat() * 50000; // Valor aleatorio entre 1 y 50000
         float volatilidad = RANDOM.nextFloat(); // Volatilidad aleatoria
-        String nombreIcono = nombre.toLowerCase() + ".png"; // Nombre del icono basado en el nombre
+        String nombreIcono = nomenclatura.toLowerCase() + ".png"; // Nombre del icono basado en el nombre
         float stock = RANDOM.nextFloat() * 1000; // Stock aleatorio entre 0 y 1000
         return new Moneda("Cripto", nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
     }
