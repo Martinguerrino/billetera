@@ -39,7 +39,6 @@ public class VistaIndex extends JFrame {
         btnTransacciones.addActionListener(new LTransacciones());
         btnCompra.addActionListener(new LCompra());
         btnCotizaciones.addActionListener(new LCotizaciones());
-        btnLogOut.addActionListener(new LLogOut());
         // Layout para organizar los botones en 2 columnas y 2 filas
         setLayout(new GridLayout(2, 2, 10, 10)); // 2 filas, 2 columnas con espacio entre ellas
 
@@ -48,7 +47,7 @@ public class VistaIndex extends JFrame {
         add(btnTransacciones);
         add(btnCompra);
         add(btnCotizaciones);
-        add(btnLogOut);
+
     }
 
     // Clase interna para manejar el botón "Visualización de Balance y Mis Activos"
@@ -102,11 +101,5 @@ public class VistaIndex extends JFrame {
 				e1.printStackTrace();
 			}
         }
-    }
-    
-    private class LLogOut implements ActionListener {
-    	public void actionPerformed(ActionEvent e) {
-    		miControlador.LogOut();
-    	}
     }
 }

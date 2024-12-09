@@ -101,7 +101,9 @@ public class ControladorBalanceYMisActivos {
 	}
 
     public void iniciar() {
+    	System.out.println("iniciado");
     	miVista.setVisible(true);
+
     }
 
 }

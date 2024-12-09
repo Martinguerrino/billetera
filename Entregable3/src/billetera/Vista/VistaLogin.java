@@ -61,6 +61,7 @@ public class VistaLogin extends JFrame {
         hipervinculoRegistrar.addMouseListener(new LRegistro()); // Asocia el MouseListener
         buttonLogin.addActionListener(new LIniciarSesion());
 
+
         // Agregar componentes al JFrame
         add(titulo);
         add(txtGmail);

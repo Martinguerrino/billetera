@@ -24,6 +24,10 @@ public class VistaCotizaciones extends JFrame{
 	public VistaCotizaciones(ControladorCotizaciones miControlador) throws SQLException {
 		super("Cotizaciones");
         this.miControlador = miControlador;
+        String[] columnas = {"Nombre", "Nomenclatura", "Icono" , "Valor en dolares", "Volatilidad"}; // Encabezados de las columnas
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
+        tablaCotizacion = new JTable(modeloTabla);
+        tablaCotizacion.setFillsViewportHeight(true);
         actualizarCotizaciones();
         int intervalo = 900000; // 15 minutos en milisegundos
         Timer timer = new Timer(intervalo, new ActionListener() {
@@ -51,11 +55,7 @@ public class VistaCotizaciones extends JFrame{
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espacio alrededor del título
 
         // Crear la tabla
-        String[] columnas = {"Nombre", "Nomenclatura", "Icono" , "Valor en dolares", "Volatilidad"}; // Encabezados de las columnas
 
-        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
-        tablaCotizacion = new JTable(modeloTabla);
-        tablaCotizacion.setFillsViewportHeight(true);
 
         // Agregar la tabla dentro de un JScrollPane para permitir scroll
         JScrollPane scrollPane = new JScrollPane(tablaCotizacion);

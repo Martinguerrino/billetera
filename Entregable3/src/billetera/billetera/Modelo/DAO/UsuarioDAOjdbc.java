@@ -43,8 +43,7 @@ public List<Usuario> listarUsuarios() throws SQLException {
                  "INNER JOIN PERSONA p ON u.ID_PERSONA = p.ID";
     try (PreparedStatement ps = con.prepareStatement(sql);
          ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-        	System.out.println(rs);
+    	while (rs.next()) {
             int id = rs.getInt("ID");
             
             String password = rs.getString("PASSWORD");
