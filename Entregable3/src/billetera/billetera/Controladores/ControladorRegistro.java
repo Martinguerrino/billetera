@@ -14,6 +14,7 @@ public class ControladorRegistro {
 
 	UsuarioDAO miUsuarioDAO;
 	VistaRegistro miVista;
+	ControladorLogin controladorPrincipal;
 	public ControladorRegistro(){
 		miUsuarioDAO=FactoryDAO.getUsuarioDAO();
 	}
@@ -40,5 +41,18 @@ public class ControladorRegistro {
 	public void iniciar() {
     	miVista.setVisible(true);
     }
+
+	public void cerrarVentana() {
+		controladorPrincipal.ReActivarVentana();
+		this.miVista.dispose();
+		
+	}
+	
+	public void setMiVista(VistaRegistro nuevaVista, ControladorLogin controladorLogin) {
+		// TODO Auto-generated method stub
+		controladorPrincipal=controladorLogin;
+		miVista=nuevaVista;
+	}
+	
 
 }

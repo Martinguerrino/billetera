@@ -1,17 +1,23 @@
 package Vista;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -110,4 +116,42 @@ public class VistaLogin extends JFrame  {
             }
         }
     }
+    public void bloquearInteraccion() {
+    	JPanel glassPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Dibujar un fondo semitransparente
+                g.setColor(new Color(0, 0, 0, 100)); // Negro semitransparente
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        // El GlassPane interceptará los eventos
+        glassPane.setOpaque(false); // Visualmente no opaco (permite la transparencia)
+        glassPane.setLayout(new BorderLayout());
+
+        // Agregar un mensaje al centro
+        JLabel labelBloqueo = new JLabel("Esperando...", SwingConstants.CENTER);
+        labelBloqueo.setForeground(Color.WHITE);
+        glassPane.add(labelBloqueo, BorderLayout.CENTER);
+
+        // Interceptar eventos del mouse
+        glassPane.addMouseListener(new MouseAdapter() {}); // Captura clicks
+        glassPane.addMouseMotionListener(new MouseMotionAdapter() {}); // Captura movimiento del mouse
+
+        // Interceptar eventos del teclado
+        glassPane.addKeyListener(new KeyAdapter() {}); // Captura teclado
+
+        // Evitar que el foco cambie (importante para teclado)
+        glassPane.setFocusable(true);
+        glassPane.requestFocusInWindow();
+
+        setGlassPane(glassPane); // Establecer el GlassPane personalizado
+        glassPane.setVisible(true); // Activarlo
+    }
+    // Método para desbloquear la ventana
+    public void desbloquearInteraccion() {
+        getGlassPane().setVisible(false);
+    }
+
 }

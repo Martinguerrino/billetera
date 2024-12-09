@@ -21,7 +21,7 @@ public class VistaBalanceYMisActivos extends JFrame {
 
         // Configuración de la ventana
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new GridLayout(2, 1)); // Disposición en 2 filas
 

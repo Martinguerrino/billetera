@@ -33,6 +33,12 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="LRegistro"/>
+			<item value="setF"/>
+			<item value="La cabtudad"/>
+			<item value="La cantidad"/>
+			<item value="exportar"/>
+			<item value="System"/>
 			<item value="union all"/>
 			<item value="obtener"/>
 			<item value="USUARIO"/>
@@ -40,11 +46,8 @@
 			<item value="incon"/>
 			<item value="incono"/>
 			<item value="tablaTransacciones"/>
-			<item value="LRegistro"/>
 			<item value="L"/>
 			<item value="addAction"/>
-			<item value="addact"/>
-			<item value="Usuario"/>
 		</list>
 		<list key="replacehistory">
 			<item value="tablaCotizacion"/>

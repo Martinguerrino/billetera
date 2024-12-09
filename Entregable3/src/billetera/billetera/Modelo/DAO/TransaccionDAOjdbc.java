@@ -12,22 +12,21 @@ import java.util.List;
 public class TransaccionDAOjdbc implements TransaccionDAO 
 {
 
-    @Override
+	@Override
     public  void crearTransaccion(Transaccion transaccion) throws SQLException
     {
         Connection conn = null;
         PreparedStatement stmt = null;
         conn = MyConnection.getCon();
         try {//insertar transaccion
-            String sql = "INSERT INTO TRANSACCION (ID,RESUMEN,FECHA_HORA,ID_USUARIO) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO TRANSACCION (RESUMEN,FECHA_HORA,ID_USUARIO) VALUES (?,?,?)";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(2, transaccion.getDescripcion());
+            stmt.setString(1, transaccion.getDescripcion());
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            stmt.setString(3, transaccion.getFecha_hora().format(formato));
-            stmt.setInt(1, transaccion.getUsuario().getId());
-            stmt.setInt(4, transaccion.getId());
+            stmt.setString(2, transaccion.getFecha_hora().format(formato));
+            stmt.setInt(3, transaccion.getUsuario().getId());
+            
 
-            System.out.println("hola");
             stmt.executeUpdate();
         }
         catch (SQLException e) 

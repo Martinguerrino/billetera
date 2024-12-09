@@ -25,7 +25,7 @@ public class VistaCompra extends JFrame {
 
         // Configuración de la ventana
         setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout()); // Usamos BorderLayout para organizar las secciones
 

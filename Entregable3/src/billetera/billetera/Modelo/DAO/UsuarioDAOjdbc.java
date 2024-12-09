@@ -9,7 +9,7 @@ import java.util.List;
 public class UsuarioDAOjdbc implements UsuarioDAO 
 {
     
-    @Override
+	@Override
     public void registrarUsuario(Usuario usuario) throws SQLException 
     {
         //cargar a la persona adentro del usuario
@@ -20,7 +20,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO
             //habria que hacer un metodo el cual cargue primero la persona consiga el id y luego lo cargue en el usuario
             
             PersonaDAO personaDAO = new PersonaDAOjdbc();
-            personaDAO.cargarPersona(usuario.getPersona());
+            stmt.setInt(1,personaDAO.cargarPersona(usuario.getPersona()));
             stmt.setString(2, usuario.getPasswd());
             stmt.setBoolean(3, usuario.isAceptaTerminos());
             stmt.setString(4, usuario.getGmail());

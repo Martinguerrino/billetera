@@ -31,7 +31,7 @@ public class VistaCotizaciones extends JFrame{
         actualizarCotizaciones();
         // Configuración de la ventana
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout()); // Layout principal para organizar componentes
 

@@ -70,15 +70,22 @@ public class ControladorLogin {
 		VistaIndex nuevaVista= new VistaIndex(nuevoControlador);
 		nuevoControlador.setMiVista(nuevaVista);
 		nuevoControlador.iniciar();
+		this.miVista.dispose();
 	}
 	public void RedirigirRegistro() {
 		// TODO Auto-generated method stub
+		miVista.bloquearInteraccion();
 		ControladorRegistro nuevoControlador = new ControladorRegistro();
 		VistaRegistro nuevaVista= new VistaRegistro(nuevoControlador);
-		nuevoControlador.setMiVista(nuevaVista);
+		nuevoControlador.setMiVista(nuevaVista, this);
 		nuevoControlador.iniciar();
 		
 	}
+	
+	public void ReActivarVentana() {
+		miVista.desbloquearInteraccion();
+	}
+	
     public void iniciar() {
     	miVista.setVisible(true);
     }
