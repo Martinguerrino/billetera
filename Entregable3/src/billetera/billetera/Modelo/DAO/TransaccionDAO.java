@@ -1,20 +1,12 @@
 package billetera.Modelo.DAO;
 import java.sql.*;
+import java.util.List;
 
 public interface  TransaccionDAO 
 {
-    static void crearTransaccion(Transaccion transaccion) throws SQLException 
-    {
-        
-        // TODO Auto-generated method stub
-    }
-    static void listarTransacciones() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarTransacciones'");
-    }
-    static void ObtenerTransaccionesDeUsuario(int id_usuario) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarTransaccionesPorUsuario'");
-    }
+	public void crearTransaccion(Transaccion transaccion) throws SQLException ;
+
+    public List<Transaccion> listarTransacciones() throws SQLException;
+    public List<Transaccion> ObtenerTransaccionesDeUsuario(int id_usuario) throws SQLException;
 
 }

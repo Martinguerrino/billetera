@@ -1,13 +1,18 @@
+package Vista;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import billetera.Controladores.ControladorTransacciones;
+
 import java.awt.*;
 
 public class VistaTransacciones extends JFrame {
     private JTable tablaTransacciones;
     private JLabel lblTitulo;
-    private Controlador miControlador;
+    private ControladorTransacciones miControlador;
 
-    public VistaTransacciones(Controlador miControlador) {
+    public VistaTransacciones(ControladorTransacciones miControlador) {
         super("Transacciones");
         this.miControlador = miControlador;
 

@@ -9,8 +9,7 @@ import java.util.List;
 public class TransaccionDAOjdbc implements TransaccionDAO 
 {
 
-    @Override
-    public static void crearTransaccion(Transaccion transaccion) throws SQLException
+    public void crearTransaccion(Transaccion transaccion) throws SQLException
     {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -32,8 +31,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
         }
         
     }
-    @Override
-    public static List<Transaccion> listarTransacciones() throws SQLException 
+    public List<Transaccion> listarTransacciones() throws SQLException 
     {
         Connection conn = null;
         Statement stmt = null;
@@ -61,8 +59,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
             throw new SQLException("el acceso a las transacciones fue erroneo");
         }
     }
-    @Override
-    public List<Transaccion> obtenerTransaccionesDeUsuario(int idUsuario) throws SQLException {
+    public List<Transaccion> ObtenerTransaccionesDeUsuario(int idUsuario) throws SQLException {
         List<Transaccion> transacciones = new ArrayList<>();
         Connection con = MyConnection.getCon();
         String sql = "SELECT t.ID, t.RESUMEN, t.FECHA_HORA, t.ID_USUARIO, u.MAIL " +
