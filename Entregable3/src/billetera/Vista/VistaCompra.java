@@ -2,9 +2,13 @@ package Vista;
 
 import javax.swing.*;
 
-import billetera.Auxiliar.Activo;
-import billetera.Auxiliar.Moneda;
-import billetera.Controladores.ControladorCompra;
+import Auxiliar.Activo;
+import Auxiliar.Moneda;
+import Controladores.ControladorCompra;
+import Excepciones.NoExiteMonedaException;
+import Excepciones.NoHayStockException;
+import Excepciones.SaldoInsuficienteException;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +37,6 @@ public class VistaCompra extends JFrame {
         JLabel lblTitulo = new JLabel("Compra de Criptomonedas", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         add(lblTitulo, BorderLayout.NORTH);
-
         // Panel principal
         JPanel panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new GridLayout(2, 1, 10, 10)); // 2 secciones: Cripto y Fiat
@@ -76,48 +79,49 @@ public class VistaCompra extends JFrame {
         btnComprar.addActionListener(new LComprar());
         add(btnComprar, BorderLayout.SOUTH);
     }
-
     // Listener para el botón de compra
     private class LComprar implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int criptoSeleccionada = comboCripto.getSelectedIndex();
-            int fiatSeleccionado = comboFiat.getSelectedIndex();
-            String cantidadFiatStr = txtCantidadFiat.getText();
+    public void actionPerformed(ActionEvent e) {
+        int criptoSeleccionada = comboCripto.getSelectedIndex();
+        int fiatSeleccionado = comboFiat.getSelectedIndex();
+        String cantidadFiatStr = txtCantidadFiat.getText();
 
-            // Validar campos
-            if (cantidadFiatStr.isEmpty()) {
-                JOptionPane.showMessageDialog(VistaCompra.this, "Por favor ingresa la cantidad de fiat a gastar.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        // Validar campos
+        if (cantidadFiatStr.isEmpty()) {
+            JOptionPane.showMessageDialog(VistaCompra.this, "Por favor ingresa la cantidad de fiat a gastar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            try {
-                // Validar que la cantidad es un número positivo
-                double cantidadFiat = Double.parseDouble(cantidadFiatStr);
-                System.out.println(cantidadFiat);
-                if (cantidadFiat <= 0) {
-                    JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Llamada al controlador para realizar la compra
-                    int exito = miControlador.comprarCripto(criptos[criptoSeleccionada], activoFiats[fiatSeleccionado], cantidadFiat);
-                    if (exito!=0) {
-                    	if(exito==1) {
-                    		JOptionPane.showMessageDialog(VistaCompra.this, "No tiene suficiente saldo para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
-
-                    	}else if (exito==2) {
-                    		JOptionPane.showMessageDialog(VistaCompra.this, "No existe la moneda ingresada", "Error", JOptionPane.ERROR_MESSAGE);
-                    		
-                    	}else {
-                    		
-                    		JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente stock para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
-                    	}
-                    } else {
-                        JOptionPane.showMessageDialog(VistaCompra.this, "Compra realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    }
+        try {
+            // Validar que la cantidad es un número positivo
+            double cantidadFiat = Double.parseDouble(cantidadFiatStr);
+            System.out.println(cantidadFiat);
+            if (cantidadFiat <= 0) {
+                JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Llamada al controlador para realizar la compra
+                try{
+                int exito = miControlador.comprarCripto(criptos[criptoSeleccionada], activoFiats[fiatSeleccionado], cantidadFiat);
+                JOptionPane.showMessageDialog(VistaCompra.this, "Compra realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                catch(SaldoInsuficienteException ex)
+                {
+                    JOptionPane.showMessageDialog(VistaCompra.this, "No tiene suficiente saldo para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
+                } 
+                catch (NoExiteMonedaException ex) 
+                {
+                    JOptionPane.showMessageDialog(VistaCompra.this, "No existe la moneda ingresada", "Error", JOptionPane.ERROR_MESSAGE);
+                } 
+                catch (NoHayStockException ex) 
+                {
+                    JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente stock para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                
             }
+        } catch (NumberFormatException | SQLException ex) {
+            JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+}
 }

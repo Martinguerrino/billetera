@@ -2,12 +2,15 @@ package Vista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import Auxiliar.ModeloActivosTabla;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import billetera.Controladores.ControladorBalanceYMisActivos;
+import Controladores.ControladorBalanceYMisActivos;
 
 public class VistaBalanceYMisActivos extends JFrame {
     private JTable tableFiat;
@@ -24,7 +27,6 @@ public class VistaBalanceYMisActivos extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout()); // Layout principal
-
         // Crear panel superior con título y saldo
         JPanel panelSuperior = new JPanel(new BorderLayout());
         JPanel panelSaldo = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -46,12 +48,13 @@ public class VistaBalanceYMisActivos extends JFrame {
         JPanel panelTablas = new JPanel(new GridLayout(2, 1, 10, 10));
         String[] columnNames = {"Nombre", "Nomenclatura", "Cantidad", "Icono", "Valor en Dólar"};
 
-        DefaultTableModel modelFiat = new DefaultTableModel(miControlador.ObtenerActivosFiat(), columnNames);
+        ModeloActivosTabla modelFiat = new ModeloActivosTabla(miControlador.ObtenerActivosFiat(), columnNames);
         tableFiat = new JTable(modelFiat);
 
-        DefaultTableModel modelCripto = new DefaultTableModel(miControlador.obtenerActivosCripto(), columnNames);
+        ModeloActivosTabla modelCripto = new ModeloActivosTabla(miControlador.obtenerActivosCripto(), columnNames);
         tableCripto = new JTable(modelCripto);
-
+        tableCripto.setRowHeight(50);
+        tableFiat.setRowHeight(50);
         panelTablas.add(new JScrollPane(tableFiat));
         panelTablas.add(new JScrollPane(tableCripto));
 

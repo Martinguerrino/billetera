@@ -1,6 +1,6 @@
 import Vista.VistaLogin;
-import billetera.Controladores.ControladorLogin;
-import billetera.Modelo.Servicios.ConsultarPrecioCripto;
+import Controladores.ControladorLogin;
+import Modelo.Servicios.ConsultarPrecioCripto;
 import java.util.Timer;
 import java.util.TimerTask;
 

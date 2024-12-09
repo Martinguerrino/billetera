@@ -2,7 +2,7 @@ package Vista;
 
 import javax.swing.*;
 
-import billetera.Controladores.ControladorRegistro;
+import Controladores.ControladorRegistro;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

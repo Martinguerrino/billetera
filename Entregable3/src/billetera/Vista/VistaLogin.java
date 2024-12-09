@@ -22,7 +22,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import billetera.Controladores.ControladorLogin;
+import Controladores.ControladorLogin;
 
 public class VistaLogin extends JFrame  {
     private JButton buttonLogin;

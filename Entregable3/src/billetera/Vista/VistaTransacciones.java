@@ -3,7 +3,7 @@ package Vista;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import billetera.Controladores.ControladorTransacciones;
+import Controladores.ControladorTransacciones;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
