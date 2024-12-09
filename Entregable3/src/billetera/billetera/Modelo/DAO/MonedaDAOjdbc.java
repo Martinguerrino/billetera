@@ -139,5 +139,24 @@ public class MonedaDAOjdbc implements MonedaDAO
         }
         return moneda;
     }
+    public void actualizarValorDolar(String nomenclatura, float valorDolar) throws SQLException
+    {
+        Connection con = null;
+        con = MyConnection.getCon();
+        System.out.println("Valor dolar: "+nomenclatura);
+        System.out.println("nomenclatura: "+ nomenclatura);
+        
+        String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
+        try(PreparedStatement ps = con.prepareStatement(sql);)
+        {
+            ps.setFloat(1, valorDolar);
+            ps.setString(2, nomenclatura);
+            ps.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
 

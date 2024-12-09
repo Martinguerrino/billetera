@@ -29,20 +29,6 @@ public class VistaCotizaciones extends JFrame{
         tablaCotizacion = new JTable(modeloTabla);
         tablaCotizacion.setFillsViewportHeight(true);
         actualizarCotizaciones();
-        int intervalo = 900000; // 15 minutos en milisegundos
-        Timer timer = new Timer(intervalo, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // El código que deseas ejecutar cada 15 minutos
-                try {
-					actualizarCotizaciones();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-            }
-        });
-        timer.start();
         // Configuración de la ventana
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

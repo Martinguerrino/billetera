@@ -12,16 +12,34 @@ public class Moneda
 
     public Moneda(int id, String tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad, String nombreIcono, float stock) {
         this.id = id;
-        this.tipo = tipo;
-        this.nombre = nombre;
-        this.nomenclatura = nomenclatura;
+        this.tipo = tipo.toUpperCase();
+        this.nombre = nombre.toUpperCase();
+        this.nomenclatura = nomenclatura.toUpperCase();
         this.valorDolar = valorDolar;
         this.volatilidad = volatilidad;
         this.nombreIcono = nombreIcono;
         this.stock = stock;
     }
 
+    
     public Moneda() {
+    }
+
+    public Moneda(String tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad,
+            String nombreIcono, float stock) {
+        this.tipo = tipo.toUpperCase();
+        this.nombre = nombre.toUpperCase();
+        this.nomenclatura = nomenclatura.toUpperCase();
+        this.valorDolar = valorDolar;
+        this.volatilidad = volatilidad;
+        this.nombreIcono = nombreIcono;
+        this.stock = stock;
+    }
+
+
+    public Moneda(String nombre, float valorDolar) {
+        this.nombre = nombre;
+        this.valorDolar = valorDolar;
     }
 
     public int getId() {
