@@ -14,13 +14,12 @@ public class Usuario {
 		this.aceptaTerminos = aceptaTerminos;
 		this.gmail = gmail;
 	}
-	public Usuario(String mail, String password, boolean aceptaTerminos2, Persona persona) {
-		// TODO Auto-generated constructor stub
+	public Usuario(Persona persona, String passwd, boolean aceptaTerminos, String gmail) {
 		super();
-		this.gmail=mail;
-		this.passwd=password;
-		this.aceptaTerminos=aceptaTerminos2;
-		this.persona=persona;
+		this.persona = persona;
+		this.passwd = passwd;
+		this.aceptaTerminos = aceptaTerminos;
+		this.gmail = gmail;
 	}
 	public Persona getPersona() {
 		return persona;

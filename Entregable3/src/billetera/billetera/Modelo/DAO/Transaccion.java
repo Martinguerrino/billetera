@@ -1,5 +1,6 @@
 package billetera.Modelo.DAO;
 
+import billetera.Auxiliar.Usuario;
 import java.time.LocalDateTime;
 
 public class Transaccion 
@@ -7,17 +8,17 @@ public class Transaccion
     int id;
     String descripcion;
     LocalDateTime fecha_hora;
-    int id_Usuario;
+    Usuario usuario;
 
     public Transaccion() {
     }
 
 
-    public Transaccion(int id, String descripcion, java.time.LocalDateTime fecha_hora, int id_Usuario) {
+    public Transaccion(int id, String descripcion, java.time.LocalDateTime fecha_hora, Usuario usuario) {
         this.id = id;
         this.descripcion = descripcion;
         this.fecha_hora = fecha_hora;
-        this.id_Usuario = id_Usuario;
+        this.usuario = usuario;
         
     }
 
@@ -46,13 +47,17 @@ public class Transaccion
         this.id = id;
     }
 
-    public int getId_Usuario() {
-        return id_Usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setId_Usuario(int id_Usuario) {
-        this.id_Usuario = id_Usuario;
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
+
+    
     
     
     

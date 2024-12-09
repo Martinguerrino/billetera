@@ -1,13 +1,12 @@
 package billetera.Modelo.DAO;
-import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
-
 import billetera.Auxiliar.Moneda;
 import billetera.Modelo.MyConnection;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class MonedaDAOjdbc 
+public class MonedaDAOjdbc implements MonedaDAO 
 {
     //TODO
     //Implementar los metodos de la interfaz MonedaDAO
@@ -16,6 +15,7 @@ public class MonedaDAOjdbc
     //buscarMonedaPorNomenclatura
     //existeNomenclatura
     //actualizarStock
+    @Override
     public void crearMoneda(Moneda moneda) throws SQLException
     {
         Connection con = null;
@@ -37,6 +37,7 @@ public class MonedaDAOjdbc
             e.printStackTrace();
         }
     }
+    @Override
     public List<Moneda> listarMonedas() throws SQLException
     {
         Connection con = null;

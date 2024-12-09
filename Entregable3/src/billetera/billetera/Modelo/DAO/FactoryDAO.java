@@ -1,6 +1,4 @@
-package billetera.Modelo;
-
-import billetera.Modelo.DAO.*;
+package billetera.Modelo.DAO;
 
 public class FactoryDAO 
 {
@@ -12,16 +10,24 @@ public class FactoryDAO
     	return new UsuarioDAOjdbc();
     }
     
-    public static ActivoDAO getActivoCriptoDAO() {
-    	return new ActivoCriptoDAOjdbc();
-    }
     
-    public static ActivoDAO getActivoFiatDAO() {
-    	return new ActivoFiatDAOjdbc();
-    }
     
     public static TransaccionDAO getTransaccionDAO()
     {
         return new TransaccionDAOjdbc();
     }
+
+    public static MonedaDAO getMonedaDAO()
+    {
+        return new MonedaDAOjdbc();
+    }
+    public static ActivoDAO getActivoFiatDAO()
+    {
+        return new ActivoFiatDAOjdbc();
+    }
+    public static ActivoDAO getActivoCriptoDAO()
+    {
+        return new ActivoCriptoDAOjdbc();
+    }
+    
 }

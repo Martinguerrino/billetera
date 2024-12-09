@@ -6,6 +6,7 @@ import billetera.Controladores.ControladorRegistro;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class VistaRegistro extends JFrame {
     private JTextField txtNombre;
@@ -77,7 +78,12 @@ public class VistaRegistro extends JFrame {
             }
 
             // Enviar los datos al controlador
-            miControlador.Registrar(nombre, apellido, email, contrasena, aceptaTerminos);
+            try {
+				miControlador.Registrar(nombre, apellido, email, contrasena, aceptaTerminos);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 }

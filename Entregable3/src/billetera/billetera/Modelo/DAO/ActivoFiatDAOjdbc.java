@@ -3,9 +3,6 @@ package billetera.Modelo.DAO;
 import billetera.Auxiliar.Activo;
 import billetera.Auxiliar.Moneda;
 import billetera.Modelo.MyConnection;
-import billetera.billetera.Auxiliar.Activo;
-import billetera.billetera.Auxiliar.Moneda;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

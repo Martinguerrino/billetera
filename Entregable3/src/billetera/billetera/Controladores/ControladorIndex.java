@@ -4,9 +4,13 @@ import Vista.VistaCompra;
 import Vista.VistaCotizaciones;
 import Vista.VistaIndex;
 import Vista.VistaTransacciones;
+import billetera.Auxiliar.Usuario;
+
+import java.sql.SQLException;
+
 import Vista.VistaBalanceYMisActivos;
 public class ControladorIndex {
-
+	private Usuario miUsuario;
 	private VistaIndex miVista;
 	
 	public void LogOut() {
@@ -14,32 +18,46 @@ public class ControladorIndex {
 		miVista.dispose();
 
 	}
+	public ControladorIndex(Usuario miUsuario){
+		this.miUsuario=miUsuario;
+	}
+	
 
-	public void redirigirCotizaciones() {
+	public void redirigirCotizaciones() throws SQLException {
 		// TODO Auto-generated method stub
-		ControladorCotizaciones nuevoControlador = new ControladorCotizaciones();
+		ControladorCotizaciones nuevoControlador = new ControladorCotizaciones(miUsuario);
 		VistaCotizaciones nuevaVista = new VistaCotizaciones(nuevoControlador);
 		nuevoControlador.setVista(nuevaVista);
 	}
-	  public void redirigirBalanceActivos() {
+	  public void redirigirBalanceActivos() throws SQLException {
 	        // Redirigir a la vista de balance y activos
-	        ControladorBalanceYMisActivos nuevoControlador = new ControladorBalanceYMisActivos();
+	        ControladorBalanceYMisActivos nuevoControlador = new ControladorBalanceYMisActivos(miUsuario);
 	        VistaBalanceYMisActivos nuevaVista = new VistaBalanceYMisActivos(nuevoControlador);
 	        nuevoControlador.setVista(nuevaVista);
 	    }
 
-	    public void redirigirCompra() {
+	    public void redirigirCompra() throws SQLException {
 	        // Redirigir a la vista de compra
-	        ControladorCompra nuevoControlador = new ControladorCompra();
+	        ControladorCompra nuevoControlador = new ControladorCompra(miUsuario);
 	        VistaCompra nuevaVista = new VistaCompra(nuevoControlador);
 	        nuevoControlador.setVista(nuevaVista);
 	    }
 
-	    public void redirigirTransacciones() {
+	    public void redirigirTransacciones() throws SQLException {
 	        // Redirigir a la vista de transacciones
-	        ControladorTransacciones nuevoControlador = new ControladorTransacciones();
+	        ControladorTransacciones nuevoControlador = new ControladorTransacciones(miUsuario);
 	        VistaTransacciones nuevaVista = new VistaTransacciones(nuevoControlador);
-	        nuevoControlador.setVista(nuevaVista);
+	        nuevoControlador.setMiVista(nuevaVista);
+	    }
+
+		public void setMiVista(VistaIndex nuevaVista) {
+			// TODO Auto-generated method stub
+			miVista=nuevaVista;
+			
+		}
+
+	    public void iniciar() {
+	    	miVista.setVisible(true);
 	    }
 
 }

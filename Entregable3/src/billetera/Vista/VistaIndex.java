@@ -6,6 +6,7 @@ import billetera.Controladores.ControladorIndex;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class VistaIndex extends JFrame {
     private JButton btnBalanceActivos;
@@ -16,6 +17,8 @@ public class VistaIndex extends JFrame {
 
     private ControladorIndex miControlador;
 
+   
+    
     public VistaIndex(ControladorIndex miControlador) {
     	super("Opciones");
         this.miControlador = miControlador;
@@ -52,7 +55,12 @@ public class VistaIndex extends JFrame {
     private class LBalanceActivos implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            miControlador.redirigirBalanceActivos();
+            try {
+				miControlador.redirigirBalanceActivos();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 
@@ -60,7 +68,12 @@ public class VistaIndex extends JFrame {
     private class LTransacciones implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            miControlador.redirigirTransacciones();
+            try {
+				miControlador.redirigirTransacciones();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 
@@ -68,7 +81,12 @@ public class VistaIndex extends JFrame {
     private class LCompra implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            miControlador.redirigirCompra();
+            try {
+				miControlador.redirigirCompra();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
 
 
@@ -77,7 +95,12 @@ public class VistaIndex extends JFrame {
     private class LCotizaciones implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            miControlador.redirigirCotizaciones();
+            try {
+				miControlador.redirigirCotizaciones();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
     

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ public class VistaCotizaciones extends JFrame{
 	ControladorCotizaciones miControlador;
 	JLabel lblTitulo;
 	JTable tablaCotizacion;
-	public VistaCotizaciones(ControladorCotizaciones miControlador) {
+	public VistaCotizaciones(ControladorCotizaciones miControlador) throws SQLException {
 		super("Cotizaciones");
         this.miControlador = miControlador;
         actualizarCotizaciones();
@@ -29,7 +30,12 @@ public class VistaCotizaciones extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // El código que deseas ejecutar cada 15 minutos
-                actualizarCotizaciones();
+                try {
+					actualizarCotizaciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
         timer.start();
@@ -58,7 +64,7 @@ public class VistaCotizaciones extends JFrame{
         add(lblTitulo, BorderLayout.NORTH); // Título en la parte superior
         add(scrollPane, BorderLayout.CENTER); // Tabla al centro
     }
-	public void actualizarCotizaciones() {
+	public void actualizarCotizaciones() throws SQLException {
 		DefaultTableModel modeloTabla = (DefaultTableModel) tablaCotizacion.getModel();
 		Object[][] cotizaciones=miControlador.obtenerCotizaciones();
 		modeloTabla.setRowCount(0);

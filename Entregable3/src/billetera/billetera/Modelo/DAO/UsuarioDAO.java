@@ -1,5 +1,6 @@
 package billetera.Modelo.DAO;
-import billetera.Modelo.Usuario;
+
+import billetera.Auxiliar.Usuario;
 import java.sql.SQLException;
 import java.util.List;
 
