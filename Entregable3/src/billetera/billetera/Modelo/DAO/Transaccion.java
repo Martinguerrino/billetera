@@ -22,6 +22,13 @@ public class Transaccion
         
     }
 
+    public Transaccion(String descripcion, java.time.LocalDateTime fecha_hora, Usuario usuario) {
+   
+        this.descripcion = descripcion;
+        this.fecha_hora = fecha_hora;
+        this.usuario = usuario;
+        
+    }
 
     public String getDescripcion() {
         return descripcion;

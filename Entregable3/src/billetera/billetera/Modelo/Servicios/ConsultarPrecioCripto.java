@@ -18,26 +18,37 @@ import org.json.JSONObject; // Necesita agregar la librería org.json para traba
 import billetera.Auxiliar.Moneda;
 public class ConsultarPrecioCripto extends TimerTask{
    private static final String URL_API = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,usd-coin,tether,dogecoin&vs_currencies=usd";
+   private static final Object lock = new Object();
    @Override
+   
    public void run(){
-       HttpClient cliente = HttpClient.newHttpClient();
-       HttpRequest solicitud = HttpRequest.newBuilder()
-               .uri(URI.create(URL_API))
-               .GET()
-               .build();
-       try {
-           HttpResponse<String> respuesta = cliente.send(solicitud, HttpResponse.BodyHandlers.ofString());
-           if (respuesta.statusCode() == 200) {
-               parsearYMostrarPrecios(respuesta.body());
-           } else {
-               System.out.println("Error: " + respuesta.statusCode());
-           }
-       } catch (IOException | InterruptedException e) {
-           e.printStackTrace();
-       }
+	   synchronized(lock) {
+		   HttpClient cliente = HttpClient.newHttpClient();
+		   HttpRequest solicitud = HttpRequest.newBuilder()
+				   .uri(URI.create(URL_API))
+				   .GET()
+				   .build();
+		   try {
+			   HttpResponse<String> respuesta = cliente.send(solicitud, HttpResponse.BodyHandlers.ofString());
+			   if (respuesta.statusCode() == 200) {
+				   parsearYMostrarPrecios(respuesta.body());
+			   } else {
+				   System.out.println("Error: " + respuesta.statusCode());
+			   }
+		   } catch (IOException | InterruptedException e) {
+			   e.printStackTrace();
+		   }
+		   
+	   }
    }
    
-
+   public static void detener () {
+	   Thread.currentThread().interrupt();
+   }
+   
+   public static void seguir () {
+	   lock.notify();
+   }
     
    private static void parsearYMostrarPrecios(String cuerpoRespuesta) {
        JSONObject json = new JSONObject(cuerpoRespuesta);

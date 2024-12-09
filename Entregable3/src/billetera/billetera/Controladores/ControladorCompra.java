@@ -7,7 +7,11 @@ import billetera.Auxiliar.Usuario;
 import billetera.Modelo.DAO.ActivoDAO;
 import billetera.Modelo.DAO.FactoryDAO;
 import billetera.Modelo.DAO.MonedaDAO;
+import billetera.Modelo.DAO.Transaccion;
+import billetera.Modelo.DAO.TransaccionDAO;
+
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ControladorCompra {
@@ -16,6 +20,7 @@ public class ControladorCompra {
     private MonedaDAO miMonedaDAO;
     private ActivoDAO miActivoCriptoDAO;
     private ActivoDAO miActivoFiatDAO;
+    private TransaccionDAO miTransaccionDAO;
     
     
     public ControladorCompra(Usuario miUsuario){
@@ -23,6 +28,7 @@ public class ControladorCompra {
     	miActivoCriptoDAO=FactoryDAO.getActivoCriptoDAO();
     	miActivoFiatDAO=FactoryDAO.getActivoFiatDAO();
     	this.miUsuario=miUsuario;
+    	miTransaccionDAO=FactoryDAO.getTransaccionDAO();
     }
     
     public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException
@@ -50,6 +56,8 @@ public class ControladorCompra {
         miActivoFiatDAO.actualizarActivo(miUsuario.getId(), resolverFiat.getMoneda().getId(), (float) (resolverFiat.getCantidad()-cantidadFiat));
         miMonedaDAO.actualizarStock(criptoSeleccionada.getNomenclatura(), criptoSeleccionada.getStock()-cant_compra);
         miMonedaDAO.actualizarStock(resolverFiat.getMoneda().getNomenclatura(), (float) (resolverFiat.getMoneda().getStock()+cantidadFiat));
+        Transaccion transaccion = new Transaccion("Compra de "+criptoSeleccionada.getNombre()+" por "+ cantidadFiat + resolverFiat.getMoneda().getNombre(), LocalDateTime.now(), miUsuario);
+        miTransaccionDAO.crearTransaccion(transaccion);
         for (Activo activo : misActivosCripto) {
 			if(activo.getMoneda().getNombre().equals(criptoSeleccionada.getNombre())) {
 				miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), criptoSeleccionada.getId(), activo.getCantidad()+cant_compra);

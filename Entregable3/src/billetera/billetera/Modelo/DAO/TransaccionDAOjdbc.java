@@ -27,6 +27,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
             stmt.setInt(1, transaccion.getUsuario().getId());
             stmt.setInt(4, transaccion.getId());
 
+            System.out.println("hola");
             stmt.executeUpdate();
         }
         catch (SQLException e) 
