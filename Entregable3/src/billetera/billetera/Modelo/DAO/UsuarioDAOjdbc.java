@@ -44,6 +44,7 @@ public List<Usuario> listarUsuarios() throws SQLException {
     try (PreparedStatement ps = con.prepareStatement(sql);
          ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
+        	System.out.println(rs);
             int id = rs.getInt("ID");
             
             String password = rs.getString("PASSWORD");
@@ -55,6 +56,7 @@ public List<Usuario> listarUsuarios() throws SQLException {
 
             Persona persona = new Persona(personaId, nombres, apellidos);
             Usuario usuario = new Usuario(id, persona, password, aceptaTerminos, mail);
+            System.out.println(usuario);
             usuarios.add(usuario);
         }
     } catch (SQLException e) {

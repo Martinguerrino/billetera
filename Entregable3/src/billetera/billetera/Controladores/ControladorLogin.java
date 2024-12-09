@@ -54,8 +54,14 @@ public class ControladorLogin {
         } catch (SQLException e) {
             return false;
         }*/
+		System.out.println(gmail);
+
+		System.out.println(password);
 		List<Usuario> Usuarios = miModeloUsuario.listarUsuarios();
+		System.out.println(Usuarios);
 		for (Usuario usuario : Usuarios) {
+			System.out.println(usuario.getGmail());
+			System.out.println(usuario.getPasswd());
 			if(usuario.getGmail().equals(gmail) && usuario.getPasswd().equals(password)) {
 				miUsuario= usuario;
 				return true;
