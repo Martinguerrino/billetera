@@ -2,18 +2,18 @@ package billetera.Controladores;
 
 import java.util.List;
 
-import Aux.Moneda;
+import billetera.Auxiliar.Activo;
+import billetera.Auxiliar.Moneda;
 import Vista.VistaCompra;
+import billetera.Auxiliar.Usuario;
+import billetera.Modelo.DAO.MonedaDAO;
 import billetera.Modelo.Servicios.ServicioMoneda;
 import java.sql.SQLException;
 
 public class ControladorCompra {
     private VistaCompra miVista;
     private Usuario miUsuario;
-    private ServicioMoneda miModeloMoneda;//pense una re buena martucho, los modelos son de las cosas de bases de datos, asi obtenemos las cosas q necesitamos de ahi y desp los metodos de controlador parsean todo lo q pidan la vista re loco mal. Martin:muy buena idea bro
-    private ServicioActivoFiat miModeloActivoFiat;
-    private ServicioCompra miModeloCompra;
-    private ServicioActivoCripto miModeloActivoCripto;
+    private MonedaDAO miMonedaDAO;
     /*private ServicioCompra servicioCompra;
 
     public ControladorCompra(Vista vista, ServicioCompra servicioCompra) {
@@ -37,31 +37,33 @@ public class ControladorCompra {
     	}
     	return true;
     }*/
-    public void comprarCripto(String criptoSeleccionada,billetera.Auxiliar.Activo fiat, double cantidadFiat) throws SQLException 
-    {
-        if(miModeloMoneda.buscarMonedaPorId(fiat.getId_moneda()).getValorDolar()*cantidadFiat>fiat.getCantidad()) {
+    public boolean comprarCripto(String criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException 
+    {	
+        if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat>resolverFiat.getCantidad()) {
             //no tiene saldo suficiente
-            return;
+            return false;
         }
-        if(fiat.getValorDolar()*cantidadFiat<) {
+        if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat<0) {
             //no se puede comprar una cantidad negativa
-            return;
+            return false;
         }
-        if(miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada)==null)
+        Moneda monedaSeleccionada= miMonedaDAO.buscarMonedaPorNomenclatura(criptoSeleccionada);
+        if(monedaSeleccionada==null)
         {
             //no existe la moneda
-            return;
+            return false;
         }
-        float cant_compra = (float) (fiat.getValorDolar()*cantidadFiat/miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getValorDolar());
-        if(miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getStock()<=cant_compra)
+        float cant_compra = (float) (resolverFiat.getMoneda().getValorDolar()*cantidadFiat/miMonedaDAO.buscarMonedaPorNomenclatura(criptoSeleccionada).getValorDolar());
+        if(monedaSeleccionada.getStock()<=cant_compra)
         {
             //no hay stock
-            return;
+            return false;
         }
-        Moneda monedaFiat = miModeloMoneda.buscarMonedaPorId(fiat.getId_moneda());
-        float stock_restante = miModeloMoneda.buscarMonedaPorNomenclatura(criptoSeleccionada).getStock()-cant_compra;
-    	float fiatRestante = (float )(fiat.getCantidad()-cantidadFiat);
-        miModeloCompra.comprar(criptoSeleccionada,stock_restante,monedaFiat, fiatRestante, miUsuario.getId());
+        Moneda monedaFiat =  resolverFiat.getMoneda();
+        float stock_restante = monedaSeleccionada.getStock()-cant_compra;
+    	float fiatRestante = (float )(resolverFiat.getCantidad()-cantidadFiat);
+    	miActivoFiatDAO.ejecutarCompra(miUsuario, resolverFiat, fiatRestante, monedaSeleccionada);
+    	miActivoMoneda.restarStock(monedSeleccionada, stockRestante);
     }
 
     public String[] obtenerCriptos() {

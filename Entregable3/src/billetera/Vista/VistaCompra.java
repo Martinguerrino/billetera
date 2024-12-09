@@ -67,7 +67,7 @@ public class VistaCompra extends JFrame {
                     JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Llamada al controlador para realizar la compra
-                    if(!miControlador.comprarCripto(criptoSeleccionada, cantidad)) {
+                    if(!miControlador.comprarCripto(criptoSeleccionada,fiatSeleccionado, cantidad)) {
                     	JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente Stock de dicha"+ criptoSeleccionada, "Error", JOptionPane.ERROR_MESSAGE);
                     	
                     }
