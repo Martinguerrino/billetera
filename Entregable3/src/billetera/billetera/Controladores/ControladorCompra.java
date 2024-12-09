@@ -6,6 +6,7 @@ import billetera.Auxiliar.Activo;
 import billetera.Auxiliar.Moneda;
 import Vista.VistaCompra;
 import billetera.Auxiliar.Usuario;
+import billetera.Modelo.DAO.ActivoDAO;
 import billetera.Modelo.DAO.MonedaDAO;
 import billetera.Modelo.Servicios.ServicioMoneda;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ public class ControladorCompra {
     private VistaCompra miVista;
     private Usuario miUsuario;
     private MonedaDAO miMonedaDAO;
+    private ActivoDAO miActivoCriptoDAO;
     /*private ServicioCompra servicioCompra;
 
     public ControladorCompra(Vista vista, ServicioCompra servicioCompra) {
@@ -60,10 +62,21 @@ public class ControladorCompra {
             return false;
         }
         Moneda monedaFiat =  resolverFiat.getMoneda();
-        float stock_restante = monedaSeleccionada.getStock()-cant_compra;
-    	float fiatRestante = (float )(resolverFiat.getCantidad()-cantidadFiat);
-    	miActivoFiatDAO.ejecutarCompra(miUsuario, resolverFiat, fiatRestante, monedaSeleccionada);
-    	miActivoMonedaDAO.restarStock(monedSeleccionada, stockRestante);
+        monedaSeleccionada.setStock( monedaSeleccionada.getStock()-cant_compra);
+        resolverFiat.setCantidad((float) (resolverFiat.getCantidad()-cantidadFiat));
+        //ahora el fiat tiene la cantidad requerida y la moneda seleccionada tambiem
+        List<Activo> misActivosCripto= miActivoCriptoDAO.listarActivos(miUsuario.getId());
+        for (Activo activo : misActivosCripto) {
+			if(activo.getMoneda().getNombre()==monedaSeleccionada.getNombre()) {
+				Activo nuevoActivo= new Activo(miUsuario,monedaSeleccionada, cant_compra);
+				miActivoCriptoDAO.cargarActivo(activo);
+				return true;
+				
+			}
+		}
+        miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), monedaSeleccionada.getId(), cant_compra);
+        return true
+        
     }
 
     public String[] obtenerCriptos() {
