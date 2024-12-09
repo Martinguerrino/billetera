@@ -25,7 +25,7 @@ public class ControladorCompra {
     	this.miUsuario=miUsuario;
     }
     
-    public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException 
+    public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException
     {	
         if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat>resolverFiat.getCantidad()*resolverFiat.getMoneda().getValorDolar()) {
             //no tiene saldo suficiente
@@ -36,6 +36,7 @@ public class ControladorCompra {
         if(criptoSeleccionada==null)
         {
             //no existe la moneda
+        	
             return 2;
         }
         float cant_compra = (float) (resolverFiat.getMoneda().getValorDolar()*cantidadFiat/criptoSeleccionada.getValorDolar());

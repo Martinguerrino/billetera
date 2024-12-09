@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 
 import billetera.Controladores.ControladorLogin;
 
-public class VistaLogin extends JFrame {
+public class VistaLogin extends JFrame  {
     private JButton buttonLogin;
     private JLabel hipervinculoRegistrar;
     private JLabel titulo;
