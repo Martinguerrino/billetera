@@ -8,7 +8,6 @@ import Vista.VistaBalanceYMisActivos;
 public class ControladorIndex {
 
 	private VistaIndex miVista;
-	private MiModelo miModelo;
 	
 	public void LogOut() {
 		// TODO Auto-generated method stub

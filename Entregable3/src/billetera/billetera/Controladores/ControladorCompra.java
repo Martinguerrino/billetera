@@ -69,7 +69,7 @@ public class ControladorCompra {
         List<Activo> misActivosFiat= miActivoFiatDAO.listarActivos(miUsuario.getId());
         miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), resolverFiat.getId(), resolverFiat.getCantidad());
         miMonedaDAO.actualizarStock(monedaSeleccionada.getNomenclatura(), monedaSeleccionada.getStock()-cant_compra);
-        miMonedaDAO.actualizarStock(resolverFiat.getMoneda().getNomenclatura(), resolverFiat.getMoneda().getStock()+cantidadFiat);
+        miMonedaDAO.actualizarStock(resolverFiat.getMoneda().getNomenclatura(), (float) (resolverFiat.getMoneda().getStock()+cantidadFiat));
         for (Activo activo : misActivosCripto) {
 			if(activo.getMoneda().getNombre()==monedaSeleccionada.getNombre()) {
 				miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), monedaSeleccionada.getId(), activo.getCantidad()+cant_compra);
@@ -83,8 +83,8 @@ public class ControladorCompra {
         
     }
 
-    public String[] obtenerCriptos() {
-    	List<Moneda> monedas= miActivoMonedaDAO.listarMonedas();//JKASJDKAS RE XD ESTE METODO
+    public String[] obtenerCriptos() throws SQLException {
+    	List<Moneda> monedas= miMonedaDAO.listarMonedas();//JKASJDKAS RE XD ESTE METODO
     	String[] array = monedas.toArray(new String[0]);//parseo crazy son las 3 am me quiero dormir
     	return array;//xd
     }

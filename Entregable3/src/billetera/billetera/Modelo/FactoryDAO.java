@@ -12,8 +12,12 @@ public class FactoryDAO
     	return new UsuarioDAOjdbc();
     }
     
-    public static ActivoDAO getActivoDAO() {
-    	return new ActivoDAOjdbc();
+    public static ActivoDAO getActivoCriptoDAO() {
+    	return new ActivoCriptoDAOjdbc();
+    }
+    
+    public static ActivoDAO getActivoFiatDAO() {
+    	return new ActivoFiatDAOjdbc();
     }
     
     public static TransaccionDAO getTransaccionDAO()

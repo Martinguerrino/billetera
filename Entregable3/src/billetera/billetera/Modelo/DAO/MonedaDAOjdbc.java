@@ -47,7 +47,7 @@ public class MonedaDAOjdbc
         {
             while(rs.next())
             {
-                Moneda moneda = new Moneda(rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getFloat("STOCK"), rs.getString("NOMBRE_ICONO"));
+                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 monedas.add(moneda);
             }
         }
@@ -69,7 +69,7 @@ public class MonedaDAOjdbc
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             {
-                moneda = new Moneda(rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getFloat("STOCK"), rs.getString("NOMBRE_ICONO"));
+                moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 
             }
         }
@@ -129,7 +129,7 @@ public class MonedaDAOjdbc
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             {
-                moneda = new Moneda(rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getFloat("STOCK"), rs.getString("NOMBRE_ICONO"));
+                moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
             }
         }
         catch(SQLException e)
@@ -139,3 +139,4 @@ public class MonedaDAOjdbc
         return moneda;
     }
 }
+

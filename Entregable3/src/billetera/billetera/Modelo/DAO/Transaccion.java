@@ -18,6 +18,7 @@ public class Transaccion
         this.descripcion = descripcion;
         this.fecha_hora = fecha_hora;
         this.id_Usuario = id_Usuario;
+        
     }
 
 

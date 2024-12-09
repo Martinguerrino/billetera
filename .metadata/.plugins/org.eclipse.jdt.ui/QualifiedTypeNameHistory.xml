@@ -2,4 +2,5 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="javax.swing.SwingConstants"/>
     <fullyQualifiedTypeName name="Vista.VistaBalanceYMisActivos"/>
+    <fullyQualifiedTypeName name="billetera.Modelo.DAO.MonedaDAOjdbc"/>
 </qualifiedTypeNameHistroy>

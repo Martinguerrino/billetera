@@ -39,7 +39,7 @@ public class ControladorBalanceYMisActivos {
 
 
 
-	public Object[][] obtenerActivosCripto() {
+	public Object[][] obtenerActivosCripto() throws SQLException {
 		// TODO Auto-generated method stub
 		ActivoCriptoDAOjdbc activoDAO = new ActivoCriptoDAOjdbc();
 		MonedaDAOjdbc monedaDAO = new MonedaDAOjdbc();
@@ -75,7 +75,7 @@ public class ControladorBalanceYMisActivos {
 		return returnArray;
 	}
 
-	public Object[][] ObtenerActivosFiat() {
+	public Object[][] ObtenerActivosFiat() throws SQLException {
 		// TODO Auto-generated method stub
 		ActivoFiatDAOjdbc activoDAO = new ActivoFiatDAOjdbc();
 		MonedaDAOjdbc monedaDAO = new MonedaDAOjdbc();

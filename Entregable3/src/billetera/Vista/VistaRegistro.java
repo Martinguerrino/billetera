@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import billetera.Controladores.ControladorRegistro;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,9 +10,9 @@ public class VistaRegistro extends JFrame {
     private JPasswordField txtContrasena;
     private JButton btnRegistrar;
     private JButton btnCerrar;  // Botón de cerrar
-    private Controlador miControlador;
+    private ControladorRegistro miControlador;
 
-    public VistaRegistro(Controlador miControlador) {
+    public VistaRegistro(ControladorRegistro miControlador) {
         super("Registro");
         this.miControlador = miControlador;
 
@@ -22,13 +25,10 @@ public class VistaRegistro extends JFrame {
         txtEmail = new JTextField(20);
         txtContrasena = new JPasswordField(20);
         btnRegistrar = new JButton("Registrar");
-        btnCerrar = new JButton("Cerrar");  // Botón para cerrar la ventana
 
         // Acción del botón de registro
         btnRegistrar.addActionListener(new LRegistro());
 
-        // Acción del botón de cerrar (ahora invoca al controlador)
-        btnCerrar.addActionListener(new LCerrar());
 
         // Layout y adición de componentes
         JPanel panel = new JPanel();
@@ -37,7 +37,6 @@ public class VistaRegistro extends JFrame {
         panel.add(new JLabel("Contraseña:"));
         panel.add(txtContrasena);
         panel.add(btnRegistrar);
-        panel.add(btnCerrar);  // Agregar el botón Cerrar
         add(panel);
     }
 
@@ -45,15 +44,8 @@ public class VistaRegistro extends JFrame {
     private class LRegistro implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            miControlador.Registrar();
+            miControlador.Registrar(txtEmail.getText(), txtContrasena.getPassword());
         }
     }
 
-    // Clase interna para el ActionListener del botón Cerrar
-    private class LCerrar implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            miControlador.cerrarVista();  // Llama al método en el controlador para cerrar la vista
-        }
-    }
 }

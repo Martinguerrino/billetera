@@ -12,5 +12,9 @@ public interface  TransaccionDAO
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listarTransacciones'");
     }
+    static void ObtenerTransaccionesDeUsuario(int id_usuario) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listarTransaccionesPorUsuario'");
+    }
 
 }

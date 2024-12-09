@@ -50,34 +50,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO
         }
     }
 
-    @Override
-    public List<Usuario> listarUsuarios() throws SQLException 
-    {
-        Connection con = null;
-        List<Usuario> usuarios = new ArrayList<>();
-        con = MyConnection.getCon();
-        String sql = "SELECT * FROM USUARIO";
-        try (PreparedStatement stmt = con.prepareStatement(sql)) 
-        {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) 
-            {
-                int id = rs.getInt("ID");
-                int idPersona = rs.getInt("ID_PERSONA");
-                String password = rs.getString("PASSWORD");
-                boolean aceptaTerminos = rs.getBoolean("ACEPTA_TERMINOS");
-                String mail = rs.getString("MAIL");
-                Usuario usuario = new Usuario(id, idPersona, password, aceptaTerminos, mail);
-                usuarios.add(usuario);
-            }
-            return usuarios;
-        }
-        catch (SQLException e) 
-        {
-            throw new SQLException("Error al listar los usuarios: " + e.getMessage(), e);
-            
-        }
-    }
+    
 
     @Override
     public void actualizarUsuario(Usuario usuario) throws SQLException 
@@ -107,4 +80,6 @@ public class UsuarioDAOjdbc implements UsuarioDAO
 		Usuario usuarioCheck=obtenerUsuarioPorMail(usuario.getMail());
 		return usuarioCheck.getPassword().equals(usuario.getPassword());
 	}
+    
+    
 }

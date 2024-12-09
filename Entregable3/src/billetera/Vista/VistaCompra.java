@@ -7,6 +7,7 @@ import billetera.Controladores.ControladorCompra;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class VistaCompra extends JFrame {
     private JComboBox<String> comboCripto;
@@ -14,7 +15,7 @@ public class VistaCompra extends JFrame {
     private JButton btnComprar;
     private ControladorCompra miControlador;
 
-    public VistaCompra(ControladorCompra miControlador) {
+    public VistaCompra(ControladorCompra miControlador) throws SQLException {
         super("Compra de Criptomonedas");
         this.miControlador = miControlador;
 

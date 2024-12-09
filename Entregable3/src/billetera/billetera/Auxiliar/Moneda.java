@@ -21,6 +21,10 @@ public class Moneda
         this.stock = stock;
     }
 
+    public Moneda() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public int getId() {
         return id;
     }

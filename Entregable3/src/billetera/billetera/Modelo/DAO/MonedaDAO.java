@@ -1,9 +1,10 @@
 package billetera.Modelo.DAO;
 
+import billetera.Auxiliar.Moneda;
 import java.sql.*;
 import java.util.List;
 
-import billetera.billetera.Auxiliar.Moneda;
+
 
 public interface MonedaDAO 
 {
@@ -11,6 +12,6 @@ public interface MonedaDAO
     List<Moneda> listarMonedas() throws SQLException;
     Moneda buscarMonedaPorNomenclatura(String nomenclatura) throws SQLException;
     boolean existeNomenclatura(String nomenclatura) throws SQLException;
-    void actualizarStock(Moneda moneda,float stock) throws SQLException;
+    void actualizarStock(String nomenclatura,float stock) throws SQLException;
     Moneda buscarMonedaPorId(int id) throws SQLException;
 }

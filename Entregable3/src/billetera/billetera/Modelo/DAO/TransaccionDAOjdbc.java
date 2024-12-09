@@ -9,7 +9,7 @@ import java.util.List;
 public class TransaccionDAOjdbc implements TransaccionDAO 
 {
 
-    
+    @Override
     public static void crearTransaccion(Transaccion transaccion) throws SQLException
     {
         Connection conn = null;
@@ -32,6 +32,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
         }
         
     }
+    @Override
     public static List<Transaccion> listarTransacciones() throws SQLException 
     {
         Connection conn = null;
@@ -60,4 +61,31 @@ public class TransaccionDAOjdbc implements TransaccionDAO
             throw new SQLException("el acceso a las transacciones fue erroneo");
         }
     }
+    @Override
+    public List<Transaccion> obtenerTransaccionesDeUsuario(int idUsuario) throws SQLException {
+        List<Transaccion> transacciones = new ArrayList<>();
+        Connection con = MyConnection.getCon();
+        String sql = "SELECT t.ID, t.RESUMEN, t.FECHA_HORA, t.ID_USUARIO, u.MAIL " +
+                     "FROM TRANSACCION t " +
+                     "INNER JOIN USUARIO u ON t.ID_USUARIO = u.ID " +
+                     "WHERE t.ID_USUARIO = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Transaccion transaccion = new Transaccion();
+                    transaccion.setId(rs.getInt("ID"));
+                    transaccion.setDescripcion(rs.getString("RESUMEN"));
+                    transaccion.setFecha_hora(rs.getTimestamp("FECHA_HORA").toLocalDateTime());
+                    transaccion.setId_Usuario(rs.getInt("ID_USUARIO"));
+                    transacciones.add(transaccion);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error al obtener las transacciones del usuario: " + e.getMessage(), e);
+        }
+        return transacciones;
+    }
+    
 }
