@@ -63,11 +63,11 @@ public class ControladorCompra {
         float stock_restante = monedaSeleccionada.getStock()-cant_compra;
     	float fiatRestante = (float )(resolverFiat.getCantidad()-cantidadFiat);
     	miActivoFiatDAO.ejecutarCompra(miUsuario, resolverFiat, fiatRestante, monedaSeleccionada);
-    	miActivoMoneda.restarStock(monedSeleccionada, stockRestante);
+    	miActivoMonedaDAO.restarStock(monedSeleccionada, stockRestante);
     }
 
     public String[] obtenerCriptos() {
-    	List<Moneda> monedas= miModeloMoneda.listarMonedas();//JKASJDKAS RE XD ESTE METODO
+    	List<Moneda> monedas= miActivoMonedaDAO.listarMonedas();//JKASJDKAS RE XD ESTE METODO
     	String[] array = monedas.toArray(new String[0]);//parseo crazy son las 3 am me quiero dormir
     	return array;//xd
     }
