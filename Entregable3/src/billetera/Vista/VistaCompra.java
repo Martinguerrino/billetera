@@ -1,7 +1,8 @@
 package Vista;
 
-import javax.swing.*;
-
+import Excepciones.NoExiteMonedaException;
+import Excepciones.NoHayStockException;
+import Excepciones.SaldoInsuficienteException;
 import billetera.Auxiliar.Activo;
 import billetera.Auxiliar.Moneda;
 import billetera.Controladores.ControladorCompra;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class VistaCompra extends JFrame {
     private JComboBox<String> comboCripto;
@@ -99,21 +101,24 @@ public class VistaCompra extends JFrame {
                     JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Llamada al controlador para realizar la compra
+                    try{
                     int exito = miControlador.comprarCripto(criptos[criptoSeleccionada], activoFiats[fiatSeleccionado], cantidadFiat);
-                    if (exito!=0) {
-                    	if(exito==1) {
-                    		JOptionPane.showMessageDialog(VistaCompra.this, "No tiene suficiente saldo para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
-
-                    	}else if (exito==2) {
-                    		JOptionPane.showMessageDialog(VistaCompra.this, "No existe la moneda ingresada", "Error", JOptionPane.ERROR_MESSAGE);
-                    		
-                    	}else {
-                    		
-                    		JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente stock para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
-                    	}
-                    } else {
-                        JOptionPane.showMessageDialog(VistaCompra.this, "Compra realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(VistaCompra.this, "Compra realizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    catch(SaldoInsuficienteException ex)
+                    {
+                        JOptionPane.showMessageDialog(VistaCompra.this, "No tiene suficiente saldo para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } 
+                    catch (NoExiteMonedaException ex) 
+                    {
+                        JOptionPane.showMessageDialog(VistaCompra.this, "No existe la moneda ingresada", "Error", JOptionPane.ERROR_MESSAGE);
+                    } 
+                    catch (NoHayStockException ex) 
+                    {
+                        JOptionPane.showMessageDialog(VistaCompra.this, "No hay suficiente stock para esta compra.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    
                 }
             } catch (NumberFormatException | SQLException ex) {
                 JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);

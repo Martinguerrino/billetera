@@ -58,6 +58,28 @@ public class MonedaDAOjdbc implements MonedaDAO
         }
         return monedas;
     }
+    @Override
+    public List<Moneda> listarMonedasOrdenado()
+    {
+        Connection con = null;
+        con = MyConnection.getCon();
+        List<Moneda> monedas = new ArrayList<>();
+        String sql = "SELECT * FROM MONEDA ORDER BY NOMBRE";
+        try(Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql);)
+        {
+            while(rs.next())
+            {
+                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                monedas.add(moneda);
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return monedas;
+    }
+    @Override
     public Moneda buscarMonedaPorNomenclatura(String nomenclatura) throws SQLException
     {
         Connection con = null;

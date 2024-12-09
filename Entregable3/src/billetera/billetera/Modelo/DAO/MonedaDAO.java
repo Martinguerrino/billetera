@@ -15,4 +15,5 @@ public interface MonedaDAO
     void actualizarStock(String nomenclatura,float stock) throws SQLException;
     Moneda buscarMonedaPorId(int id) throws SQLException;
     void actualizarValorDolar(String nomenclatura,float valorDolar) throws SQLException;
+    List<Moneda> listarMonedasOrdenado() throws SQLException;
 }

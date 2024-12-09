@@ -1,5 +1,8 @@
 package billetera.Controladores;
 
+import Excepciones.NoExiteMonedaException;
+import Excepciones.NoHayStockException;
+import Excepciones.SaldoInsuficienteException;
 import Vista.VistaCompra;
 import billetera.Auxiliar.Activo;
 import billetera.Auxiliar.Moneda;
@@ -9,7 +12,6 @@ import billetera.Modelo.DAO.FactoryDAO;
 import billetera.Modelo.DAO.MonedaDAO;
 import billetera.Modelo.DAO.Transaccion;
 import billetera.Modelo.DAO.TransaccionDAO;
-
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,25 +33,28 @@ public class ControladorCompra {
     	miTransaccionDAO=FactoryDAO.getTransaccionDAO();
     }
     
-    public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException
+    public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException, NoExiteMonedaException, SaldoInsuficienteException, NoHayStockException
     {	
-        if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat>resolverFiat.getCantidad()*resolverFiat.getMoneda().getValorDolar()) {
+        if(cantidadFiat>resolverFiat.getCantidad()) {
             //no tiene saldo suficiente
-            return 1;
+            throw new SaldoInsuficienteException();
+            
         }
 
         
         if(criptoSeleccionada==null)
         {
             //no existe la moneda
+            throw new NoExiteMonedaException();
         	
-            return 2;
+            
         }
         float cant_compra = (float) (resolverFiat.getMoneda().getValorDolar()*cantidadFiat/criptoSeleccionada.getValorDolar());
         if(criptoSeleccionada.getStock()<=cant_compra)
         {
             //no hay stock
-            return 3;
+            throw new NoHayStockException();
+            
         }
         //ahora el fiat tiene la cantidad requerida y la moneda seleccionada tambiem
         List<Activo> misActivosCripto= miActivoCriptoDAO.listarActivos(miUsuario.getId());

@@ -22,7 +22,7 @@ public class ControladorCotizaciones {
 	public Object[][] obtenerCotizaciones() throws SQLException 
 	{
 		// TODO Auto-generated method stub
-    	List<Moneda> monedas = miModeloMoneda.listarMonedas();//devuelve todas las monedas papu como monedas nomas owo reutilizamos codigos de servisios wiiiiiiiiiiiiiiiiiii
+    	List<Moneda> monedas = miModeloMoneda.listarMonedasOrdenado();//devuelve todas las monedas papu como monedas nomas owo reutilizamos codigos de servisios wiiiiiiiiiiiiiiiiiii
     	Object[][] vectorRetorno= new Object[monedas.size()][6]; 
 		int contadorsito=0;
     	for (Moneda moneda : monedas) {
