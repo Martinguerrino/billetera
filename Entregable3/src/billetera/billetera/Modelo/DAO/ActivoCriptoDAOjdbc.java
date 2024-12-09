@@ -53,11 +53,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
                      "FROM ACTIVO_CRIPTO a " +
                      "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
                      "WHERE m.NOMENCLATURA = ? " +
-                     "UNION ALL " +
-                     "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
-                     "FROM ACTIVO_FIAT a " +
-                     "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                     "WHERE m.NOMENCLATURA = ?";
+                     "UNION ALL " ;
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, nomenclatura);
             ps.setString(2, nomenclatura);
@@ -86,27 +82,23 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
     }
 
     @Override
-    public List<Activo> listarActivos(int id_usuario) throws SQLException {
+public List<Activo> listarActivos(int id_usuario) throws SQLException {
     Connection conn = MyConnection.getCon();
     List<Activo> activos = new ArrayList<>();
-    String sql = "SELECT a.ID, a.CANTIDAD, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
-                 "FROM ACTIVO_CRIPTO a " +
-                 "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                 "WHERE a.ID_USUARIO = ? " +
-                 "UNION ALL " +
-                 "SELECT a.ID, a.CANTIDAD, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
-                 "FROM ACTIVO_FIAT a " +
-                 "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                 "WHERE a.ID_USUARIO = ?";
+    String sql = "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
+                     "FROM ACTIVO_CRIPTO a " +
+                     "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
+                     "WHERE a.ID_USUARIO = ? " +
+                     "UNION ALL " ;
     try (PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setInt(1, id_usuario);
-        ps.setInt(2, id_usuario);
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Activo activo = new Activo();
                 activo.setId(rs.getInt("ID"));
                 activo.setCantidad(rs.getFloat("CANTIDAD"));
                 Moneda moneda = new Moneda();
+                moneda.setId(rs.getInt("MONEDA_ID"));
                 moneda.setTipo(rs.getString("TIPO"));
                 moneda.setNombre(rs.getString("NOMBRE"));
                 moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
@@ -120,7 +112,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
         }
     } catch (SQLException e) {
         e.printStackTrace();
-        throw new SQLException("Error al listar los activos del usuario: " + e.getMessage(), e);
+        throw new SQLException("Error al listar los activos cripto del usuario: " + e.getMessage(), e);
     }
     return activos;
 }

@@ -22,7 +22,6 @@ public class Moneda
     }
 
     public Moneda() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public int getId() {

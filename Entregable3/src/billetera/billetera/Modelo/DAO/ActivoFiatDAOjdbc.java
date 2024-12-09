@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ActivoFiatDAOjdbc implements ActivoDAO
 {
+    @Override
     public void cargarActivo(Activo activo) 
     {
         Connection conn = null;
@@ -27,6 +28,7 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
         }
     }
 
+    @Override
     public void actualizarActivo(int id_usuario, int id_moneda, float cantidad) 
     {
         Connection conn = null;
@@ -45,68 +47,56 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
         }
     }
     
-    
-    public Activo obtenerActivoPorNomenclatura(String nomenclatura) throws SQLException {
-        Connection con = MyConnection.getCon();
-        Activo activo = null;
-        String sql = "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
-                     "FROM ACTIVO_FIAT a " +
-                     "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                     "WHERE m.NOMENCLATURA = ? " +
-                     "UNION ALL " +
-                     "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
-                     "FROM ACTIVO_FIAT a " +
-                     "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                     "WHERE m.NOMENCLATURA = ?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, nomenclatura);
-            ps.setString(2, nomenclatura);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    activo = new Activo();
-                    activo.setId(rs.getInt("ID"));
-                    activo.setCantidad(rs.getFloat("CANTIDAD"));
-                    Moneda moneda = new Moneda();
-                    moneda.setId(rs.getInt("MONEDA_ID"));
-                    moneda.setTipo(rs.getString("TIPO"));
-                    moneda.setNombre(rs.getString("NOMBRE"));
-                    moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
-                    moneda.setValorDolar(rs.getFloat("VALOR_DOLAR"));
-                    moneda.setVolatilidad(rs.getFloat("VOLATILIDAD"));
-                    moneda.setStock(rs.getFloat("STOCK"));
-                    moneda.setNombreIcono(rs.getString("NOMBRE_ICONO"));
-                    activo.setMoneda(moneda);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Error al obtener el activo por nomenclatura: " + e.getMessage(), e);
-        }
-        return activo;
-    }
-
     @Override
-    public List<Activo> listarActivos(int id_usuario) throws SQLException {
-    Connection conn = MyConnection.getCon();
-    List<Activo> activos = new ArrayList<>();
-    String sql = "SELECT a.ID, a.CANTIDAD, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
+public Activo obtenerActivoPorNomenclatura(String nomenclatura) throws SQLException {
+    Connection con = MyConnection.getCon();
+    Activo activo = null;
+    String sql = "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
                  "FROM ACTIVO_FIAT a " +
                  "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                 "WHERE a.ID_USUARIO = ? " +
-                 "UNION ALL " +
-                 "SELECT a.ID, a.CANTIDAD, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
+                 "WHERE m.NOMENCLATURA = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, nomenclatura);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                activo = new Activo();
+                activo.setId(rs.getInt("ID"));
+                activo.setCantidad(rs.getFloat("CANTIDAD"));
+                Moneda moneda = new Moneda();
+                moneda.setId(rs.getInt("MONEDA_ID"));
+                moneda.setTipo(rs.getString("TIPO"));
+                moneda.setNombre(rs.getString("NOMBRE"));
+                moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
+                moneda.setValorDolar(rs.getFloat("VALOR_DOLAR"));
+                moneda.setVolatilidad(rs.getFloat("VOLATILIDAD"));
+                moneda.setStock(rs.getFloat("STOCK"));
+                moneda.setNombreIcono(rs.getString("NOMBRE_ICONO"));
+                activo.setMoneda(moneda);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new SQLException("Error al obtener el activo por nomenclatura: " + e.getMessage(), e);
+    }
+    return activo;
+}
+    @Override
+public List<Activo> listarActivos(int id_usuario) throws SQLException {
+    Connection conn = MyConnection.getCon();
+    List<Activo> activos = new ArrayList<>();
+    String sql = "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
                  "FROM ACTIVO_FIAT a " +
                  "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
                  "WHERE a.ID_USUARIO = ?";
     try (PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setInt(1, id_usuario);
-        ps.setInt(2, id_usuario);
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Activo activo = new Activo();
                 activo.setId(rs.getInt("ID"));
                 activo.setCantidad(rs.getFloat("CANTIDAD"));
                 Moneda moneda = new Moneda();
+                moneda.setId(rs.getInt("MONEDA_ID"));
                 moneda.setTipo(rs.getString("TIPO"));
                 moneda.setNombre(rs.getString("NOMBRE"));
                 moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
@@ -120,7 +110,7 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
         }
     } catch (SQLException e) {
         e.printStackTrace();
-        throw new SQLException("Error al listar los activos del usuario: " + e.getMessage(), e);
+        throw new SQLException("Error al listar los activos fiat del usuario: " + e.getMessage(), e);
     }
     return activos;
 }

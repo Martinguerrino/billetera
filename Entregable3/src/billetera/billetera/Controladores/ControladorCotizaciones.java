@@ -23,7 +23,7 @@ public class ControladorCotizaciones {
 	{
 		// TODO Auto-generated method stub
     	List<Moneda> monedas = miModeloMoneda.listarMonedas();//devuelve todas las monedas papu como monedas nomas owo reutilizamos codigos de servisios wiiiiiiiiiiiiiiiiiii
-    	Object[][] vectorRetorno= new Object[monedas.size()][5]; 
+    	Object[][] vectorRetorno= new Object[monedas.size()][6]; 
 		int contadorsito=0;
     	for (Moneda moneda : monedas) {
 			vectorRetorno[contadorsito][0]=moneda.getNombre();

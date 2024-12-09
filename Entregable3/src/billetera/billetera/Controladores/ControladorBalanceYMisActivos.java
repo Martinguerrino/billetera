@@ -54,9 +54,10 @@ public class ControladorBalanceYMisActivos {
 			returnArray[c][2]=activo.getCantidad();
 			returnArray[c][3]=activo.getMoneda().getNombreIcono();
 			returnArray[c][4]=activo.getMoneda().getValorDolar();
+			System.out.println(returnArray[c][0]);
 			c++;
 		}
-		
+
 		return returnArray;
 	}
 
@@ -78,7 +79,7 @@ public class ControladorBalanceYMisActivos {
 			returnArray[c][4]=activo.getMoneda().getValorDolar();
 			c++;
 		}
-		
+		System.out.println(returnArray);
 		return returnArray;
 	}
 	public float ObtenerSaldo() throws SQLException {
