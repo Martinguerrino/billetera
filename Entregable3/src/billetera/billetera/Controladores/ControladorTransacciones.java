@@ -1,4 +1,6 @@
 package billetera.Controladores;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,8 +38,23 @@ public class ControladorTransacciones {
 		// TODO Auto-generated method stub
 		miVista=nuevaVista;
 	}
+	public void exportarTransaccionesACSV(String filePath) throws SQLException, IOException {
+        List<Transaccion> transacciones = miTransaccionDAO.listarTransacciones();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Escribir la cabecera del CSV
+            writer.append("Usuario,FechaHora,Resumen\n");
 
-
+            // Escribir los datos de las transacciones
+            for (Transaccion transaccion : transacciones) {
+                writer.append(transaccion.getUsuario().getPersona().getNombre())
+                      .append(',')
+                      .append(transaccion.getFecha_hora().toString())
+                      .append(',')
+                      .append(transaccion.getDescripcion())
+                      .append('\n');
+            }
+        }
+	}
     public void iniciar() {
     	miVista.setVisible(true);
     }

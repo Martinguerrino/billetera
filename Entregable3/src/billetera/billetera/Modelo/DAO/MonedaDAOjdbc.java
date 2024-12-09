@@ -143,8 +143,6 @@ public class MonedaDAOjdbc implements MonedaDAO
     {
         Connection con = null;
         con = MyConnection.getCon();
-        System.out.println("Valor dolar: "+nomenclatura);
-        System.out.println("nomenclatura: "+ nomenclatura);
         
         String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
         try(PreparedStatement ps = con.prepareStatement(sql);)

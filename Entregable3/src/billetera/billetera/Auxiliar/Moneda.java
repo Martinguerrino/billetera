@@ -37,8 +37,8 @@ public class Moneda
     }
 
 
-    public Moneda(String nombre, float valorDolar) {
-        this.nombre = nombre;
+    public Moneda(String nomenclatura, float valorDolar) {
+        this.nomenclatura = nomenclatura.toUpperCase();
         this.valorDolar = valorDolar;
     }
 

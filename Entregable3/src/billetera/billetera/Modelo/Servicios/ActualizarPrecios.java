@@ -24,9 +24,7 @@ public class ActualizarPrecios
         for (Moneda moneda : monedas)
         {
             try {
-            	System.out.println("nombre: "+moneda.getNombre());
-            	System.out.println("Valor moneda dolar1 "+moneda.getValorDolar());
-                monedaDAO.actualizarValorDolar(moneda.getNombre(), moneda.getValorDolar());
+                monedaDAO.actualizarValorDolar(moneda.getNomenclatura(), moneda.getValorDolar());
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
