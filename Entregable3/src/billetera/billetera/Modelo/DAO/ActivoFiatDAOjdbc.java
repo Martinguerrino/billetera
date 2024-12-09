@@ -33,6 +33,7 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
     {
         Connection conn = null;
         conn = MyConnection.getCon();
+        
         String sql = "UPDATE ACTIVO_FIAT SET cantidad = ? WHERE id_usuario = ? AND id_moneda = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql))
         {
@@ -40,6 +41,10 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
             ps.setInt(2, id_usuario);
             ps.setInt(3, id_moneda);
             ps.executeUpdate();
+            System.out.println(cantidad);
+            System.out.println(id_usuario);
+            System.out.println(id_moneda);
+            
         }
         catch(SQLException e)
         {
@@ -122,7 +127,6 @@ public Activo obtenerActivoPorId(int id) throws SQLException {
                  "FROM ACTIVO_FIAT a " +
                  "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
                  "WHERE a.ID = ? " +
-                 "UNION ALL " +
                  "SELECT a.ID, a.CANTIDAD, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
                  "FROM ACTIVO_FIAT a " +
                  "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +

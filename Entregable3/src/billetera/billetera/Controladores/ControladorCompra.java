@@ -25,50 +25,52 @@ public class ControladorCompra {
     	this.miUsuario=miUsuario;
     }
     
-    public boolean comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException 
+    public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException 
     {	
-        if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat>resolverFiat.getCantidad()) {
+        if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat>resolverFiat.getCantidad()*resolverFiat.getMoneda().getValorDolar()) {
             //no tiene saldo suficiente
-            return false;
+            return 1;
         }
-        if(resolverFiat.getMoneda().getValorDolar()*cantidadFiat<0) {
-            //no se puede comprar una cantidad negativa
-            return false;
-        }
+
         
         if(criptoSeleccionada==null)
         {
             //no existe la moneda
-            return false;
+            return 2;
         }
         float cant_compra = (float) (resolverFiat.getMoneda().getValorDolar()*cantidadFiat/criptoSeleccionada.getValorDolar());
         if(criptoSeleccionada.getStock()<=cant_compra)
         {
             //no hay stock
-            return false;
+            return 3;
         }
-        
-        resolverFiat.setCantidad((float) (resolverFiat.getCantidad()-cantidadFiat));
         //ahora el fiat tiene la cantidad requerida y la moneda seleccionada tambiem
         List<Activo> misActivosCripto= miActivoCriptoDAO.listarActivos(miUsuario.getId());
-        miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), resolverFiat.getId(), resolverFiat.getCantidad());
+        miActivoFiatDAO.actualizarActivo(miUsuario.getId(), resolverFiat.getMoneda().getId(), (float) (resolverFiat.getCantidad()-cantidadFiat));
         miMonedaDAO.actualizarStock(criptoSeleccionada.getNomenclatura(), criptoSeleccionada.getStock()-cant_compra);
         miMonedaDAO.actualizarStock(resolverFiat.getMoneda().getNomenclatura(), (float) (resolverFiat.getMoneda().getStock()+cantidadFiat));
         for (Activo activo : misActivosCripto) {
 			if(activo.getMoneda().getNombre().equals(criptoSeleccionada.getNombre())) {
 				miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), criptoSeleccionada.getId(), activo.getCantidad()+cant_compra);
-				return true;
+				System.out.println("comprado");
+				return 0;
 				
 			}
 		}
         Activo nuevoActivo= new Activo(miUsuario,criptoSeleccionada, cant_compra);
         miActivoCriptoDAO.cargarActivo(nuevoActivo);
-        return true;
+        return 0;
         
     }
 
     public Moneda[] obtenerCriptos() throws SQLException {
     	List<Moneda> monedas= miMonedaDAO.listarMonedas();//JKASJDKAS RE XD ESTE METODO    
+    	for (Moneda moneda : monedas) {
+			if(moneda.getTipo().equals("F")) {
+				monedas.remove(moneda);
+			}
+		}
+    	System.out.println(monedas);
         @SuppressWarnings("CollectionsToArray")
     	Moneda[] array = monedas.toArray(new Moneda[0]);//parseo crazy son las 3 am me quiero dormir
     	return array;//xd

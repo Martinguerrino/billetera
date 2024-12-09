@@ -30,6 +30,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
     public void actualizarActivo(int id_usuario, int id_moneda, float cantidad) 
     {
         Connection conn = null;
+        System.out.println(cantidad);
         conn = MyConnection.getCon();
         String sql = "UPDATE ACTIVO_CRIPTO SET cantidad = ? WHERE id_usuario = ? AND id_moneda = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql))
@@ -52,8 +53,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
         String sql = "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
                      "FROM ACTIVO_CRIPTO a " +
                      "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                     "WHERE m.NOMENCLATURA = ? " +
-                     "UNION ALL " ;
+                     "WHERE m.NOMENCLATURA = ? " ;
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, nomenclatura);
             ps.setString(2, nomenclatura);
@@ -88,8 +88,7 @@ public List<Activo> listarActivos(int id_usuario) throws SQLException {
     String sql = "SELECT a.ID, a.CANTIDAD, m.ID AS MONEDA_ID, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
                      "FROM ACTIVO_CRIPTO a " +
                      "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
-                     "WHERE a.ID_USUARIO = ? " +
-                     "UNION ALL " ;
+                     "WHERE a.ID_USUARIO = ? " ;
     try (PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setInt(1, id_usuario);
         try (ResultSet rs = ps.executeQuery()) {
@@ -124,7 +123,6 @@ public Activo obtenerActivoPorId(int id) throws SQLException {
                  "FROM ACTIVO_CRIPTO a " +
                  "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
                  "WHERE a.ID = ? " +
-                 "UNION ALL " +
                  "SELECT a.ID, a.CANTIDAD, m.TIPO, m.NOMBRE, m.NOMENCLATURA, m.VALOR_DOLAR, m.VOLATILIDAD, m.STOCK, m.NOMBRE_ICONO " +
                  "FROM ACTIVO_FIAT a " +
                  "INNER JOIN MONEDA m ON a.ID_MONEDA = m.ID " +
