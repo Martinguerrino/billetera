@@ -68,8 +68,8 @@ public class ControladorCompra {
         List<Activo> misActivosCripto= miActivoCriptoDAO.listarActivos(miUsuario.getId());
         List<Activo> misActivosFiat= miActivoFiatDAO.listarActivos(miUsuario.getId());
         miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), resolverFiat.getId(), resolverFiat.getCantidad());
-        miMonedaDAO.actualizarStock(monedaSeleccionada, monedaSeleccionada.getStock()-cant_compra);
-        miMonedaDAO.actualizarStock(resolverFiat.getMoneda(), resolverFiat.getMoneda().getStock()+cantidadFiat);
+        miMonedaDAO.actualizarStock(monedaSeleccionada.getNomenclatura(), monedaSeleccionada.getStock()-cant_compra);
+        miMonedaDAO.actualizarStock(resolverFiat.getMoneda().getNomenclatura(), resolverFiat.getMoneda().getStock()+cantidadFiat);
         for (Activo activo : misActivosCripto) {
 			if(activo.getMoneda().getNombre()==monedaSeleccionada.getNombre()) {
 				miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), monedaSeleccionada.getId(), activo.getCantidad()+cant_compra);
