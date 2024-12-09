@@ -16,6 +16,7 @@ public class ControladorCompra {
     private Usuario miUsuario;
     private MonedaDAO miMonedaDAO;
     private ActivoDAO miActivoCriptoDAO;
+    private ActivoDAO miActivoFiatDAO;
     /*private ServicioCompra servicioCompra;
 
     public ControladorCompra(Vista vista, ServicioCompra servicioCompra) {
@@ -61,21 +62,24 @@ public class ControladorCompra {
             //no hay stock
             return false;
         }
-        Moneda monedaFiat =  resolverFiat.getMoneda();
-        monedaSeleccionada.setStock( monedaSeleccionada.getStock()-cant_compra);
+        
         resolverFiat.setCantidad((float) (resolverFiat.getCantidad()-cantidadFiat));
         //ahora el fiat tiene la cantidad requerida y la moneda seleccionada tambiem
         List<Activo> misActivosCripto= miActivoCriptoDAO.listarActivos(miUsuario.getId());
+        List<Activo> misActivosFiat= miActivoFiatDAO.listarActivos(miUsuario.getId());
+        miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), resolverFiat.getId(), resolverFiat.getCantidad());
+        miMonedaDAO.actualizarStock(monedaSeleccionada, monedaSeleccionada.getStock()-cant_compra);
+        miMonedaDAO.actualizarStock(resolverFiat.getMoneda(), resolverFiat.getMoneda().getStock()+cantidadFiat);
         for (Activo activo : misActivosCripto) {
 			if(activo.getMoneda().getNombre()==monedaSeleccionada.getNombre()) {
-				Activo nuevoActivo= new Activo(miUsuario,monedaSeleccionada, cant_compra);
-				miActivoCriptoDAO.cargarActivo(activo);
+				miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), monedaSeleccionada.getId(), activo.getCantidad()+cant_compra);
 				return true;
 				
 			}
 		}
-        miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), monedaSeleccionada.getId(), cant_compra);
-        return true
+        Activo nuevoActivo= new Activo(miUsuario,monedaSeleccionada, cant_compra);
+        miActivoCriptoDAO.cargarActivo(nuevoActivo);
+        return true;
         
     }
 
