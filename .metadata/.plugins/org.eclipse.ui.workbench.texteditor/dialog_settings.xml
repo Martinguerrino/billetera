@@ -33,6 +33,11 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="comprar"/>
+			<item value="modelo"/>
+			<item value="setModel"/>
+			<item value="tableCellRender"/>
+			<item value="crearm"/>
 			<item value="Transacci"/>
 			<item value="CSV"/>
 			<item value="saldo"/>
@@ -43,11 +48,6 @@
 			<item value="La cabtudad"/>
 			<item value="La cantidad"/>
 			<item value="exportar"/>
-			<item value="System"/>
-			<item value="union all"/>
-			<item value="obtener"/>
-			<item value="USUARIO"/>
-			<item value="Balance"/>
 		</list>
 		<list key="replacehistory">
 			<item value="tablaCotizacion"/>

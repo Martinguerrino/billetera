@@ -89,7 +89,13 @@ public class VistaRegistro extends JFrame {
 
             // Enviar los datos al controlador
             try {
-				miControlador.Registrar(nombre, apellido, email, contrasena, aceptaTerminos);
+				if(!miControlador.Registrar(nombre, apellido, email, contrasena, aceptaTerminos)) {
+					JOptionPane.showMessageDialog(VistaRegistro.this, "Ya existe alguien con ese mail", "Error", JOptionPane.ERROR_MESSAGE);
+	                
+				}else{
+					JOptionPane.showMessageDialog(VistaRegistro.this, "UsuarioRegistrado", ":)", JOptionPane.DEFAULT_OPTION);
+	                
+				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

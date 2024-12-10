@@ -30,7 +30,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
     public void actualizarActivo(int id_usuario, int id_moneda, float cantidad) 
     {
         Connection conn = null;
-        System.out.println(cantidad);
+       
         conn = MyConnection.getCon();
         String sql = "UPDATE ACTIVO_CRIPTO SET cantidad = ? WHERE id_usuario = ? AND id_moneda = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql))

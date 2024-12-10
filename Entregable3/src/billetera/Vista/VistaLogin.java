@@ -82,7 +82,6 @@ public class VistaLogin extends JFrame  {
     private class LRegistro extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.print("Aqui");
             miControlador.RedirigirRegistro();
         }
     }

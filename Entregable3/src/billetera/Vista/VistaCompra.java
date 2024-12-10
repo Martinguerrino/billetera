@@ -95,7 +95,6 @@ public class VistaCompra extends JFrame {
         try {
             // Validar que la cantidad es un número positivo
             double cantidadFiat = Double.parseDouble(cantidadFiatStr);
-            System.out.println(cantidadFiat);
             if (cantidadFiat <= 0) {
                 JOptionPane.showMessageDialog(VistaCompra.this, "La cantidad debe ser mayor que 0.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {

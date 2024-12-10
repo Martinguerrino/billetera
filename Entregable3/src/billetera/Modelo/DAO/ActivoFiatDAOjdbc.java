@@ -41,9 +41,6 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
             ps.setInt(2, id_usuario);
             ps.setInt(3, id_moneda);
             ps.executeUpdate();
-            System.out.println(cantidad);
-            System.out.println(id_usuario);
-            System.out.println(id_moneda);
             
         }
         catch(SQLException e)

@@ -68,7 +68,6 @@ public class VistaCotizaciones extends JFrame {
     public void mostrarImagen(String rutaImagen) {
         ImageIcon icono = new ImageIcon(rutaImagen);
         // Redimensionar la imagen si es necesario
-        System.out.println("!!!!!!!!!!");
         
         Image img = icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionar a 100x100
         lblImagen.setIcon(new ImageIcon(img)); // Establecer la imagen redimensionada en el JLabel

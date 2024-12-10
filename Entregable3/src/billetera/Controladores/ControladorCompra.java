@@ -66,7 +66,6 @@ public class ControladorCompra {
         for (Activo activo : misActivosCripto) {
 			if(activo.getMoneda().getNombre().equals(criptoSeleccionada.getNombre())) {
 				miActivoCriptoDAO.actualizarActivo(miUsuario.getId(), criptoSeleccionada.getId(), activo.getCantidad()+cant_compra);
-				System.out.println("comprado");
 				return 0;
 				
 			}
@@ -84,7 +83,6 @@ public class ControladorCompra {
 				monedas.remove(moneda);
 			}
 		}
-    	System.out.println(monedas);
         @SuppressWarnings("CollectionsToArray")
     	Moneda[] array = monedas.toArray(new Moneda[0]);//parseo crazy son las 3 am me quiero dormir
     	return array;//xd

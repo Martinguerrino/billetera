@@ -54,22 +54,16 @@ public class ConsultarPrecioCripto extends TimerTask{
        JSONObject json = new JSONObject(cuerpoRespuesta);
        List<Moneda> monedas = new ArrayList<>();
 
-       System.out.println("Precios de Criptomonedas (en USD):");
        double precioBTC = json.getJSONObject("bitcoin").getDouble("usd");
        monedas.add(new Moneda("BTC", (float) precioBTC));
-       System.out.println("BTC: $" + precioBTC);
        double precioETH = json.getJSONObject("ethereum").getDouble("usd");
          monedas.add(new Moneda("ETH", (float) precioETH));
-       System.out.println("ETH: $" + precioETH);
        double precioUSDC = json.getJSONObject("usd-coin").getDouble("usd");
         monedas.add(new Moneda("USDC", (float) precioUSDC));
-       System.out.println("USDC: $" + precioUSDC);
        double precioUSDT = json.getJSONObject("tether").getDouble("usd");
         monedas.add(new Moneda("USDT", (float) precioUSDT));
-       System.out.println("USDT: $" + precioUSDT);
        double precioDOGE = json.getJSONObject("dogecoin").getDouble("usd");
         monedas.add(new Moneda("DOGE", (float) precioDOGE));
-       System.out.println("DOGE: $" + precioDOGE);
         ActualizarPrecios ap = new ActualizarPrecios(monedas);
         ap.Actualizacion();
    }

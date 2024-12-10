@@ -108,7 +108,6 @@ public class ControladorBalanceYMisActivos {
 	}
 
     public void iniciar() {
-    	System.out.println("iniciado");
     	miVista.setVisible(true);
 
     }
@@ -116,7 +115,7 @@ public class ControladorBalanceYMisActivos {
 	public void generarDatosDePrueba() throws SQLException {
 		// TODO Auto-generated method stub
 		GeneradorMonedas generador=new GeneradorMonedas();
-		generador.crearMonedas();
+		generador.generarMonedas();
 	}
 
 }
