@@ -33,6 +33,11 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="Sys"/>
+			<item value="Sy"/>
+			<item value="y"/>
+			<item value="System"/>
+			<item value="Syst"/>
 			<item value="comprar"/>
 			<item value="modelo"/>
 			<item value="setModel"/>
@@ -43,11 +48,6 @@
 			<item value="saldo"/>
 			<item value="getCon"/>
 			<item value="setDefaultCloseOperation("/>
-			<item value="LRegistro"/>
-			<item value="setF"/>
-			<item value="La cabtudad"/>
-			<item value="La cantidad"/>
-			<item value="exportar"/>
 		</list>
 		<list key="replacehistory">
 			<item value="tablaCotizacion"/>
