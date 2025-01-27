@@ -1,14 +1,13 @@
 package Controladores;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-
-import Vista.VistaTransacciones;
 import Auxiliar.Transaccion;
 import Auxiliar.Usuario;
 import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.TransaccionDAO;
+import Vista.VistaTransacciones;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 public class ControladorTransacciones {
 
 	VistaTransacciones miVista;
@@ -22,7 +21,7 @@ public class ControladorTransacciones {
 	
 	public Object[][] obtenerTransacciones() throws SQLException {
 		// TODO Auto-generated method stub
-		List<Transaccion> transacciones= miTransaccionDAO.listarTransacciones();
+		List<Transaccion> transacciones= miTransaccionDAO.listarTransaccionesDeUsuario(miUsuario.getId());
 		Object[][] vectorRetorno= new Object[transacciones.size()][5]; 
 		int contadorsito=0;
     	for (Transaccion transaccion : transacciones) {
@@ -39,7 +38,7 @@ public class ControladorTransacciones {
 		miVista=nuevaVista;
 	}
 	public void exportarTransaccionesACSV(String filePath) throws SQLException, IOException {
-        List<Transaccion> transacciones = miTransaccionDAO.listarTransacciones();
+        List<Transaccion> transacciones = miTransaccionDAO.listarTransaccionesDeUsuario(miUsuario.getId());
         try (FileWriter writer = new FileWriter(filePath)) {
             // Escribir la cabecera del CSV
             writer.append("Usuario,FechaHora,Resumen\n");

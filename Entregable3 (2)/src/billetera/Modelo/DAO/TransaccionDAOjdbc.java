@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -75,8 +76,10 @@ public class TransaccionDAOjdbc implements TransaccionDAO
         return transacciones;
     }
     
-    /* 
-    public Transaccion obtenerTransaccionesDeUsuario(int id) throws SQLException {
+     
+        @Override
+    public List<Transaccion> listarTransaccionesDeUsuario(int id) throws SQLException {
+        List<Transaccion> transacciones = new LinkedList<>();
         Transaccion transaccion = null;
         Connection con = MyConnection.getCon();
         String sql = "SELECT t.ID, t.RESUMEN, t.FECHA_HORA, " +
@@ -106,14 +109,16 @@ public class TransaccionDAOjdbc implements TransaccionDAO
                     Usuario usuario = new Usuario(usuarioId, persona, password, aceptaTerminos, mail);
 
                     transaccion = new Transaccion(transaccionId, resumen, fechaHora, usuario);
+                    transacciones.add(transaccion);
+                    
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new SQLException("Error al obtener la transaccion: " + e.getMessage(), e);
         }
-        return transaccion;
+        return transacciones;
     }
-        */
+        
     
 }

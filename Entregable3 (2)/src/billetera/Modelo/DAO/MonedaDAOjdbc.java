@@ -20,7 +20,7 @@ public class MonedaDAOjdbc implements MonedaDAO
     {
         Connection con = null;
         con = MyConnection.getCon();
-        String sql = "INSERT INTO MONEDA (TIPO,NOMBRE,NOMENCLATURA,VALOR_DOLAR,VOLATILIDAD,STOCK,NOMBRE_ICONO) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT IGNORE INTO MONEDA (TIPO,NOMBRE,NOMENCLATURA,VALOR_DOLAR,VOLATILIDAD,STOCK,NOMBRE_ICONO) VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement ps = con.prepareStatement(sql);)
         {
             ps.setString(1, moneda.getTipo());

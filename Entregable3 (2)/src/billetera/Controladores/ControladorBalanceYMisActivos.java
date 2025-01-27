@@ -1,20 +1,15 @@
 package Controladores;
 
-import Vista.VistaBalanceYMisActivos;
 import Auxiliar.Activo;
 import Auxiliar.GeneradorMonedas;
 import Auxiliar.Usuario;
-import Modelo.DAO.ActivoCriptoDAOjdbc;
 import Modelo.DAO.ActivoDAO;
-import Modelo.DAO.ActivoFiatDAOjdbc;
 import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.MonedaDAO;
-import Modelo.DAO.MonedaDAOjdbc;
-
+import Vista.VistaBalanceYMisActivos;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 
 
@@ -115,7 +110,9 @@ public class ControladorBalanceYMisActivos {
 	public void generarDatosDePrueba() throws SQLException {
 		// TODO Auto-generated method stub
 		GeneradorMonedas generador=new GeneradorMonedas();
-		generador.generarMonedas();
+		generador.generarMonedas(miUsuario.getId());
 	}
+	
+	
 
 }

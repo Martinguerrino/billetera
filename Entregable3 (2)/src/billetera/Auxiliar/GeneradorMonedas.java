@@ -1,5 +1,6 @@
 package Auxiliar;
 
+import Modelo.DAO.ActivoDAO;
 import Modelo.DAO.MonedaDAO;
 import Modelo.DAO.MonedaDAOjdbc;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ public class GeneradorMonedas {
 
     private static final Random RANDOM = new Random();
     private MonedaDAO monedaDAO;
+    private ActivoDAO activoDAO;
 
     public GeneradorMonedas() {
         this.monedaDAO = new MonedaDAOjdbc();
@@ -39,12 +41,15 @@ public class GeneradorMonedas {
         return new Moneda("Cripto", nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
     }
 
-    public void generarMonedas() throws SQLException {
+    public void generarMonedas(int id_usuario) throws SQLException {
         // Generar todas las monedas fiat
-        for (int i = 0; i < NOMBRES_FIAT.length; i++) {
+        for (int i = 0; i < NOMBRES_FIAT.length; i++) 
+        {
             Moneda monedaFiat = generarMonedaFiat(i);
             monedaDAO.crearMoneda(monedaFiat);
-             }
+            activoDAO.actualizarActivo(id_usuario, monedaFiat.getId(), monedaFiat.getStock()-(1.0f + RANDOM.nextFloat() * 100));
+
+        }
 
         // Generar todas las criptomonedas
         for (int i = 0; i < NOMBRES_CRIPTO.length; i++) {
@@ -52,6 +57,21 @@ public class GeneradorMonedas {
             monedaDAO.crearMoneda(monedaCripto);
                }
     }
+    /*nose si darle al usuario monedas aleatorias y debamos crearlas en el momento 
+    public void cargarMonedasUsuario(int id_usuario) throws SQLException 
+    {
+        Moneda monedaFiat = null;
+        
+        for (int i = 0; i < NOMBRES_FIAT.length; i++) {
+            monedaFiat = generarMonedaFiat(i);
+            monedaDAO.crearMoneda(monedaFiat);
+            activoDAO.actualizarActivo(id_usuario, monedaFiat.getId(), monedaFiat.getStock()-(1.0f + RANDOM.nextFloat() * 100));
+            
+        }
+    }*/
+    
+    
+    
 
     
 }
