@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 
 import Vista.VistaRegistro;
@@ -14,11 +15,14 @@ import Modelo.DAO.UsuarioDAO;
 public class ControladorRegistro {
 
 	private UsuarioDAO miUsuarioDAO;
-	private VistaRegistro miVista;
+	private VistaRegistro vista;
 	private VentanaInicio ventana;
 	private ControladorLogin controladorPrincipal;
-	public ControladorRegistro(){
+	
+	public ControladorRegistro(VentanaInicio ventana, VistaRegistro vista){
 		miUsuarioDAO=FactoryDAO.getUsuarioDAO();
+		this.ventana=ventana;
+		this.vista=vista;
 	}
 	
 	public boolean Registrar(String nombre, String apellido, String mail, String password, boolean aceptaTerminos) throws SQLException {
@@ -39,10 +43,13 @@ public class ControladorRegistro {
 
 	public void setVista(VistaRegistro nuevaVista) {
 		// TODO Auto-generated method stub
-			miVista=nuevaVista;
+			vista=nuevaVista;
 	}
 	public void iniciar() {
-    	miVista.setVisible(true);
+		ventana.getContentPane().removeAll();
+		ventana.getContentPane().add(vista, BorderLayout.CENTER);
+		ventana.revalidate();
+		ventana.repaint();
     }
 
 	public void redirigirLogin() {
@@ -50,11 +57,11 @@ public class ControladorRegistro {
 		
 	}
 	
-	public void setVista(VistaRegistro nuevaVista, ControladorLogin controladorLogin) {
+	public void setControladorPrincipal(ControladorLogin controladorLogin) {
 		// TODO Auto-generated method stub
 		controladorPrincipal=controladorLogin;
-		miVista=nuevaVista;
 	}
+	
 	
 
 }

@@ -47,9 +47,10 @@ public class ControladorLogin {
 	public void RedirigirRegistro() {
 		// TODO Auto-generated method stub
 		
-		ControladorRegistro nuevoControlador = new ControladorRegistro();
+		ControladorRegistro nuevoControlador = new ControladorRegistro(ventanaInicio);
 		VistaRegistro nuevaVista= new VistaRegistro(nuevoControlador);
-		nuevoControlador.setVista(nuevaVista, this);
+		nuevoControlador.setVista(nuevaVista);
+		nuevoControlador.setControladorPrincipal(this);
 		nuevoControlador.iniciar();
 	}
 	
