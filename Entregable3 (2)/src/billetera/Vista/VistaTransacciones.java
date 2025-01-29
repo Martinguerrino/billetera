@@ -3,6 +3,7 @@ package Vista;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import Auxiliar.Panel;
 import Controladores.ControladorTransacciones;
 
 import java.awt.*;
@@ -11,21 +12,18 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.SQLException;
 
-public class VistaTransacciones extends JFrame {
+public class VistaTransacciones extends Panel {
     private JTable tablaTransacciones;
     private JLabel lblTitulo;
     private JButton btnGenerarCSV; // Nuevo botón
     private ControladorTransacciones miControlador;
 
     public VistaTransacciones(ControladorTransacciones miControlador) throws SQLException {
-        super("Transacciones");
         this.miControlador = miControlador;
 
         // Configuración de la ventana
         
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout()); // Layout principal para organizar componentes
 
         // Crear el título

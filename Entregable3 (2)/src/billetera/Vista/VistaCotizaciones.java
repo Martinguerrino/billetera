@@ -17,10 +17,11 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import Auxiliar.ModeloCotizacionTabla;
+import Auxiliar.Panel;
 import Controladores.ControladorCotizaciones;
 
 
-public class VistaCotizaciones extends JFrame {
+public class VistaCotizaciones extends Panel {
     ControladorCotizaciones miControlador;
     JLabel lblTitulo;
     JTable tablaCotizacion;
@@ -30,7 +31,6 @@ public class VistaCotizaciones extends JFrame {
     
     
     public VistaCotizaciones(ControladorCotizaciones miControlador) throws SQLException {
-        super("Cotizaciones");
         this.miControlador = miControlador;
         String[] columnas = {"Nombre", "Nomenclatura", "Icono", "Valor en dolares", "Volatilidad"}; // Encabezados de las columnas
         tablaCotizacion = new JTable();
@@ -39,8 +39,6 @@ public class VistaCotizaciones extends JFrame {
        
         // Configuración de la ventana
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout()); // Layout principal para organizar componentes
         tablaCotizacion.setRowHeight(50);
         // Crear el título

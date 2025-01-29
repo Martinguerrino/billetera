@@ -3,6 +3,7 @@ package Controladores;
 import java.sql.SQLException;
 
 import Vista.VistaRegistro;
+import Vista.Ventana.VentanaInicio;
 import Modelo.DAO.UsuarioDAO;
 import Auxiliar.Persona;
 import Auxiliar.Usuario;
@@ -12,9 +13,10 @@ import Modelo.DAO.PersonaDAOjdbc;
 import Modelo.DAO.UsuarioDAO;
 public class ControladorRegistro {
 
-	UsuarioDAO miUsuarioDAO;
-	VistaRegistro miVista;
-	ControladorLogin controladorPrincipal;
+	private UsuarioDAO miUsuarioDAO;
+	private VistaRegistro miVista;
+	private VentanaInicio ventana;
+	private ControladorLogin controladorPrincipal;
 	public ControladorRegistro(){
 		miUsuarioDAO=FactoryDAO.getUsuarioDAO();
 	}
@@ -28,15 +30,14 @@ public class ControladorRegistro {
                 //aca ver que constructor usar porque nose que datos pide para registar
                 Usuario usuario = new Usuario(persona, password, aceptaTerminos, mail);
                 miUsuarioDAO.registrarUsuario(usuario);
-                this.controladorPrincipal.ReActivarVentana();
-                this.miVista.dispose();
+                this.redirigirLogin();
                 return true;
             } else {
                 return false;
             }
 	}
 
-	public void setMiVista(VistaRegistro nuevaVista) {
+	public void setVista(VistaRegistro nuevaVista) {
 		// TODO Auto-generated method stub
 			miVista=nuevaVista;
 	}
@@ -44,13 +45,12 @@ public class ControladorRegistro {
     	miVista.setVisible(true);
     }
 
-	public void cerrarVentana() {
-		controladorPrincipal.ReActivarVentana();
-		this.miVista.dispose();
+	public void redirigirLogin() {
+		
 		
 	}
 	
-	public void setMiVista(VistaRegistro nuevaVista, ControladorLogin controladorLogin) {
+	public void setVista(VistaRegistro nuevaVista, ControladorLogin controladorLogin) {
 		// TODO Auto-generated method stub
 		controladorPrincipal=controladorLogin;
 		miVista=nuevaVista;

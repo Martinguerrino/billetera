@@ -34,14 +34,15 @@
 		<item key="create_package_info_java" value="false"/>
 	</section>
 	<section name="NewClassCreationWizard.dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="597"/>
-		<item key="DIALOG_Y_ORIGIN" value="8"/>
+		<item key="DIALOG_X_ORIGIN" value="964"/>
+		<item key="DIALOG_Y_ORIGIN" value="178"/>
 		<item key="DIALOG_WIDTH" value="667"/>
 		<item key="DIALOG_HEIGHT" value="768"/>
 		<item key="DIALOG_FONT_NAME" value="1|Ubuntu Sans|11.0|0|GTK|1|"/>
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
+		<item key="RunnableJar.export.ipwarning" value="false"/>
 	</section>
 	<section name="NewClassWizardPage">
 		<item key="create_constructor" value="false"/>
@@ -91,6 +92,7 @@
 		<item key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION" value="Entregable3/ejecutable.jar"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
 			<item value="Entregable3/ejecutable.jar"/>
+			<item value="/home/arwivi/ejecutable.jar"/>
 			<item value="Entregable/Entregable2_v1.jar"/>
 		</list>
 		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">

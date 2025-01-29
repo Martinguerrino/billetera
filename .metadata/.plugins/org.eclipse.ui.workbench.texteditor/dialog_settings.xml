@@ -33,6 +33,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="miVista"/>
 			<item value="Sys"/>
 			<item value="Sy"/>
 			<item value="y"/>
@@ -47,9 +48,9 @@
 			<item value="CSV"/>
 			<item value="saldo"/>
 			<item value="getCon"/>
-			<item value="setDefaultCloseOperation("/>
 		</list>
 		<list key="replacehistory">
+			<item value="vista"/>
 			<item value="tablaCotizacion"/>
 		</list>
 	</section>

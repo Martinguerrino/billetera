@@ -17,6 +17,7 @@ public class ControladorBalanceYMisActivos {
 
 	private Usuario miUsuario;
 	private VistaBalanceYMisActivos miVista;
+	
 	private ActivoDAO miActivoCriptoDAO ;
 	private ActivoDAO miActivoFiatDAO;
 	private MonedaDAO miMonedaDAO;

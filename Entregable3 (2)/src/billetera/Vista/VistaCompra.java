@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import Auxiliar.Activo;
 import Auxiliar.Moneda;
+import Auxiliar.Panel;
 import Controladores.ControladorCompra;
 import Excepciones.NoExiteMonedaException;
 import Excepciones.NoHayStockException;
@@ -14,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class VistaCompra extends JFrame {
+public class VistaCompra extends Panel {
     private JComboBox<String> comboCripto;
     private JComboBox<String> comboFiat;
     private JTextField txtCantidadFiat;
@@ -24,13 +25,10 @@ public class VistaCompra extends JFrame {
     private Activo[] activoFiats;
     
     public VistaCompra(ControladorCompra miControlador) throws SQLException {
-        super("Compra de Criptomonedas");
         this.miControlador = miControlador;
 
         // Configuración de la ventana
         setSize(400, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout()); // Usamos BorderLayout para organizar las secciones
 
         // Crear el título

@@ -2,6 +2,7 @@ package Vista;
 
 import javax.swing.*;
 
+import Auxiliar.Panel;
 import Controladores.ControladorRegistro;
 
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
-public class VistaRegistro extends JFrame {
+public class VistaRegistro extends Panel {
     private JTextField txtNombre;
     private JTextField txtApellido;
     private JTextField txtEmail;
@@ -20,14 +21,11 @@ public class VistaRegistro extends JFrame {
     private ControladorRegistro miControlador;
 
     public VistaRegistro(ControladorRegistro miControlador) {
-        super("Registro");
         this.miControlador = miControlador;
 
         // Configuración de la vista
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setLocationRelativeTo(null);  // Centrar la ventana en la pantalla
-
+        
         // Crear los componentes
         txtNombre = new JTextField(20);
         txtApellido = new JTextField(20);
@@ -37,9 +35,7 @@ public class VistaRegistro extends JFrame {
         btnRegistrar = new JButton("Registrar");
 
         // Acción del botón de registro
-        btnRegistrar.addActionListener(new LRegistro());
-        addWindowListener(new LCerrarVentana());
-        
+        btnRegistrar.addActionListener(new LRegistro());     
         // Layout y adición de componentes
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

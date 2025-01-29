@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import Auxiliar.ModeloActivosTabla;
+import Auxiliar.Panel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,20 +13,19 @@ import java.sql.SQLException;
 
 import Controladores.ControladorBalanceYMisActivos;
 
-public class VistaBalanceYMisActivos extends JFrame {
+public class VistaBalanceYMisActivos extends Panel {
     private JTable tableFiat;
     private JTable tableCripto;
     private JLabel lblSaldo; // Etiqueta para mostrar el saldo
     private ControladorBalanceYMisActivos miControlador;
 
     public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) throws SQLException {
-        super("Balance y Mis Activos");
+     
         this.miControlador = miControlador;
 
         // Configuración de la ventana
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        
         setLayout(new BorderLayout()); // Layout principal
         // Crear panel superior con título y saldo
         JPanel panelSuperior = new JPanel(new BorderLayout());

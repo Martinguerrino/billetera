@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import Vista.VistaBalanceYMisActivos;
 public class ControladorIndex {
 	private Usuario miUsuario;
-	private VistaIndex miVista;
+	private VistaIndex vista;
 	
 	public void LogOut() {
 		// TODO Auto-generated method stub
-		miVista.dispose();
+		vista.dispose();
 
 	}
 	public ControladorIndex(Usuario miUsuario){
@@ -50,18 +50,18 @@ public class ControladorIndex {
 	        // Redirigir a la vista de transacciones
 	        ControladorTransacciones nuevoControlador = new ControladorTransacciones(miUsuario);
 	        VistaTransacciones nuevaVista = new VistaTransacciones(nuevoControlador);
-	        nuevoControlador.setMiVista(nuevaVista);
+	        nuevoControlador.setVista(nuevaVista);
 			nuevoControlador.iniciar();
 	    }
 
-		public void setMiVista(VistaIndex nuevaVista) {
+		public void setVista(VistaIndex nuevaVista) {
 			// TODO Auto-generated method stub
-			miVista=nuevaVista;
+			vista=nuevaVista;
 			
 		}
 
 	    public void iniciar() {
-	    	miVista.setVisible(true);
+	    	vista.setVisible(true);
 	    }
 
 }

@@ -22,9 +22,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import Auxiliar.Panel;
 import Controladores.ControladorLogin;
 
-public class VistaLogin extends JFrame  {
+public class VistaLogin extends Panel  {
     private JButton buttonLogin;
     private JLabel hipervinculoRegistrar;
     private JLabel titulo;
@@ -34,13 +35,10 @@ public class VistaLogin extends JFrame  {
 
     // Constructor
     public VistaLogin(ControladorLogin miControlador) {
-        super("Login");
         this.miControlador = miControlador;
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setSize(800, 400);  // Tamaño de la ventana
         super.setLayout(null);     // Usamos un Layout absoluto
-        super.setResizable(false); // No permitir redimensionar
-
+       
         // Crear el JLabel (título)
         titulo = new JLabel("Iniciar Sesión:");
         titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
@@ -114,43 +112,6 @@ public class VistaLogin extends JFrame  {
                 }
             }
         }
-    }
-    public void bloquearInteraccion() {
-    	JPanel glassPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Dibujar un fondo semitransparente
-                g.setColor(new Color(0, 0, 0, 100)); // Negro semitransparente
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        };
-        // El GlassPane interceptará los eventos
-        glassPane.setOpaque(false); // Visualmente no opaco (permite la transparencia)
-        glassPane.setLayout(new BorderLayout());
-
-        // Agregar un mensaje al centro
-        JLabel labelBloqueo = new JLabel("Esperando...", SwingConstants.CENTER);
-        labelBloqueo.setForeground(Color.WHITE);
-        glassPane.add(labelBloqueo, BorderLayout.CENTER);
-
-        // Interceptar eventos del mouse
-        glassPane.addMouseListener(new MouseAdapter() {}); // Captura clicks
-        glassPane.addMouseMotionListener(new MouseMotionAdapter() {}); // Captura movimiento del mouse
-
-        // Interceptar eventos del teclado
-        glassPane.addKeyListener(new KeyAdapter() {}); // Captura teclado
-
-        // Evitar que el foco cambie (importante para teclado)
-        glassPane.setFocusable(true);
-        glassPane.requestFocusInWindow();
-
-        setGlassPane(glassPane); // Establecer el GlassPane personalizado
-        glassPane.setVisible(true); // Activarlo
-    }
-    // Método para desbloquear la ventana
-    public void desbloquearInteraccion() {
-        getGlassPane().setVisible(false);
     }
 
 }

@@ -1,5 +1,7 @@
 package Controladores;
+import Vista.VistaCorizaciones;
 import Vista.VistaCotizaciones;
+import Vista.Ventana.Ventana;
 import Auxiliar.Moneda;
 import Auxiliar.Usuario;
 import Modelo.DAO.FactoryDAO;
@@ -13,7 +15,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 public class ControladorCotizaciones {
-	private VistaCotizaciones miVista;
+	private VistaCotizaciones vista;
 	Usuario miUsuario;
 	//private ModeloMoneda miModeloMoneda;//estoy descendiendo a la locura
 	//me imagino te referis con modelo moneda al monedaDAO o al servicio

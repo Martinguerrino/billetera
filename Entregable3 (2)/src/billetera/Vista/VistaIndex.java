@@ -1,6 +1,7 @@
 package Vista;
 import javax.swing.*;
 
+import Auxiliar.Panel;
 import Controladores.ControladorIndex;
 
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class VistaIndex extends JFrame {
+public class VistaIndex extends Panel {
     private JButton btnBalanceActivos;
     private JButton btnTransacciones;
     private JButton btnCompra;
@@ -20,14 +21,12 @@ public class VistaIndex extends JFrame {
    
     
     public VistaIndex(ControladorIndex miControlador) {
-    	super("Opciones");
+    	
         this.miControlador = miControlador;
 
         // Configuración de la ventana
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-
+        
         // Crear los botones
         btnBalanceActivos = new JButton("Visualización de Balance y Mis Activos");
         btnTransacciones = new JButton("Visualización de Transacciones");
