@@ -53,13 +53,6 @@ public class VistaRegistro extends Panel {
 
         add(panel);
     }
-    
-    private class LCerrarVentana extends WindowAdapter {
-        @Override
-        public void windowClosing(WindowEvent e) {
-            miControlador.cerrarVentana();
-        }
-    }
 
     // Clase interna para el ActionListener del botón de Registro
     private class LRegistro implements ActionListener {

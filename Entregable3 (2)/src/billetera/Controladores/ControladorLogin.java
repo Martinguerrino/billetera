@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -47,14 +48,14 @@ public class ControladorLogin {
 	public void RedirigirRegistro() {
 		// TODO Auto-generated method stub
 		
-		ControladorRegistro nuevoControlador = new ControladorRegistro(ventanaInicio);
-		VistaRegistro nuevaVista= new VistaRegistro(nuevoControlador);
-		nuevoControlador.setVista(nuevaVista);
-		nuevoControlador.setControladorPrincipal(this);
+		ControladorRegistro nuevoControlador = new ControladorRegistro(ventanaInicio, this);
 		nuevoControlador.iniciar();
 	}
 	
     public void iniciar() {
-    	vista.setVisible(true);
+    	ventanaInicio.getContentPane().removeAll();
+    	ventanaInicio.getContentPane().add(vista, BorderLayout.CENTER);
+    	ventanaInicio.revalidate();
+    	ventanaInicio.repaint();
     }
 }

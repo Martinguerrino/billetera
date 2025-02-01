@@ -12,17 +12,18 @@ import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.PersonaDAO;
 import Modelo.DAO.PersonaDAOjdbc;
 import Modelo.DAO.UsuarioDAO;
-public class ControladorRegistro {
+public class ControladorRegistro{
 
 	private UsuarioDAO miUsuarioDAO;
 	private VistaRegistro vista;
 	private VentanaInicio ventana;
 	private ControladorLogin controladorPrincipal;
 	
-	public ControladorRegistro(VentanaInicio ventana, VistaRegistro vista){
+	public ControladorRegistro(VentanaInicio ventana, ControladorLogin controladorLogin){
 		miUsuarioDAO=FactoryDAO.getUsuarioDAO();
 		this.ventana=ventana;
-		this.vista=vista;
+		this.vista= new VistaRegistro(this);
+		this.controladorPrincipal= controladorLogin; 
 	}
 	
 	public boolean Registrar(String nombre, String apellido, String mail, String password, boolean aceptaTerminos) throws SQLException {
@@ -53,8 +54,7 @@ public class ControladorRegistro {
     }
 
 	public void redirigirLogin() {
-		
-		
+		controladorPrincipal.iniciar();
 	}
 	
 	public void setControladorPrincipal(ControladorLogin controladorLogin) {

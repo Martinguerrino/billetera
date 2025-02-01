@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Auxiliar.ModeloActivosTabla;
 import Auxiliar.Panel;
+import Auxiliar.Vista;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 
 import Controladores.ControladorBalanceYMisActivos;
 
-public class VistaBalanceYMisActivos extends Panel {
+public class VistaBalanceYMisActivos extends Vista {
     private JTable tableFiat;
     private JTable tableCripto;
     private JLabel lblSaldo; // Etiqueta para mostrar el saldo
