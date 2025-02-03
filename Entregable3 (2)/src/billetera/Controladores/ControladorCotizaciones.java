@@ -1,12 +1,12 @@
 package Controladores;
-import Vista.VistaCorizaciones;
 import Vista.VistaCotizaciones;
-import Vista.Ventana.Ventana;
+import Vista.Ventana.VentanaInicio;
 import Auxiliar.Moneda;
 import Auxiliar.Usuario;
 import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.MonedaDAO;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.io.File;
 import java.sql.SQLException;
@@ -16,14 +16,17 @@ import javax.swing.ImageIcon;
 
 public class ControladorCotizaciones {
 	private VistaCotizaciones vista;
-	Usuario miUsuario;
-	//private ModeloMoneda miModeloMoneda;//estoy descendiendo a la locura
-	//me imagino te referis con modelo moneda al monedaDAO o al servicio
+	private ControladorIndex controladorPrincipal;
+	private Usuario miUsuario;
+	private VentanaInicio ventana;
 	private MonedaDAO miModeloMoneda;
 	
-	public ControladorCotizaciones(Usuario miUsuario){
+	public ControladorCotizaciones(VentanaInicio ventana, ControladorIndex controladorIndex,Usuario miUsuario) throws SQLException{
 		miModeloMoneda=FactoryDAO.getMonedaDAO();
 		this.miUsuario=miUsuario;
+		this.vista= new VistaCotizaciones(this);
+		this.ventana=ventana;
+		this.controladorPrincipal=controladorIndex;
 	}
 
 	public Object[][] obtenerCotizaciones() throws SQLException 
@@ -50,11 +53,17 @@ public class ControladorCotizaciones {
 
 	public void setVista(VistaCotizaciones nuevaVista) {
 		// TODO Auto-generated method stub
-		this.miVista=nuevaVista;
+		this.vista=nuevaVista;
 	}
 
-    public void iniciar() {
-    	miVista.setVisible(true);
+	public void iniciar() {
+    	ventana.getContentPane().removeAll();
+		ventana.getContentPane().add(vista, BorderLayout.CENTER);
+		ventana.revalidate();
+		ventana.repaint();
     }
     
+	public void redirigirIndex() {
+		controladorPrincipal.iniciar();
+	}
 }

@@ -4,53 +4,46 @@ import Vista.VistaCompra;
 import Vista.VistaCotizaciones;
 import Vista.VistaIndex;
 import Vista.VistaTransacciones;
+import Vista.Ventana.VentanaInicio;
 import Auxiliar.Usuario;
 
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 
 import Vista.VistaBalanceYMisActivos;
 public class ControladorIndex {
 	private Usuario miUsuario;
 	private VistaIndex vista;
+	private VentanaInicio ventana;
 	
-	public void LogOut() {
-		// TODO Auto-generated method stub
-		vista.dispose();
 
-	}
-	public ControladorIndex(Usuario miUsuario){
+	public ControladorIndex(Usuario miUsuario, VentanaInicio ventana){
 		this.miUsuario=miUsuario;
+		this.ventana=ventana;
+		this.vista=new VistaIndex(this);
 	}
 	
 
 	public void redirigirCotizaciones() throws SQLException {
 		// TODO Auto-generated method stub
-		ControladorCotizaciones nuevoControlador = new ControladorCotizaciones(miUsuario);
-		VistaCotizaciones nuevaVista = new VistaCotizaciones(nuevoControlador);
-		nuevoControlador.setVista(nuevaVista);
+		ControladorCotizaciones nuevoControlador = new ControladorCotizaciones(ventana, this, miUsuario);
 		nuevoControlador.iniciar();
 	}
 	  public void redirigirBalanceActivos() throws SQLException {
 	        // Redirigir a la vista de balance y activos
-	        ControladorBalanceYMisActivos nuevoControlador = new ControladorBalanceYMisActivos(miUsuario);
-	        VistaBalanceYMisActivos nuevaVista = new VistaBalanceYMisActivos(nuevoControlador);
-	        nuevoControlador.setVista(nuevaVista);
+		    ControladorBalanceYMisActivos nuevoControlador = new ControladorBalanceYMisActivos(ventana, this,miUsuario);
 			nuevoControlador.iniciar();
 	    }
 
 	    public void redirigirCompra() throws SQLException {
 	        // Redirigir a la vista de compra
-	        ControladorCompra nuevoControlador = new ControladorCompra(miUsuario);
-	        VistaCompra nuevaVista = new VistaCompra(nuevoControlador);
-	        nuevoControlador.setVista(nuevaVista);
+	    	ControladorCompra nuevoControlador = new ControladorCompra(ventana, this, miUsuario);
 			nuevoControlador.iniciar();
 	    }
 
 	    public void redirigirTransacciones() throws SQLException {
 	        // Redirigir a la vista de transacciones
-	        ControladorTransacciones nuevoControlador = new ControladorTransacciones(miUsuario);
-	        VistaTransacciones nuevaVista = new VistaTransacciones(nuevoControlador);
-	        nuevoControlador.setVista(nuevaVista);
+	    	ControladorTransacciones nuevoControlador = new ControladorTransacciones(ventana, this, miUsuario);
 			nuevoControlador.iniciar();
 	    }
 
@@ -61,7 +54,10 @@ public class ControladorIndex {
 		}
 
 	    public void iniciar() {
-	    	vista.setVisible(true);
+	    	ventana.getContentPane().removeAll();
+			ventana.getContentPane().add(vista, BorderLayout.CENTER);
+			ventana.revalidate();
+			ventana.repaint();
 	    }
 
 }

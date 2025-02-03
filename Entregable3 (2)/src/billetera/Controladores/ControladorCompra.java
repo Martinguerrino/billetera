@@ -1,6 +1,7 @@
 package Controladores;
 
 import Vista.VistaCompra;
+import Vista.Ventana.VentanaInicio;
 import Auxiliar.Activo;
 import Auxiliar.Moneda;
 import Auxiliar.Transaccion;
@@ -13,13 +14,16 @@ import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.MonedaDAO;
 import Modelo.DAO.TransaccionDAO;
 
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ControladorCompra {
-    private VistaCompra miVista;
+	private VentanaInicio ventanaInicio;
+	private ControladorIndex controladorPrincipal;
+    private VistaCompra vista;
     private Usuario miUsuario;
     private MonedaDAO miMonedaDAO;
     private ActivoDAO miActivoCriptoDAO;
@@ -27,7 +31,10 @@ public class ControladorCompra {
     private TransaccionDAO miTransaccionDAO;
     
     
-    public ControladorCompra(Usuario miUsuario){
+    public ControladorCompra(VentanaInicio ventana ,ControladorIndex controladorIndex,Usuario miUsuario){
+    	this.controladorPrincipal=controladorIndex;
+    	this.ventanaInicio=ventana;
+    	this.miUsuario=miUsuario;
     	miMonedaDAO=FactoryDAO.getMonedaDAO();
     	miActivoCriptoDAO=FactoryDAO.getActivoCriptoDAO();
     	miActivoFiatDAO=FactoryDAO.getActivoFiatDAO();
@@ -98,10 +105,17 @@ public class ControladorCompra {
     }
 	public void setVista(VistaCompra nuevaVista) {
 		// TODO Auto-generated method stub
-		miVista=nuevaVista;
+		vista=nuevaVista;
 	}
 
     public void iniciar() {
-    	miVista.setVisible(true);
+    	ventanaInicio.getContentPane().removeAll();
+    	ventanaInicio.getContentPane().add(vista, BorderLayout.CENTER);
+    	ventanaInicio.revalidate();
+    	ventanaInicio.repaint();
     }
+    
+    public void redirigirIndex() {
+		controladorPrincipal.iniciar();
+	}
 }

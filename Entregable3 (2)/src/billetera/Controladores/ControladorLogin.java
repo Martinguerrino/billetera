@@ -39,15 +39,17 @@ public class ControladorLogin {
 	}
 	public void redirigirPantallaActivos() {
 		// TODO Auto-generated method stub
-		ControladorIndex nuevoControlador = new ControladorIndex(miUsuario);
+		VentanaInicio nuevaVentana = new VentanaInicio();
+		ControladorIndex nuevoControlador = new ControladorIndex(miUsuario,nuevaVentana);
 		VistaIndex nuevaVista= new VistaIndex(nuevoControlador);
 		nuevoControlador.setVista(nuevaVista);
+		nuevaVentana.setVisible(true);
 		nuevoControlador.iniciar();
+		
 		this.ventanaInicio.dispose();
 	}
 	public void RedirigirRegistro() {
 		// TODO Auto-generated method stub
-		
 		ControladorRegistro nuevoControlador = new ControladorRegistro(ventanaInicio, this);
 		nuevoControlador.iniciar();
 	}

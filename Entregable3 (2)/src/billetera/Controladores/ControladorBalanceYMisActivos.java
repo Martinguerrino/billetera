@@ -2,12 +2,18 @@ package Controladores;
 
 import Auxiliar.Activo;
 import Auxiliar.GeneradorMonedas;
+import Auxiliar.Transaccion;
 import Auxiliar.Usuario;
 import Modelo.DAO.ActivoDAO;
 import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.MonedaDAO;
 import Vista.VistaBalanceYMisActivos;
+import Vista.Ventana.VentanaInicio;
+
+import java.awt.BorderLayout;
 import java.awt.Image;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -16,19 +22,22 @@ import javax.swing.ImageIcon;
 public class ControladorBalanceYMisActivos {
 
 	private Usuario miUsuario;
-	private VistaBalanceYMisActivos miVista;
-	
+	private VistaBalanceYMisActivos vista;
+	private VentanaInicio ventanaInicio;
+	private ControladorIndex controladorPrincipal;
 	private ActivoDAO miActivoCriptoDAO ;
 	private ActivoDAO miActivoFiatDAO;
 	private MonedaDAO miMonedaDAO;
 	
 	
-	public ControladorBalanceYMisActivos(Usuario miUsuario)
+	public ControladorBalanceYMisActivos(VentanaInicio ventana, ControladorIndex controladorIndex,Usuario miUsuario)
 	{
 		miActivoCriptoDAO=FactoryDAO.getActivoCriptoDAO();
 		miMonedaDAO=FactoryDAO.getMonedaDAO();
 		miActivoFiatDAO=FactoryDAO.getActivoFiatDAO();
 		this.miUsuario=miUsuario;
+		this.ventanaInicio=ventana;
+		this.controladorPrincipal=controladorIndex;
 	}
 
 	public Object[][] obtenerActivosCripto() throws SQLException {
@@ -99,13 +108,15 @@ public class ControladorBalanceYMisActivos {
 
 	public void setVista(VistaBalanceYMisActivos nuevaVista) {
 		// TODO Auto-generated method stub
-		miVista=nuevaVista;
+		vista=nuevaVista;
 		
 	}
 
     public void iniciar() {
-    	miVista.setVisible(true);
-
+    	ventanaInicio.getContentPane().removeAll();
+    	ventanaInicio.getContentPane().add(vista, BorderLayout.CENTER);
+    	ventanaInicio.revalidate();
+    	ventanaInicio.repaint();
     }
 
 	public void generarDatosDePrueba() throws SQLException {
@@ -114,6 +125,36 @@ public class ControladorBalanceYMisActivos {
 		generador.generarMonedas(miUsuario.getId());
 	}
 	
+	public void redirigirIndex() {
+		controladorPrincipal.iniciar();
+	}
 	
+	public void exportarTransaccionesACSV(String filePath, Object[][] activosCripto, Object[][] activosFiat) throws SQLException, IOException {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Escribir la cabecera del CSV
+            writer.append("Usuario,FechaHora,Resumen\n");
 
+            // Escribir los datos de las transacciones
+            for (int i=0;i<activosCripto.length;i++) {
+                writer.append((CharSequence) activosCripto[i][0])
+                      .append(',')
+                      .append((CharSequence) activosCripto[i][1])
+                      .append(',')
+                      .append((CharSequence) activosCripto[i][2])
+                      .append((CharSequence) activosCripto[i][4])
+                      .append('\n');
+            }
+            for (int i=0;i<activosFiat.length;i++) {
+                writer.append((CharSequence) activosFiat[i][0])
+                      .append(',')
+                      .append((CharSequence) activosFiat[i][1])
+                      .append(',')
+                      .append((CharSequence) activosFiat[i][2])
+                      .append((CharSequence) activosFiat[i][4])
+                      .append('\n');
+            }
+        }
+	}
+	
 }
+

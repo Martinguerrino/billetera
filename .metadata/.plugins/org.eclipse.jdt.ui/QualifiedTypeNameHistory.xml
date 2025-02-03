@@ -9,4 +9,8 @@
     <fullyQualifiedTypeName name="Vista.Ventana.VentanaInicio"/>
     <fullyQualifiedTypeName name="Vista.VistaRegistro"/>
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="Controladores.ControladorBalanceYMisActivos"/>
+    <fullyQualifiedTypeName name="Controladores.ControladorTransacciones"/>
+    <fullyQualifiedTypeName name="Vista.VistaTransacciones"/>
+    <fullyQualifiedTypeName name="Controladores.ControladorCompra"/>
 </qualifiedTypeNameHistroy>
