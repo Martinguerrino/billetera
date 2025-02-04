@@ -45,23 +45,7 @@ public class ControladorTransacciones {
 		// TODO Auto-generated method stub
 		vista=nuevaVista;
 	}
-	public void exportarTransaccionesACSV(String filePath) throws SQLException, IOException {
-        List<Transaccion> transacciones = miTransaccionDAO.listarTransaccionesDeUsuario(miUsuario.getId());
-        try (FileWriter writer = new FileWriter(filePath)) {
-            // Escribir la cabecera del CSV
-            writer.append("Usuario,FechaHora,Resumen\n");
 
-            // Escribir los datos de las transacciones
-            for (Transaccion transaccion : transacciones) {
-                writer.append(transaccion.getUsuario().getPersona().getNombre())
-                      .append(',')
-                      .append(transaccion.getFecha_hora().toString())
-                      .append(',')
-                      .append(transaccion.getDescripcion())
-                      .append('\n');
-            }
-        }
-	}
     public void iniciar() {
     	ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(vista, BorderLayout.CENTER);

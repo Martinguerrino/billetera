@@ -31,7 +31,7 @@ public class ControladorCompra {
     private TransaccionDAO miTransaccionDAO;
     
     
-    public ControladorCompra(VentanaInicio ventana ,ControladorIndex controladorIndex,Usuario miUsuario){
+    public ControladorCompra(VentanaInicio ventana ,ControladorIndex controladorIndex,Usuario miUsuario) throws SQLException{
     	this.controladorPrincipal=controladorIndex;
     	this.ventanaInicio=ventana;
     	this.miUsuario=miUsuario;
@@ -40,6 +40,7 @@ public class ControladorCompra {
     	miActivoFiatDAO=FactoryDAO.getActivoFiatDAO();
     	this.miUsuario=miUsuario;
     	miTransaccionDAO=FactoryDAO.getTransaccionDAO();
+    	this.vista= new VistaCompra(this);
     }
     public int comprarCripto(Moneda criptoSeleccionada,Activo resolverFiat, double cantidadFiat) throws SQLException, NoExiteMonedaException, SaldoInsuficienteException, NoHayStockException
     {	

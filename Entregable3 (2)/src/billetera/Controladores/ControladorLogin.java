@@ -7,6 +7,7 @@ import java.util.List;
 
 import Vista.VistaIndex;
 import Vista.VistaLogin;
+import Auxiliar.GeneradorVentanas;
 import Auxiliar.Usuario;
 import Vista.VistaRegistro;
 import Vista.Ventana.VentanaInicio;
@@ -20,8 +21,10 @@ public class ControladorLogin {
     private UsuarioDAO miModeloUsuario;
     private Usuario miUsuario;
     
-    public ControladorLogin(){
+    public ControladorLogin(VentanaInicio ventanaInicio){
     	miModeloUsuario= FactoryDAO.getUsuarioDAO();
+    	vista= new VistaLogin(this);
+    	this.ventanaInicio=ventanaInicio;
     }
     public void setVistaLoin(VistaLogin vista) {
     	this.vista=vista;
@@ -39,11 +42,9 @@ public class ControladorLogin {
 	}
 	public void redirigirPantallaActivos() {
 		// TODO Auto-generated method stub
-		VentanaInicio nuevaVentana = new VentanaInicio();
-		ControladorIndex nuevoControlador = new ControladorIndex(miUsuario,nuevaVentana);
+		ControladorIndex nuevoControlador = new ControladorIndex(miUsuario,GeneradorVentanas.GenerarVentana(800, 600));
 		VistaIndex nuevaVista= new VistaIndex(nuevoControlador);
 		nuevoControlador.setVista(nuevaVista);
-		nuevaVentana.setVisible(true);
 		nuevoControlador.iniciar();
 		
 		this.ventanaInicio.dispose();

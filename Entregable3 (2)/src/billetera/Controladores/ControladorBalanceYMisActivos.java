@@ -30,7 +30,7 @@ public class ControladorBalanceYMisActivos {
 	private MonedaDAO miMonedaDAO;
 	
 	
-	public ControladorBalanceYMisActivos(VentanaInicio ventana, ControladorIndex controladorIndex,Usuario miUsuario)
+	public ControladorBalanceYMisActivos(VentanaInicio ventana, ControladorIndex controladorIndex,Usuario miUsuario) throws SQLException
 	{
 		miActivoCriptoDAO=FactoryDAO.getActivoCriptoDAO();
 		miMonedaDAO=FactoryDAO.getMonedaDAO();
@@ -38,6 +38,7 @@ public class ControladorBalanceYMisActivos {
 		this.miUsuario=miUsuario;
 		this.ventanaInicio=ventana;
 		this.controladorPrincipal=controladorIndex;
+		this.vista=new VistaBalanceYMisActivos(this);
 	}
 
 	public Object[][] obtenerActivosCripto() throws SQLException {
@@ -125,10 +126,6 @@ public class ControladorBalanceYMisActivos {
 		generador.generarMonedas(miUsuario.getId());
 	}
 	
-	public void redirigirIndex() {
-		controladorPrincipal.iniciar();
-	}
-	
 	public void exportarTransaccionesACSV(String filePath, Object[][] activosCripto, Object[][] activosFiat) throws SQLException, IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
             // Escribir la cabecera del CSV
@@ -154,6 +151,11 @@ public class ControladorBalanceYMisActivos {
                       .append('\n');
             }
         }
+	}
+
+	public void redirigirIndex() {
+		// TODO Auto-generated method stub
+		controladorPrincipal.iniciar();
 	}
 	
 }

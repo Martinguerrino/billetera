@@ -14,7 +14,6 @@ import java.io.File;
 import java.sql.SQLException;
 
 import Controladores.ControladorBalanceYMisActivos;
-
 public class VistaBalanceYMisActivos extends Panel {
     private JTable tableFiat;
     private JTable tableCripto;
@@ -25,9 +24,9 @@ public class VistaBalanceYMisActivos extends Panel {
 
     public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) throws SQLException {
         
-    	activoFiat= miControlador.ObtenerActivosFiat();
-    	activoCripto = miControlador.ObtenerActivosFiat();
-    	
+        activoFiat= miControlador.ObtenerActivosFiat();
+        activoCripto = miControlador.ObtenerActivosFiat();
+        
         this.miControlador = miControlador;
 
         // Configuración de la ventana
@@ -73,13 +72,21 @@ public class VistaBalanceYMisActivos extends Panel {
         JButton btnGenerarCSV = new JButton("Generar CSV");
         btnGenerarCSV.addActionListener(new LGenerarCSV());
         
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.addActionListener(e -> volver());
+        
         panelInferior.add(btnGenerarDatos);
         panelInferior.add(btnGenerarCSV);
+        panelInferior.add(btnVolver);
 
         // Agregar componentes al JFrame
         add(panelSuperior, BorderLayout.NORTH);
         add(panelTablas, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
+    }
+
+    private void volver() {
+        miControlador.redirigirIndex();
     }
 
     // Listener para el botón "Generar Datos de Prueba"
@@ -103,7 +110,6 @@ public class VistaBalanceYMisActivos extends Panel {
     private class LGenerarCSV implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Crear un JFileChooser para seleccionar un directorio
             JFileChooser directoryChooser = new JFileChooser();
             directoryChooser.setDialogTitle("Seleccionar directorio para guardar el archivo CSV");
             directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -113,17 +119,15 @@ public class VistaBalanceYMisActivos extends Panel {
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File selectedDirectory = directoryChooser.getSelectedFile();
                 String directoryPath = selectedDirectory.getAbsolutePath();
-                String filePath = directoryPath + File.separator + "transacciones.csv"; // Nombre del archivo por defecto
+                String filePath = directoryPath + File.separator + "transacciones.csv";
 
                 try {
-                    // Llamar al método del controlador para exportar las transacciones
                     miControlador.exportarTransaccionesACSV(filePath, activoCripto, activoFiat);
                     JOptionPane.showMessageDialog(null, "Archivo CSV guardado en: " + filePath, "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al generar el archivo CSV: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                
-        }
-    }
+                }
+            }
         }
     }
 }

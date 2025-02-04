@@ -33,6 +33,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="ventanaInicio"/>
 			<item value="descripcion"/>
 			<item value="miVista"/>
 			<item value="Sys"/>
@@ -47,9 +48,9 @@
 			<item value="crearm"/>
 			<item value="Transacci"/>
 			<item value="CSV"/>
-			<item value="saldo"/>
 		</list>
 		<list key="replacehistory">
+			<item value="JFrame"/>
 			<item value="nombre"/>
 			<item value="vista"/>
 			<item value="tablaCotizacion"/>

@@ -11,6 +11,7 @@
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
     <fullyQualifiedTypeName name="Controladores.ControladorBalanceYMisActivos"/>
     <fullyQualifiedTypeName name="Controladores.ControladorTransacciones"/>
-    <fullyQualifiedTypeName name="Vista.VistaTransacciones"/>
     <fullyQualifiedTypeName name="Controladores.ControladorCompra"/>
+    <fullyQualifiedTypeName name="Vista.VistaTransacciones"/>
+    <fullyQualifiedTypeName name="Auxiliar.GeneradorVentanas"/>
 </qualifiedTypeNameHistroy>
