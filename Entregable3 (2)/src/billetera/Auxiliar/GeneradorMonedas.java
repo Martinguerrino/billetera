@@ -47,8 +47,6 @@ public class GeneradorMonedas {
         {
             Moneda monedaFiat = generarMonedaFiat(i);
             monedaDAO.crearMoneda(monedaFiat);
-            activoDAO.actualizarActivo(id_usuario, monedaFiat.getId(), monedaFiat.getStock()-(1.0f + RANDOM.nextFloat() * 100));
-
         }
 
         // Generar todas las criptomonedas

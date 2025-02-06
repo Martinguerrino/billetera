@@ -76,8 +76,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
         return transacciones;
     }
     
-     
-        @Override
+    @Override
     public List<Transaccion> listarTransaccionesDeUsuario(int id) throws SQLException {
         List<Transaccion> transacciones = new LinkedList<>();
         Transaccion transaccion = null;
@@ -88,7 +87,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
                      "FROM TRANSACCION t " +
                      "INNER JOIN USUARIO u ON t.ID_USUARIO = u.ID " +
                      "INNER JOIN PERSONA p ON u.ID_PERSONA = p.ID " +
-                     "WHERE t.ID = ?";
+                     "WHERE t.ID_USUARIO = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -107,7 +106,10 @@ public class TransaccionDAOjdbc implements TransaccionDAO
 
                     Persona persona = new Persona(idPersona, nombres, apellidos);
                     Usuario usuario = new Usuario(usuarioId, persona, password, aceptaTerminos, mail);
-
+                    
+                    System.out.println(persona);
+                    System.out.println(usuario);
+                    
                     transaccion = new Transaccion(transaccionId, resumen, fechaHora, usuario);
                     transacciones.add(transaccion);
                     
@@ -117,6 +119,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO
             e.printStackTrace();
             throw new SQLException("Error al obtener la transaccion: " + e.getMessage(), e);
         }
+        System.out.println(transacciones);
         return transacciones;
     }
         

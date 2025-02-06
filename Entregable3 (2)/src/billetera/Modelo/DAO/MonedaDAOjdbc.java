@@ -20,7 +20,7 @@ public class MonedaDAOjdbc implements MonedaDAO
     {
         Connection con = null;
         con = MyConnection.getCon();
-        String sql = "INSERT IGNORE INTO MONEDA (TIPO,NOMBRE,NOMENCLATURA,VALOR_DOLAR,VOLATILIDAD,STOCK,NOMBRE_ICONO) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO MONEDA (TIPO,NOMBRE,NOMENCLATURA,VALOR_DOLAR,VOLATILIDAD,STOCK,NOMBRE_ICONO) VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement ps = con.prepareStatement(sql);)
         {
             ps.setString(1, moneda.getTipo());
@@ -44,6 +44,48 @@ public class MonedaDAOjdbc implements MonedaDAO
         con = MyConnection.getCon();
         List<Moneda> monedas = new ArrayList<>();
         String sql = "SELECT * FROM MONEDA";
+        try(Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql);)
+        {
+            while(rs.next())
+            {
+                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                monedas.add(moneda);
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return monedas;
+    }
+    
+    public List<Moneda> listarMonedasCripto() throws SQLException
+    {
+        Connection con = null;
+        con = MyConnection.getCon();
+        List<Moneda> monedas = new ArrayList<>();
+        String sql = "SELECT * FROM MONEDA WHERE TIPO = 'CRIPTO'";
+        try(Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql);)
+        {
+            while(rs.next())
+            {
+                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                monedas.add(moneda);
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return monedas;
+    }
+    
+    public List<Moneda> listarMonedasFiat() throws SQLException
+    {
+        Connection con = null;
+        con = MyConnection.getCon();
+        List<Moneda> monedas = new ArrayList<>();
+        String sql = "SELECT * FROM MONEDA WHERE TIPO = 'FIAT'";
         try(Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql);)
         {
             while(rs.next())
@@ -177,5 +219,22 @@ public class MonedaDAOjdbc implements MonedaDAO
         }
         return monedas;
     }
+    
+	@Override
+	public int consultarCantidadMonedas() {
+		// TODO Auto-generated method stub
+		Connection con = null;
+        con = MyConnection.getCon();
+        String sql = "SELECT COUNT(*) FROM MONEDA;";
+        try(Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql);)
+        {
+        	return rs.getInt(1);
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return 0;
+	}
 }
 

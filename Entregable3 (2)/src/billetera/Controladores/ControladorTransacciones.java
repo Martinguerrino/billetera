@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 public class ControladorTransacciones {
 
@@ -30,9 +31,11 @@ public class ControladorTransacciones {
 	public Object[][] obtenerTransacciones() throws SQLException {
 		// TODO Auto-generated method stub
 		List<Transaccion> transacciones= miTransaccionDAO.listarTransaccionesDeUsuario(miUsuario.getId());
+		System.out.println(transacciones);
 		Object[][] vectorRetorno= new Object[transacciones.size()][5]; 
 		int contadorsito=0;
     	for (Transaccion transaccion : transacciones) {
+    		System.out.println(contadorsito);
 			vectorRetorno[contadorsito][0]=transaccion.getUsuario().getPersona().getNombre()+ "  " + transaccion.getUsuario().getPersona().getApellido();
 			vectorRetorno[contadorsito][1]=transaccion.getFecha_hora();
 			vectorRetorno[contadorsito][2]=transaccion.getDescripcion();

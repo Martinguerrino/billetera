@@ -2,6 +2,7 @@ package Controladores;
 
 import Auxiliar.Activo;
 import Auxiliar.GeneradorMonedas;
+import Auxiliar.Moneda;
 import Auxiliar.Transaccion;
 import Auxiliar.Usuario;
 import Modelo.DAO.ActivoDAO;
@@ -16,6 +17,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 
 
@@ -28,6 +31,7 @@ public class ControladorBalanceYMisActivos {
 	private ActivoDAO miActivoCriptoDAO ;
 	private ActivoDAO miActivoFiatDAO;
 	private MonedaDAO miMonedaDAO;
+    private static final Random RANDOM = new Random();
 	
 	
 	public ControladorBalanceYMisActivos(VentanaInicio ventana, ControladorIndex controladorIndex,Usuario miUsuario) throws SQLException
@@ -122,32 +126,40 @@ public class ControladorBalanceYMisActivos {
 
 	public void generarDatosDePrueba() throws SQLException {
 		// TODO Auto-generated method stub
-		GeneradorMonedas generador=new GeneradorMonedas();
-		generador.generarMonedas(miUsuario.getId());
+		List<Moneda> fiats= miMonedaDAO.listarMonedasFiat();
+		//cambiar por enum
+		for (Moneda moneda : fiats) {
+			Activo cargarActivo= new Activo(miUsuario,moneda,1.0f + RANDOM.nextFloat() * 50000);
+			miActivoFiatDAO.cargarActivo(cargarActivo);			
+		}
 	}
 	
 	public void exportarTransaccionesACSV(String filePath, Object[][] activosCripto, Object[][] activosFiat) throws SQLException, IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
             // Escribir la cabecera del CSV
-            writer.append("Usuario,FechaHora,Resumen\n");
+            writer.append("Nombre,Nomenclatura,cantidad,Valor en dolar\n");
 
             // Escribir los datos de las transacciones
-            for (int i=0;i<activosCripto.length;i++) {
-                writer.append((CharSequence) activosCripto[i][0])
+            for (int i = 0; i < activosCripto.length; i++) {
+                writer.append(String.valueOf(activosCripto[i][0])) // Nombre
                       .append(',')
-                      .append((CharSequence) activosCripto[i][1])
+                      .append(String.valueOf(activosCripto[i][1])) // Nomenclatura
                       .append(',')
-                      .append((CharSequence) activosCripto[i][2])
-                      .append((CharSequence) activosCripto[i][4])
+                      .append(String.valueOf(activosCripto[i][2])) // Cantidad
+                      .append(',')
+                      .append(String.valueOf(activosCripto[i][4])) // Valor en dólar
                       .append('\n');
             }
-            for (int i=0;i<activosFiat.length;i++) {
-                writer.append((CharSequence) activosFiat[i][0])
+
+            // Escribir los datos de las transacciones (Fiat)
+            for (int i = 0; i < activosFiat.length; i++) {
+                writer.append(String.valueOf(activosFiat[i][0])) // Nombre
                       .append(',')
-                      .append((CharSequence) activosFiat[i][1])
+                      .append(String.valueOf(activosFiat[i][1])) // Nomenclatura
                       .append(',')
-                      .append((CharSequence) activosFiat[i][2])
-                      .append((CharSequence) activosFiat[i][4])
+                      .append(String.valueOf(activosFiat[i][2])) // Cantidad
+                      .append(',')
+                      .append(String.valueOf(activosFiat[i][4])) // Valor en dólar
                       .append('\n');
             }
         }

@@ -45,6 +45,7 @@ public class ActivoFiatDAOjdbc implements ActivoDAO
         }
         catch(SQLException e)
         {
+        	
             e.printStackTrace();
         }
     }

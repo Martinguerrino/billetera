@@ -33,6 +33,12 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="obtener"/>
+			<item value="Actualizar"/>
+			<item value="IGNORE"/>
+			<item value="volver"/>
+			<item value="redi"/>
+			<item value="rediri"/>
 			<item value="ventanaInicio"/>
 			<item value="descripcion"/>
 			<item value="miVista"/>
@@ -42,12 +48,6 @@
 			<item value="System"/>
 			<item value="Syst"/>
 			<item value="comprar"/>
-			<item value="modelo"/>
-			<item value="setModel"/>
-			<item value="tableCellRender"/>
-			<item value="crearm"/>
-			<item value="Transacci"/>
-			<item value="CSV"/>
 		</list>
 		<list key="replacehistory">
 			<item value="JFrame"/>

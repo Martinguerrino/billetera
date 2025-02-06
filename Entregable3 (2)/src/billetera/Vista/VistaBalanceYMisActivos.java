@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Auxiliar.Activo;
 import Auxiliar.ModeloActivosTabla;
+import Auxiliar.ModeloCotizacionTabla;
 import Auxiliar.Panel;
 
 import java.awt.*;
@@ -21,11 +22,21 @@ public class VistaBalanceYMisActivos extends Panel {
     private ControladorBalanceYMisActivos miControlador;
     private Object[][] activoFiat;
     private Object[][] activoCripto;
-
+    private ModeloActivosTabla modelFiat;
+    private String[] columnNames = {"Nombre", "Nomenclatura", "Cantidad", "Icono", "Valor en Dólar"};
+    /*
+    private void actualizarTabla() throws SQLException {
+    	cotizacionesActuales=miControlador.obtenerCotizaciones();
+        String[] columnas = {"Nombre", "Nomenclatura", "Icono", "Valor en dolares", "Volatilidad"};
+        tablaCotizacion.setModel(new ModeloCotizacionTabla(cotizacionesActuales, columnas));        
+    }
+    */
+    
+    
     public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) throws SQLException {
         
         activoFiat= miControlador.ObtenerActivosFiat();
-        activoCripto = miControlador.ObtenerActivosFiat();
+        activoCripto = miControlador.obtenerActivosCripto();
         
         this.miControlador = miControlador;
 
@@ -52,10 +63,9 @@ public class VistaBalanceYMisActivos extends Panel {
 
         // Tablas de activos Fiat y Cripto
         JPanel panelTablas = new JPanel(new GridLayout(2, 1, 10, 10));
-        String[] columnNames = {"Nombre", "Nomenclatura", "Cantidad", "Icono", "Valor en Dólar"};
 
-        ModeloActivosTabla modelFiat = new ModeloActivosTabla(miControlador.ObtenerActivosFiat(), columnNames);
-        tableFiat = new JTable(modelFiat);
+        tableFiat = new JTable();      
+        actualizarTablaFiat();
 
         ModeloActivosTabla modelCripto = new ModeloActivosTabla(miControlador.obtenerActivosCripto(), columnNames);
         tableCripto = new JTable(modelCripto);
@@ -86,6 +96,7 @@ public class VistaBalanceYMisActivos extends Panel {
     }
 
     private void volver() {
+    	
         miControlador.redirigirIndex();
     }
 
@@ -94,10 +105,15 @@ public class VistaBalanceYMisActivos extends Panel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                miControlador.generarDatosDePrueba(); // Llama al método del controlador
-                JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this, 
-                        "Datos de prueba generados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                miControlador.iniciar();
+            	if(activoFiat.length==0) {
+            		miControlador.generarDatosDePrueba(); // Llama al método del controlador    
+            		activoFiat= miControlador.ObtenerActivosFiat();
+            		actualizarTablaFiat();
+            		
+            	}else {
+            		JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this, 
+                            "Datos de prueba ya generados","Error" ,JOptionPane.ERROR_MESSAGE);
+            	}
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this, 
@@ -105,6 +121,11 @@ public class VistaBalanceYMisActivos extends Panel {
             }
         }
     }
+    
+    private void actualizarTablaFiat() throws SQLException {
+        tableFiat.setModel(new ModeloActivosTabla(miControlador.ObtenerActivosFiat(), columnNames));
+    }
+    
     
     // Listener para el botón "Generar CSV"
     private class LGenerarCSV implements ActionListener {

@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,66 +21,77 @@ import javax.swing.table.DefaultTableModel;
 import Auxiliar.ModeloCotizacionTabla;
 import Auxiliar.Panel;
 import Controladores.ControladorCotizaciones;
-
 public class VistaCotizaciones extends Panel {
+	Object[][] cotizacionesActuales;
     ControladorCotizaciones miControlador;
     JLabel lblTitulo;
     JTable tablaCotizacion;
-    JPanel panelImagen; // Panel para mostrar la imagen
-    JLabel lblImagen;   // JLabel para contener la imagen
+    JPanel panelImagen;
+    JLabel lblImagen;
+    JButton btnGenerarMonedas;
+    JButton btnVolver;
 
     public VistaCotizaciones(ControladorCotizaciones miControlador) throws SQLException {
         this.miControlador = miControlador;
-        String[] columnas = {"Nombre", "Nomenclatura", "Icono", "Valor en dolares", "Volatilidad"}; // Encabezados de las columnas
         tablaCotizacion = new JTable();
-        tablaCotizacion.setModel(new ModeloCotizacionTabla(miControlador.obtenerCotizaciones(), columnas));
         tablaCotizacion.setFillsViewportHeight(true);
-        
-        // Configuración de la ventana
+        this.actualizarTabla();
         setSize(600, 400);
-        setLayout(new BorderLayout()); // Layout principal para organizar componentes
+        setLayout(new BorderLayout());
         tablaCotizacion.setRowHeight(50);
-        
-        // Crear el título
+
         lblTitulo = new JLabel("Cotizaciones", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espacio alrededor del título
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Crear un panel para mostrar la imagen
-        panelImagen = new JPanel(); // Crear el panel
-        lblImagen = new JLabel(); // Crear el JLabel para mostrar la imagen
-        panelImagen.add(lblImagen); // Añadir el JLabel al panel
+        panelImagen = new JPanel();
+        lblImagen = new JLabel();
+        panelImagen.add(lblImagen);
 
-        // Agregar la tabla dentro de un JScrollPane para permitir scroll
         JScrollPane scrollPane = new JScrollPane(tablaCotizacion);
-        
-        // Crear botón de volver
-        JButton btnVolver = new JButton("Volver");
+
+        btnVolver = new JButton("Volver");
         btnVolver.addActionListener(e -> volver());
-        
-        // Panel inferior con el botón de volver
+
+        btnGenerarMonedas = new JButton("Generar Monedas");
+        btnGenerarMonedas.addActionListener(e -> {
+			try {
+				generarMonedas();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
         JPanel panelInferior = new JPanel();
+        panelInferior.add(btnGenerarMonedas);
         panelInferior.add(btnVolver);
 
-        // Agregar componentes al JFrame
-        add(lblTitulo, BorderLayout.NORTH); // Título en la parte superior
-        add(scrollPane, BorderLayout.CENTER); // Tabla al centro
-        add(panelImagen, BorderLayout.SOUTH); // Panel de imagen en la parte inferior
-        add(panelInferior, BorderLayout.SOUTH); // Botón de volver en la parte inferior
-        
-        mostrarImagen("src/billetera/Controladores/btc.png");
+        add(lblTitulo, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(panelImagen, BorderLayout.SOUTH);
+        add(panelInferior, BorderLayout.SOUTH);
+
     }
 
-    // Método para actualizar la imagen en el panel
-    public void mostrarImagen(String rutaImagen) {
-        ImageIcon icono = new ImageIcon(rutaImagen);
-        // Redimensionar la imagen si es necesario
-        Image img = icono.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Redimensionar a 100x100
-        lblImagen.setIcon(new ImageIcon(img)); // Establecer la imagen redimensionada en el JLabel
+
+    private void actualizarTabla() throws SQLException {
+    	cotizacionesActuales=miControlador.obtenerCotizaciones();
+        String[] columnas = {"Nombre", "Nomenclatura", "Icono", "Valor en dolares", "Volatilidad"};
+        tablaCotizacion.setModel(new ModeloCotizacionTabla(cotizacionesActuales, columnas));        
     }
     
     private void volver() {
         miControlador.redirigirIndex();
     }
-}
 
+    private void generarMonedas() throws SQLException {
+    	if(cotizacionesActuales.length==0) {
+    		miControlador.generarDatosDePrueba();
+    		this.actualizarTabla();
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(this, "Ya estan generadas las monedas", "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    }
+}

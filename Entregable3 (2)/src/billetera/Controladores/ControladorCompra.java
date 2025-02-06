@@ -86,16 +86,11 @@ public class ControladorCompra {
     }
 
     public Moneda[] obtenerCriptos() throws SQLException {
-    	List<Moneda> monedas= miMonedaDAO.listarMonedas();//JKASJDKAS RE XD ESTE METODO    
-    	List<Moneda> monedaRetorno= new LinkedList<Moneda>();
-    	System.out.println(monedas);
-    	for (Moneda moneda : monedas) {
-			if(moneda.getTipo().equals("C")) {
-				monedaRetorno.add(moneda);
-			}
-		}
+    	List<Moneda> monedas= miMonedaDAO.listarMonedasCripto();//JKASJDKAS RE XD ESTE METODO    
+    	
         @SuppressWarnings("CollectionsToArray")
-    	Moneda[] array = monedaRetorno.toArray(new Moneda[0]);//parseo crazy son las 3 am me quiero dormir
+    	Moneda[] array = monedas.toArray(new Moneda[0]);//parseo crazy son las 3 am me quiero dormir
+        System.out.println(array);
     	return array;//xd
     }
     public Activo[] obtenerActivosFiats() throws SQLException {

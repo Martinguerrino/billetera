@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="javax.swing.SwingConstants"/>
-    <fullyQualifiedTypeName name="Vista.VistaBalanceYMisActivos"/>
     <fullyQualifiedTypeName name="billetera.Modelo.DAO.MonedaDAOjdbc"/>
     <fullyQualifiedTypeName name="billetera.Modelo.DAO.FactoryDAO"/>
     <fullyQualifiedTypeName name="billetera.Auxiliar.GeneradorMonedas"/>
-    <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="Vista.Ventana.VentanaInicio"/>
     <fullyQualifiedTypeName name="Vista.VistaRegistro"/>
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
@@ -14,4 +12,8 @@
     <fullyQualifiedTypeName name="Controladores.ControladorCompra"/>
     <fullyQualifiedTypeName name="Vista.VistaTransacciones"/>
     <fullyQualifiedTypeName name="Auxiliar.GeneradorVentanas"/>
+    <fullyQualifiedTypeName name="Controladores.ControladorIndex"/>
+    <fullyQualifiedTypeName name="Vista.VistaBalanceYMisActivos"/>
+    <fullyQualifiedTypeName name="Vista.VistaCompra"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

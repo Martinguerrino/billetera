@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class VistaTransacciones extends Panel {
     private JTable tablaTransacciones;
@@ -33,7 +34,11 @@ public class VistaTransacciones extends Panel {
         // Crear la tabla
         String[] columnas = {"Usuario", "Fecha", "Resumen"}; // Encabezados de las columnas
         Object[][] datos = miControlador.obtenerTransacciones(); //deben tener la estructura{"usuario1", "2024-12-01", "Compra de activos"}
-
+        System.out.println(datos.length);
+        for (Object[] dato : datos) {
+        	System.out.println("dato:");
+			System.out.println(Arrays.toString(dato));
+		}
         DefaultTableModel modeloTabla = new DefaultTableModel(datos, columnas);
         tablaTransacciones = new JTable(modeloTabla);
         tablaTransacciones.setFillsViewportHeight(true);

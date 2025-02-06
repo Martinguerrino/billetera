@@ -1,6 +1,7 @@
 package Controladores;
 import Vista.VistaCotizaciones;
 import Vista.Ventana.VentanaInicio;
+import Auxiliar.GeneradorMonedas;
 import Auxiliar.Moneda;
 import Auxiliar.Usuario;
 import Modelo.DAO.FactoryDAO;
@@ -65,5 +66,12 @@ public class ControladorCotizaciones {
     
 	public void redirigirIndex() {
 		controladorPrincipal.iniciar();
+	}
+
+	public void generarDatosDePrueba() throws SQLException {
+		// TODO Auto-generated method stub
+		GeneradorMonedas generador=new GeneradorMonedas();
+		generador.generarMonedas(miUsuario.getId());
+		
 	}
 }
