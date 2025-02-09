@@ -21,8 +21,9 @@ public class VistaRegistro extends Panel {
     private ControladorRegistro miControlador;
 
     public VistaRegistro(ControladorRegistro miControlador) {
+    	super();
         this.miControlador = miControlador;
-
+        
         // Configuración de la vista
         setSize(400, 300);
         
@@ -91,4 +92,10 @@ public class VistaRegistro extends Panel {
 			}
         }
     }
+
+	@Override
+	protected void actualizarPosiciones() {
+		// TODO Auto-generated method stub
+		
+	}
 }

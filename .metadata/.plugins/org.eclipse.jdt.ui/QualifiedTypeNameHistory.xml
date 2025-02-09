@@ -16,4 +16,11 @@
     <fullyQualifiedTypeName name="Vista.VistaBalanceYMisActivos"/>
     <fullyQualifiedTypeName name="Vista.VistaCompra"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="Modelo.DAO.MonedaDAO"/>
+    <fullyQualifiedTypeName name="Auxiliar.Activo"/>
+    <fullyQualifiedTypeName name="Auxiliar.ModeloActivosTabla"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="Auxiliar.RoundedButton"/>
+    <fullyQualifiedTypeName name="Auxiliar.LineaAmarilla"/>
 </qualifiedTypeNameHistroy>

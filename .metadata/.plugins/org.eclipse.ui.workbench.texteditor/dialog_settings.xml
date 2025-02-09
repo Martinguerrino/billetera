@@ -33,23 +33,24 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="actualizar"/>
+			<item value="labelLogo"/>
+			<item value="actualiz"/>
+			<item value="setvisi"/>
+			<item value="roundedbutton"/>
+			<item value="roundedbotton"/>
+			<item value="btn"/>
+			<item value="binanceFont"/>
+			<item value="bianceFont"/>
+			<item value="actualizartablafiat"/>
+			<item value="setModel"/>
+			<item value="generar"/>
 			<item value="obtener"/>
 			<item value="Actualizar"/>
 			<item value="IGNORE"/>
-			<item value="volver"/>
-			<item value="redi"/>
-			<item value="rediri"/>
-			<item value="ventanaInicio"/>
-			<item value="descripcion"/>
-			<item value="miVista"/>
-			<item value="Sys"/>
-			<item value="Sy"/>
-			<item value="y"/>
-			<item value="System"/>
-			<item value="Syst"/>
-			<item value="comprar"/>
 		</list>
 		<list key="replacehistory">
+			<item value="labelLogoUser"/>
 			<item value="JFrame"/>
 			<item value="nombre"/>
 			<item value="vista"/>

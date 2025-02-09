@@ -12,6 +12,13 @@ import java.sql.SQLException;
 
 import Vista.VistaBalanceYMisActivos;
 public class ControladorIndex {
+	public Usuario getMiUsuario() {
+		return miUsuario;
+	}
+
+
+	
+
 	private Usuario miUsuario;
 	private VistaIndex vista;
 	private VentanaInicio ventana;

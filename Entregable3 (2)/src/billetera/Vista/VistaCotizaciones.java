@@ -32,6 +32,7 @@ public class VistaCotizaciones extends Panel {
     JButton btnVolver;
 
     public VistaCotizaciones(ControladorCotizaciones miControlador) throws SQLException {
+    	super();
         this.miControlador = miControlador;
         tablaCotizacion = new JTable();
         tablaCotizacion.setFillsViewportHeight(true);
@@ -72,6 +73,7 @@ public class VistaCotizaciones extends Panel {
         add(panelImagen, BorderLayout.SOUTH);
         add(panelInferior, BorderLayout.SOUTH);
 
+        
     }
 
 
@@ -94,4 +96,11 @@ public class VistaCotizaciones extends Panel {
     		JOptionPane.showMessageDialog(this, "Ya estan generadas las monedas", "Error", JOptionPane.ERROR_MESSAGE);
     	}
     }
+
+
+	@Override
+	protected void actualizarPosiciones() {
+		// TODO Auto-generated method stub
+		
+	}
 }

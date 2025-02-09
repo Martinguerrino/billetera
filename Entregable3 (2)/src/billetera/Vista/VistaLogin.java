@@ -1,81 +1,129 @@
 package Vista;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.sql.SQLException;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
+import Auxiliar.ImagenCircular;
 import Auxiliar.Panel;
+import Auxiliar.RoundedButton;
+import Auxiliar.RoundedPasswordField;
+import Auxiliar.RoundedTextField;
 import Controladores.ControladorLogin;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
+import java.sql.SQLException;
+import javax.swing.*;
 
-public class VistaLogin extends Panel  {
+public class VistaLogin extends Panel {
     private JButton buttonLogin;
     private JLabel hipervinculoRegistrar;
     private JLabel titulo;
+    private JLabel labelGmail;
+    private JLabel labelPassword;
     private JTextField txtGmail;
     private JPasswordField txtPassword;
     private ControladorLogin miControlador;
+    private JLabel labelLogo;
+
+    // Colores de Binance
+    private final Color BINANCE_YELLOW = new Color(252, 213, 53); // Botón principal
+    private final Color BINANCE_INPUT_BG = new Color(43, 49, 57); // Fondo de inputs
+    private final Color BINANCE_TEXT = new Color(234, 236, 239);  // Texto claro
 
     // Constructor
     public VistaLogin(ControladorLogin miControlador) {
+    	super();
         this.miControlador = miControlador;
-        super.setSize(800, 400);  // Tamaño de la ventana
-        super.setLayout(null);     // Usamos un Layout absoluto
-       
+        
+
+        // Cargar la fuente IBM Plex Sans
+        Font binanceFont= super.getFont();
+        
+
+
         // Crear el JLabel (título)
-        titulo = new JLabel("Iniciar Sesión:");
-        titulo.setHorizontalAlignment(SwingConstants.CENTER); // Centrado horizontal
-        titulo.setBounds(0, 50, 800, 40);  // 800 px de ancho, centrado en el eje X (por defecto)
+        titulo = new JLabel("Iniciar Sesión");
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        titulo.setForeground(BINANCE_TEXT);
+        titulo.setFont(binanceFont.deriveFont(Font.BOLD, 28f));
+
+        // Crear el JLabel (para el Gmail)
+        labelGmail = new JLabel("Email:");
+        labelGmail.setForeground(BINANCE_TEXT);
+        labelGmail.setFont(binanceFont.deriveFont(14f));
 
         // Crear el JTextField (para el Gmail)
-        txtGmail = new JTextField();
-        txtGmail.setBounds(200, 120, 400, 30);  // Centrado en X y Y (800 - 400) / 2 = 200
-        txtGmail.setToolTipText("Ingrese su Gmail");
+        txtGmail = new RoundedTextField(15);
+        txtGmail.setToolTipText("Ingrese su mail");
+        txtGmail.setBackground(BINANCE_INPUT_BG);
+        txtGmail.setForeground(BINANCE_TEXT);
+        txtGmail.setCaretColor(BINANCE_TEXT);
+        txtGmail.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        txtGmail.setFont(binanceFont.deriveFont(14f));
+
+        // Crear el JLabel (para la contraseña)
+        labelPassword = new JLabel("Contraseña:");
+        labelPassword.setForeground(BINANCE_TEXT);
+        labelPassword.setFont(binanceFont.deriveFont(14f));
 
         // Crear el JPasswordField (para la contraseña)
-        txtPassword = new JPasswordField();
-        txtPassword.setBounds(200, 170, 400, 30);  // Centrado en X y Y
+        txtPassword = new RoundedPasswordField(15);
         txtPassword.setToolTipText("Ingrese su Contraseña");
+        txtPassword.setBackground(BINANCE_INPUT_BG);
+        txtPassword.setForeground(BINANCE_TEXT);
+        txtPassword.setCaretColor(BINANCE_TEXT);
+        txtPassword.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        txtPassword.setFont(binanceFont.deriveFont(14f));
 
         // Crear el JButton (botón de login)
-        buttonLogin = new JButton("Iniciar Sesión");
-        buttonLogin.setBounds(325, 220, 150, 30); // Centrado en X (800 - 150) / 2 = 325, centrado en Y en 220
+        buttonLogin = createStyledButton("Iniciar Sesión", BINANCE_YELLOW, Color.BLACK, binanceFont.deriveFont(Font.BOLD, 16f), 200, 50);
 
         // Crear el JLabel (hipervinculo de "Registrarse")
-        hipervinculoRegistrar = new JLabel("<html><a href=''>Registrarse</a></html>");
-        hipervinculoRegistrar.setBounds(365, 260, 100, 30); // 100 px de ancho, 30 px de alto
+        hipervinculoRegistrar = new JLabel("Registrarse");
+        hipervinculoRegistrar.setHorizontalAlignment(SwingConstants.CENTER);
+        hipervinculoRegistrar.setForeground(BINANCE_YELLOW);
+        hipervinculoRegistrar.setFont(binanceFont.deriveFont(14f));
         hipervinculoRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        hipervinculoRegistrar.addMouseListener(new LRegistro()); // Asocia el MouseListener
+
+        // Mantener los listeners originales
+        hipervinculoRegistrar.addMouseListener(new LRegistro());
         buttonLogin.addActionListener(new LIniciarSesion());
 
+        //logo
+        // Crear la instancia del JLabel con imagen circular
+     // Cargar la imagen usando ImageIcon
+        ImageIcon icon = new ImageIcon("src/billetera/etc/logo.png");
+        
+        // Si quieres redimensionar la imagen para que encaje en un JLabel
+        Image img = icon.getImage();  // Convertir la imagen a un objeto Image
+        Image newImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);  // Redimensionar
+        icon = new ImageIcon(newImg);  // Crear un nuevo ImageIcon con la imagen redimensionada
 
-        // Agregar componentes al JFrame
+        labelLogo = new JLabel(icon);
+
+        // Agregar la imagen al panel
+        
+        // Otros componentes de tu vista
+        
+        // Agregar componentes al Panel
+        add(labelLogo);
         add(titulo);
+        add(labelGmail);
         add(txtGmail);
+        add(labelPassword);
         add(txtPassword);
         add(buttonLogin);
         add(hipervinculoRegistrar);
-
-        // Nota: No vinculamos `LIniciarSesion` aquí. Solo creamos la clase interna.
+        addComponentListener(new miComponentAdapter());
     }
 
+    private class miComponentAdapter extends ComponentAdapter {
+        @Override
+        public void componentResized(ComponentEvent e) {
+            actualizarPosiciones();
+        }
+    }
+    
+    
+   
     // Clase interna para manejar el evento del hipervínculo "Registrarse"
     private class LRegistro extends MouseAdapter {
         @Override
@@ -84,15 +132,14 @@ public class VistaLogin extends Panel  {
         }
     }
 
-    // Clase interna para manejar el evento del botón "Iniciar Sesión" (sin vincular aún)
+    // Clase interna para manejar el evento del botón "Iniciar Sesión"
     private class LIniciarSesion implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String gmail = txtGmail.getText();  // Obtener el texto del JTextField (Gmail)
-            String password = new String(txtPassword.getPassword());  // Obtener la contraseña del JPasswordField
+            String gmail = txtGmail.getText();
+            String password = new String(txtPassword.getPassword());
 
             if (gmail.isEmpty() || password.isEmpty()) {
-                // Mostrar mensaje de error si falta información
                 JOptionPane.showMessageDialog(VistaLogin.this, 
                     "Por favor, ingrese tanto su Gmail como su contraseña.", 
                     "Error de inicio de sesión", 
@@ -114,4 +161,19 @@ public class VistaLogin extends Panel  {
         }
     }
 
+	protected void actualizarPosiciones() {
+		// TODO Auto-generated method stub
+		int formWidth = 400;
+        int elementHeight = 40;
+
+        actualizarPosicion(labelLogo,0,270,140, 140);
+        actualizarPosicion(titulo, 0, 140, formWidth, elementHeight);
+        actualizarPosicion(labelGmail, 0, 90, formWidth, 20);
+        actualizarPosicion(txtGmail, 0, 60, formWidth, elementHeight);
+        actualizarPosicion(labelPassword, 0, 10, formWidth, 20);
+        actualizarPosicion(txtPassword, 0, -20, formWidth, elementHeight);
+        actualizarPosicion(buttonLogin, 0, -80, formWidth, 50);
+        actualizarPosicion(hipervinculoRegistrar, 0, -130, formWidth, 30);
+		
+	}
 }

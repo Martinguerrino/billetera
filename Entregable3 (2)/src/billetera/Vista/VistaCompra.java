@@ -13,6 +13,8 @@ import Excepciones.SaldoInsuficienteException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 public class VistaCompra extends Panel {
     private JComboBox<String> comboCripto;
@@ -23,76 +25,97 @@ public class VistaCompra extends Panel {
     private ControladorCompra miControlador;
     private Moneda[] criptos;
     private Activo[] activoFiats;
-    
-    public VistaCompra(ControladorCompra miControlador) throws SQLException {
-        this.miControlador = miControlador;
+    private JLabel lblTitulo, lblSeleccionCripto, lblSeleccionFiat, lblCantidadFiat;
+    private JPanel panelCripto, panelFiat, panelBotones;
 
-        // Configuración de la ventana
-        setSize(400, 400);
-        setLayout(new BorderLayout()); // Usamos BorderLayout para organizar las secciones
+    public VistaCompra(ControladorCompra miControlador) throws SQLException {
+    	super();
+    	this.miControlador = miControlador;
+
+        setLayout(null); // Usamos layout absoluto
+        setBackground(Color.WHITE);
 
         // Crear el título
-        JLabel lblTitulo = new JLabel("Compra de Criptomonedas", SwingConstants.CENTER);
+        lblTitulo = new JLabel("Compra de Criptomonedas", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
-        add(lblTitulo, BorderLayout.NORTH);
-
-        // Panel principal
-        JPanel panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayout(2, 1, 10, 10)); // 2 secciones: Cripto y Fiat
-        add(panelPrincipal, BorderLayout.CENTER);
 
         // Sección de criptomoneda
-        JPanel panelCripto = new JPanel(new GridLayout(2, 1));
-        JLabel lblSeleccionCripto = new JLabel("Seleccionar Criptomoneda:");
+        lblSeleccionCripto = new JLabel("Seleccionar Criptomoneda:");
         criptos = miControlador.obtenerCriptos();
         comboCripto = new JComboBox<>();
         for (Moneda cripto : criptos) {
             comboCripto.addItem(cripto.getNomenclatura());
         }
-        panelCripto.add(lblSeleccionCripto);
-        panelCripto.add(comboCripto);
 
         // Sección de fiat
+        lblSeleccionFiat = new JLabel("Seleccionar Moneda Fiat:");
         comboFiat = new JComboBox<>();
-        JLabel lblCantidadFiat = new JLabel("Cantidad de Fiat a gastar:");
+        lblCantidadFiat = new JLabel("Cantidad de Fiat a gastar:");
         txtCantidadFiat = new JTextField(10);
-        JPanel panelFiat = new JPanel(new GridLayout(3, 1));
-        JLabel lblSeleccionFiat = new JLabel("Seleccionar Moneda Fiat:");
         activoFiats = miControlador.obtenerActivosFiats();
-        
         for (Activo activosFiats : activoFiats) {
             comboFiat.addItem(activosFiats.getMoneda().getNomenclatura());
         }
-        panelFiat.add(lblSeleccionFiat);
-        panelFiat.add(comboFiat);
-        panelFiat.add(lblCantidadFiat);
-        panelFiat.add(txtCantidadFiat);
 
-        // Agregar las secciones al panel principal
-        panelPrincipal.add(panelCripto);
-        panelPrincipal.add(panelFiat);
-
-        // Panel de botones
-        JPanel panelBotones = new JPanel();
+        // Botones
         btnComprar = new JButton("Comprar");
-        btnComprar.setPreferredSize(new Dimension(200, 40));
-        btnComprar.addActionListener(new LComprar());
-        
         btnVolver = new JButton("Volver");
-        btnVolver.setPreferredSize(new Dimension(200, 40));
+
+        // Agregar componentes
+        add(lblTitulo);
+        add(lblSeleccionCripto);
+        add(comboCripto);
+        add(lblSeleccionFiat);
+        add(comboFiat);
+        add(lblCantidadFiat);
+        add(txtCantidadFiat);
+        add(btnComprar);
+        add(btnVolver);
+
+        // Agregar listeners
+        btnComprar.addActionListener(new LComprar());
         btnVolver.addActionListener(e -> volver());
-        
-        panelBotones.add(btnComprar);
-        panelBotones.add(btnVolver);
-        
-        add(panelBotones, BorderLayout.SOUTH);
+
+        // Listener para actualizar posiciones cuando se cambia el tamaño
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                actualizarPosiciones();
+            }
+        });
+
+        actualizarPosiciones();
     }
-    
+
+    protected void actualizarPosiciones() {
+        int width = getWidth();
+        int height = getHeight();
+        int centerX = width / 2;
+        int centerY = height / 2;
+
+        actualizarPosicion(lblTitulo, 200, 150, 400, 40);
+        actualizarPosicion(lblSeleccionCripto, 200, 100, 400, 20);
+        actualizarPosicion(comboCripto, 200, 70, 400, 40);
+        actualizarPosicion(lblSeleccionFiat, 200, 20, 400, 20);
+        actualizarPosicion(comboFiat, 200, -10, 400, 40);
+        actualizarPosicion(lblCantidadFiat, 200, -50, 400, 20);
+        actualizarPosicion(txtCantidadFiat, 200, -80, 400, 40);
+        actualizarPosicion(btnComprar, 200, -130, 400, 50);
+        actualizarPosicion(btnVolver, 200, -180, 400, 50);
+    }
+
+    protected void actualizarPosicion(JComponent element, int x, int y, int eWidth, int eHeight) {
+        int width = getWidth();
+        int height = getHeight();
+        int centerX = width / 2;
+        int centerY = height / 2;
+        element.setBounds(centerX - x, centerY - y, eWidth, eHeight);
+    }
+
     private void volver() {
         miControlador.redirigirIndex();
     }
 
-    // Listener para el botón de compra
     private class LComprar implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int criptoSeleccionada = comboCripto.getSelectedIndex();

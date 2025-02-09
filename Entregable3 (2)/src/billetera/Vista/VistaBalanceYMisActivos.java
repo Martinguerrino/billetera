@@ -16,6 +16,9 @@ import java.sql.SQLException;
 
 import Controladores.ControladorBalanceYMisActivos;
 public class VistaBalanceYMisActivos extends Panel {
+	JButton btnVolver;
+	JButton btnGenerarDatos;
+	JButton btnGenerarCSV;
     private JTable tableFiat;
     private JTable tableCripto;
     private JLabel lblSaldo; // Etiqueta para mostrar el saldo
@@ -34,7 +37,7 @@ public class VistaBalanceYMisActivos extends Panel {
     
     
     public VistaBalanceYMisActivos(ControladorBalanceYMisActivos miControlador) throws SQLException {
-        
+        super();
         activoFiat= miControlador.ObtenerActivosFiat();
         activoCripto = miControlador.obtenerActivosCripto();
         
@@ -76,13 +79,13 @@ public class VistaBalanceYMisActivos extends Panel {
 
         // Panel inferior con botones
         JPanel panelInferior = new JPanel();
-        JButton btnGenerarDatos = new JButton("Generar Datos de Prueba");
+        btnGenerarDatos = new JButton("Generar Datos de Prueba");
         btnGenerarDatos.addActionListener(new LGenerarAleatorio());
         
-        JButton btnGenerarCSV = new JButton("Generar CSV");
+        btnGenerarCSV = new JButton("Generar CSV");
         btnGenerarCSV.addActionListener(new LGenerarCSV());
         
-        JButton btnVolver = new JButton("Volver");
+        btnVolver = new JButton("Volver");
         btnVolver.addActionListener(e -> volver());
         
         panelInferior.add(btnGenerarDatos);
@@ -151,4 +154,11 @@ public class VistaBalanceYMisActivos extends Panel {
             }
         }
     }
+
+	@Override
+	protected void actualizarPosiciones() {
+		// TODO Auto-generated method stub
+		
+		
+	}
 }
