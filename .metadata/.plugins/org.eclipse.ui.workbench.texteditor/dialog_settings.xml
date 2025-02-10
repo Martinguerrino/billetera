@@ -33,6 +33,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="volver"/>
 			<item value="hipervinculo"/>
 			<item value="hiper"/>
 			<item value="chk"/>
@@ -47,7 +48,6 @@
 			<item value="crearPanelTabla"/>
 			<item value="actualiza"/>
 			<item value="setvisible"/>
-			<item value="setvisib"/>
 		</list>
 		<list key="replacehistory">
 			<item value="spacing"/>

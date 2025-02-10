@@ -27,9 +27,11 @@
     <fullyQualifiedTypeName name="Auxiliar.RoundedTextField"/>
     <fullyQualifiedTypeName name="Auxiliar.RoundedPasswordField"/>
     <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
-    <fullyQualifiedTypeName name="etc.Colores"/>
     <fullyQualifiedTypeName name="Auxiliar.RoundedButton"/>
     <fullyQualifiedTypeName name="javax.swing.JLabel"/>
     <fullyQualifiedTypeName name="java.lang.Math"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="etc.fuentes"/>
+    <fullyQualifiedTypeName name="Auxiliar.VentanaEmergente"/>
+    <fullyQualifiedTypeName name="etc.Colores"/>
 </qualifiedTypeNameHistroy>

@@ -1,8 +1,5 @@
 package Vista.Ventana;
 import javax.swing.*;
-
-import etc.Colores;
-
 import java.awt.*;
 
 public class VentanaTerminos extends JFrame {
@@ -16,7 +13,7 @@ public class VentanaTerminos extends JFrame {
         setLayout(new BorderLayout()); // Usa BorderLayout para centrar el contenido
 
         // Establecer fondo negro para toda la ventana
-        getContentPane().setBackground(Colores.NEGRO);
+        getContentPane().setBackground(Color.BLACK);
 
         // Crear un JLabel con mucho texto Lorem Ipsum
         String loremIpsum = "<html><body style='width: 500px; color: white;'>" +

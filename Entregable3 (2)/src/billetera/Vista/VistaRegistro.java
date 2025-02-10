@@ -35,6 +35,7 @@ public class VistaRegistro extends Panel {
     private ControladorRegistro miControlador;
     private JLabel labelLogo;
     private JLabel hipervinculoTerminosYCondiciones;
+    private RoundedButton btnVolver;
 
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24);
     private static final Color TEXT_COLOR = Colores.TEXTO.getColor();
@@ -52,6 +53,7 @@ public class VistaRegistro extends Panel {
         chkAceptarTerminos.setForeground(Color.WHITE); // Texto en blanco
         chkAceptarTerminos.setFocusPainted(false); // Quita el borde cuando está enfocado
         btnRegistrar = new RoundedButton("Registrar", 150,40);
+        btnVolver = new RoundedButton("Volver", 150,40);
         titulo = new JLabel("Registrarse");
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
         titulo.setForeground(TEXT_COLOR); // Antes: Colores.TEXTO.getColor()
@@ -66,7 +68,7 @@ public class VistaRegistro extends Panel {
 
         // Acción del botón de registro
         btnRegistrar.addActionListener(new LRegistro());     
-
+        btnVolver.addActionListener(new LVolver());    
         labels=new JLabel[4];
         
         int i=0;
@@ -98,6 +100,7 @@ public class VistaRegistro extends Panel {
         add(txtEmail);
         add(txtNombre);
         add(btnRegistrar);
+        add(btnVolver);
         add(chkAceptarTerminos);
         add(titulo);
         
@@ -150,12 +153,21 @@ public class VistaRegistro extends Panel {
         }
     }
 
+    private class LVolver implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	miControlador.redirigirLogin();
+        	
+        }
+    }
+
+    
 	@Override
 	protected void actualizarPosiciones() {
         // TODO Auto-generated method stub
         int formWidth = 400;
         int elementHeight = 40;
-    	int base=160;
+    	int base=170;
         int buttonWidth = 300;
         int buttonHeight = 50;
         int spacing=60;
@@ -173,6 +185,7 @@ public class VistaRegistro extends Panel {
         actualizarPosicion(chkAceptarTerminos, 0, base-spacing*5, formWidth, 30);
         actualizarPosicion(hipervinculoTerminosYCondiciones, 0, base-spacing*5-20, formWidth, 30);
         actualizarPosicion(btnRegistrar, 0, base-spacing*6, formWidth, 30);
-        
+        actualizarPosicion(btnVolver, 0, base-spacing*6-35, buttonWidth, 30);
     }
+	
 }
