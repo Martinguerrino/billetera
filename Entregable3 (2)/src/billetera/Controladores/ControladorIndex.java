@@ -16,9 +16,6 @@ public class ControladorIndex {
 		return miUsuario;
 	}
 
-
-	
-
 	private Usuario miUsuario;
 	private VistaIndex vista;
 	private VentanaInicio ventana;

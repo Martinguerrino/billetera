@@ -3,8 +3,12 @@ package Controladores;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import Vista.VistaRegistro;
+import Vista.Ventana.VentanaEmergente;
 import Vista.Ventana.VentanaInicio;
+import Vista.Ventana.VentanaTerminos;
 import Modelo.DAO.UsuarioDAO;
 import Auxiliar.Persona;
 import Auxiliar.Usuario;
@@ -60,6 +64,12 @@ public class ControladorRegistro{
 	public void setControladorPrincipal(ControladorLogin controladorLogin) {
 		// TODO Auto-generated method stub
 		controladorPrincipal=controladorLogin;
+	}
+
+	public void mostrarTerminos() {
+		// TODO Auto-generated method stub
+		VentanaTerminos ventanaTerminos= new VentanaTerminos();
+		ventanaTerminos.setVisible(true);
 	}
 	
 	

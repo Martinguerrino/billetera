@@ -1,14 +1,13 @@
 package Vista;
 
-import Auxiliar.ImagenCircular;
 import Auxiliar.Panel;
 import Auxiliar.RoundedButton;
 import Auxiliar.RoundedPasswordField;
 import Auxiliar.RoundedTextField;
 import Controladores.ControladorLogin;
+import etc.Colores;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
 import java.sql.SQLException;
 import javax.swing.*;
 
@@ -21,66 +20,55 @@ public class VistaLogin extends Panel {
     private JTextField txtGmail;
     private JPasswordField txtPassword;
     private ControladorLogin miControlador;
-    private JLabel labelLogo;
+    private JLabel 	labelLogo;
 
-    // Colores de Binance
-    private final Color BINANCE_YELLOW = new Color(252, 213, 53); // Botón principal
-    private final Color BINANCE_INPUT_BG = new Color(43, 49, 57); // Fondo de inputs
-    private final Color BINANCE_TEXT = new Color(234, 236, 239);  // Texto claro
-
+    // Declaración de constantes (mismos nombres que en VistaTransacciones)
+    
+    private static final Color TEXT_COLOR = Colores.TEXTO.getColor();
     // Constructor
     public VistaLogin(ControladorLogin miControlador) {
-    	super();
+        super();
         this.miControlador = miControlador;
         
-
         // Cargar la fuente IBM Plex Sans
-        Font binanceFont= super.getFont();
+        Font fuente_texto = super.getFont();
         
-
-
         // Crear el JLabel (título)
         titulo = new JLabel("Iniciar Sesión");
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
-        titulo.setForeground(BINANCE_TEXT);
-        titulo.setFont(binanceFont.deriveFont(Font.BOLD, 28f));
+        titulo.setForeground(TEXT_COLOR); // Antes: Colores.TEXTO.getColor()
+        titulo.setFont(fuente_texto.deriveFont(Font.BOLD, 28f));
 
         // Crear el JLabel (para el Gmail)
         labelGmail = new JLabel("Email:");
-        labelGmail.setForeground(BINANCE_TEXT);
-        labelGmail.setFont(binanceFont.deriveFont(14f));
+        labelGmail.setForeground(TEXT_COLOR); // Antes: Colores.TEXTO.getColor()
+        labelGmail.setFont(fuente_texto.deriveFont(14f));
 
         // Crear el JTextField (para el Gmail)
         txtGmail = new RoundedTextField(15);
         txtGmail.setToolTipText("Ingrese su mail");
-        txtGmail.setBackground(BINANCE_INPUT_BG);
-        txtGmail.setForeground(BINANCE_TEXT);
-        txtGmail.setCaretColor(BINANCE_TEXT);
-        txtGmail.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-        txtGmail.setFont(binanceFont.deriveFont(14f));
+        // Se mantiene el color propio para cuadros de texto, ya que no hay constante equivalente en Transacciones
+        
 
         // Crear el JLabel (para la contraseña)
         labelPassword = new JLabel("Contraseña:");
-        labelPassword.setForeground(BINANCE_TEXT);
-        labelPassword.setFont(binanceFont.deriveFont(14f));
+        labelPassword.setForeground(TEXT_COLOR); // Antes: Colores.TEXTO.getColor()
+        labelPassword.setFont(fuente_texto.deriveFont(14f));
 
         // Crear el JPasswordField (para la contraseña)
         txtPassword = new RoundedPasswordField(15);
         txtPassword.setToolTipText("Ingrese su Contraseña");
-        txtPassword.setBackground(BINANCE_INPUT_BG);
-        txtPassword.setForeground(BINANCE_TEXT);
-        txtPassword.setCaretColor(BINANCE_TEXT);
-        txtPassword.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-        txtPassword.setFont(binanceFont.deriveFont(14f));
+       
 
         // Crear el JButton (botón de login)
-        buttonLogin = createStyledButton("Iniciar Sesión", BINANCE_YELLOW, Color.BLACK, binanceFont.deriveFont(Font.BOLD, 16f), 200, 50);
+        buttonLogin = new RoundedButton("Iniciar Sesión",150,40);
+        buttonLogin.setBorder(null);
 
         // Crear el JLabel (hipervinculo de "Registrarse")
         hipervinculoRegistrar = new JLabel("Registrarse");
         hipervinculoRegistrar.setHorizontalAlignment(SwingConstants.CENTER);
-        hipervinculoRegistrar.setForeground(BINANCE_YELLOW);
-        hipervinculoRegistrar.setFont(binanceFont.deriveFont(14f));
+        hipervinculoRegistrar.setForeground(Colores.AMARILLO.getColor()); // Antes: Colores.AMARILLO.getColor()
+        hipervinculoRegistrar.setFont(fuente_texto.deriveFont(14f));
         hipervinculoRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Mantener los listeners originales
@@ -88,22 +76,15 @@ public class VistaLogin extends Panel {
         buttonLogin.addActionListener(new LIniciarSesion());
 
         //logo
-        // Crear la instancia del JLabel con imagen circular
-     // Cargar la imagen usando ImageIcon
+        // Cargar la imagen usando ImageIcon
         ImageIcon icon = new ImageIcon("src/billetera/etc/logo.png");
-        
         // Si quieres redimensionar la imagen para que encaje en un JLabel
-        Image img = icon.getImage();  // Convertir la imagen a un objeto Image
-        Image newImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);  // Redimensionar
-        icon = new ImageIcon(newImg);  // Crear un nuevo ImageIcon con la imagen redimensionada
-
+        Image img = icon.getImage();  
+        Image newImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newImg);
         labelLogo = new JLabel(icon);
 
-        // Agregar la imagen al panel
-        
-        // Otros componentes de tu vista
-        
-        // Agregar componentes al Panel
+        // Agregar la imagen y los demás componentes al Panel
         add(labelLogo);
         add(titulo);
         add(labelGmail);
@@ -121,9 +102,7 @@ public class VistaLogin extends Panel {
             actualizarPosiciones();
         }
     }
-    
-    
-   
+
     // Clase interna para manejar el evento del hipervínculo "Registrarse"
     private class LRegistro extends MouseAdapter {
         @Override
@@ -161,19 +140,18 @@ public class VistaLogin extends Panel {
         }
     }
 
-	protected void actualizarPosiciones() {
-		// TODO Auto-generated method stub
-		int formWidth = 400;
+    protected void actualizarPosiciones() {
+        // TODO Auto-generated method stub
+        int formWidth = 400;
         int elementHeight = 40;
 
-        actualizarPosicion(labelLogo,0,270,140, 140);
+        actualizarPosicion(labelLogo, 0, 270, 140, 140);
         actualizarPosicion(titulo, 0, 140, formWidth, elementHeight);
         actualizarPosicion(labelGmail, 0, 90, formWidth, 20);
         actualizarPosicion(txtGmail, 0, 60, formWidth, elementHeight);
         actualizarPosicion(labelPassword, 0, 10, formWidth, 20);
         actualizarPosicion(txtPassword, 0, -20, formWidth, elementHeight);
         actualizarPosicion(buttonLogin, 0, -80, formWidth, 50);
-        actualizarPosicion(hipervinculoRegistrar, 0, -130, formWidth, 30);
-		
-	}
+        actualizarPosicion(hipervinculoRegistrar, 0, -140, formWidth, 30);
+    }
 }

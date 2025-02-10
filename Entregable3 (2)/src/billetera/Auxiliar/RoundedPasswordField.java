@@ -5,7 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPasswordField;
+
+import etc.Colores;
+import etc.fuentes;
 
 public class RoundedPasswordField extends JPasswordField {
     private int radius;
@@ -14,6 +18,11 @@ public class RoundedPasswordField extends JPasswordField {
         super();
         this.radius = radius;
         setOpaque(false);
+        setBackground(Colores.CUADROS_TEXTO.getColor());
+        setForeground(Colores.TEXTO.getColor()); // Antes: Colores.TEXTO.getColor()
+        setCaretColor(Colores.TEXTO.getColor());   // Antes: Colores.TEXTO.getColor()
+        setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        setFont(fuentes.MAIN_FONT.getFont().deriveFont(14f));
     }
 
     @Override

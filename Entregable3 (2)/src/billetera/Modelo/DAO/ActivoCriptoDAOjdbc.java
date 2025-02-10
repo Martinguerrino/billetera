@@ -3,6 +3,7 @@ package Modelo.DAO;
 import Auxiliar.Activo;
 import Auxiliar.Moneda;
 import Modelo.MyConnection;
+import etc.TipoMoneda;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class ActivoCriptoDAOjdbc implements ActivoDAO
                     activo.setCantidad(rs.getFloat("CANTIDAD"));
                     Moneda moneda = new Moneda();
                     moneda.setId(rs.getInt("MONEDA_ID"));
-                    moneda.setTipo(rs.getString("TIPO"));
+                    moneda.setTipo(TipoMoneda.valueOf(rs.getString("TIPO")));
                     moneda.setNombre(rs.getString("NOMBRE"));
                     moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
                     moneda.setValorDolar(rs.getFloat("VALOR_DOLAR"));
@@ -98,7 +99,7 @@ public List<Activo> listarActivos(int id_usuario) throws SQLException {
                 activo.setCantidad(rs.getFloat("CANTIDAD"));
                 Moneda moneda = new Moneda();
                 moneda.setId(rs.getInt("MONEDA_ID"));
-                moneda.setTipo(rs.getString("TIPO"));
+                moneda.setTipo(TipoMoneda.valueOf(rs.getString("TIPO")));
                 moneda.setNombre(rs.getString("NOMBRE"));
                 moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
                 moneda.setValorDolar(rs.getFloat("VALOR_DOLAR"));
@@ -136,7 +137,7 @@ public Activo obtenerActivoPorId(int id) throws SQLException {
                 activo.setId(rs.getInt("ID"));
                 activo.setCantidad(rs.getFloat("CANTIDAD"));
                 Moneda moneda = new Moneda();
-                moneda.setTipo(rs.getString("TIPO"));
+                moneda.setTipo(TipoMoneda.valueOf(rs.getString("TIPO")));
                 moneda.setNombre(rs.getString("NOMBRE"));
                 moneda.setNomenclatura(rs.getString("NOMENCLATURA"));
                 moneda.setValorDolar(rs.getFloat("VALOR_DOLAR"));

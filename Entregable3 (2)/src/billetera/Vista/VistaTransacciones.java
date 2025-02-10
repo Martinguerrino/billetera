@@ -1,86 +1,134 @@
 package Vista;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import Auxiliar.Panel;
+import Auxiliar.PanelTablas;
+import Auxiliar.RoundedButton;
+import Auxiliar.Tabla;
 import Controladores.ControladorTransacciones;
-
+import etc.Colores;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.io.File;
 import java.sql.SQLException;
-import java.util.Arrays;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.table.*;
+
 
 public class VistaTransacciones extends Panel {
-    private JTable tablaTransacciones;
+    private Tabla tablaTransacciones;
     private JLabel lblTitulo;
     private ControladorTransacciones miControlador;
+    private RoundedButton btnVolver;
+    private RoundedButton btnGenerarCSV;
+    
+    // Definición de colores y fuentes
+    private static final Color BG_COLOR = Colores.FONDO.getColor();
+    private static final Color TEXT_COLOR = Colores.TEXTO.getColor();
+    private static final Color BUTTON_COLOR = Colores.BOTON.getColor();
+    private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24);
+    private static final Font MAIN_FONT = new Font("Segoe UI", Font.PLAIN, 14);
+    private static final Font HEADER_FONT = new Font("Segoe UI", Font.BOLD, 14);
 
     public VistaTransacciones(ControladorTransacciones miControlador) throws SQLException {
-    	super();
+        super();
         this.miControlador = miControlador;
-        // Crear el título
-        lblTitulo = new JLabel("Transacciones", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espacio alrededor del título
-        add(lblTitulo);
+        setBackground(BG_COLOR);
+        setLayout(new BorderLayout());
 
-        // Crear la tabla
-        String[] columnas = {"Usuario", "Fecha", "Resumen"}; // Encabezados de las columnas
-        Object[][] datos = miControlador.obtenerTransacciones(); // Estructura de los datos {"usuario1", "2024-12-01", "Compra de activos"}
-        DefaultTableModel modeloTabla = new DefaultTableModel(datos, columnas);
-        tablaTransacciones = new JTable(modeloTabla);
-        tablaTransacciones.setFillsViewportHeight(true);
+        inicializarComponentes();
+        configurarTabla();
+        configurarBotones();
 
-        // Agregar la tabla dentro de un JScrollPane para permitir scroll
-        JScrollPane scrollPane = new JScrollPane(tablaTransacciones);
-        add(scrollPane);
-
-        // Botón Volver
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.addActionListener(e -> volver());
-        add(btnVolver);
-
-        // Listener para actualizar las posiciones cuando se cambia el tamaño
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                actualizarPosiciones();
-            }
-        });
-
-        actualizarPosiciones();
+        add(crearPanelSuperior(), BorderLayout.NORTH);
+        add(crearPanelCentral(), BorderLayout.CENTER);
+        add(crearPanelInferior(), BorderLayout.SOUTH);
     }
 
-    protected void actualizarPosiciones() {
-        int width = getWidth();
-        int height = getHeight();
+    private void inicializarComponentes() {
+        lblTitulo = new JLabel("Transacciones", SwingConstants.CENTER);
+        lblTitulo.setFont(TITLE_FONT);
+        lblTitulo.setForeground(TEXT_COLOR);
 
-        int centerX = width / 2;
-        int lblWidth = 400;
-        int btnWidth = 200;
-        int scrollWidth = 500;
-        int lblHeight = 40;
-        int btnHeight = 40;
-        int scrollHeight = height - lblHeight - btnHeight - 50;
+        btnVolver = new RoundedButton("Volver",150,40);
+        btnGenerarCSV = new RoundedButton("Generar CSV",150,40);
+    }
 
-        // Ajustamos la posición del título
-        lblTitulo.setBounds(centerX - lblWidth / 2, 10, lblWidth, lblHeight);
+    private void configurarTabla() throws SQLException {
+        String[] columnas = {"Usuario", "Fecha", "Resumen"};
+        Object[][] datos = miControlador.obtenerTransacciones();
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-        // Ajustamos la tabla (con scroll)
-        JScrollPane scrollPane = (JScrollPane) getComponent(1); // El segundo componente debe ser la tabla
-        scrollPane.setBounds(centerX - scrollWidth / 2, lblHeight + 10, scrollWidth, scrollHeight);
+        tablaTransacciones = new Tabla(modelo);
+       
+    }
 
-        // Ajustamos el botón Volver
-        JButton btnVolver = (JButton) getComponent(2); // El tercer componente es el botón
-        btnVolver.setBounds(centerX - btnWidth / 2, height - 50, btnWidth, btnHeight);
+    private void configurarBotones() {
+        configurarBoton(btnVolver);
+        configurarBoton(btnGenerarCSV);
+
+        btnVolver.addActionListener(e -> volver());
+        btnGenerarCSV.addActionListener(e -> generarCSV());
+    }
+
+    private void configurarBoton(RoundedButton boton) {
+        boton.setBackground(BUTTON_COLOR);
+        boton.setForeground(Color.BLACK);
+        boton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        boton.setFocusPainted(false);
+        // Remover el borde de forma completa
+        boton.setBorder(null);
+        boton.setBorderPainted(false);
+        boton.setPreferredSize(new Dimension(150, 40));
+    }
+
+    private JPanel crearPanelSuperior() {
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setBackground(BG_COLOR);
+        panelSuperior.add(lblTitulo, BorderLayout.CENTER);
+
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBusqueda.setBackground(BG_COLOR);
+        panelSuperior.add(panelBusqueda, BorderLayout.SOUTH);
+        panelSuperior.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        return panelSuperior;
+    }
+
+    private JPanel crearPanelCentral() {
+        JPanel panelCentral = new JPanel(new BorderLayout());
+        panelCentral.setBackground(Colores.FONDO.getColor());
+        
+        // Crear un JScrollPane personalizado sin bordes
+        JScrollPane scrollPane = new PanelTablas(tablaTransacciones);
+        
+        panelCentral.add(scrollPane, BorderLayout.CENTER);
+        return panelCentral;
+    }
+
+    private JPanel crearPanelInferior() {
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panelInferior.setBackground(BG_COLOR);
+        panelInferior.add(btnVolver);
+        panelInferior.add(btnGenerarCSV);
+        return panelInferior;
     }
 
     private void volver() {
         miControlador.redirigirIndex();
+    }
+
+    private void generarCSV() {
+        // Implementar la lógica para generar CSV
+        JOptionPane.showMessageDialog(this, "Función de generar CSV no implementada", "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    protected void actualizarPosiciones() {
+        revalidate();
+        repaint();
     }
 }

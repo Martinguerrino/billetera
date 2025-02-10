@@ -6,7 +6,6 @@
     <fullyQualifiedTypeName name="billetera.Auxiliar.GeneradorMonedas"/>
     <fullyQualifiedTypeName name="Vista.Ventana.VentanaInicio"/>
     <fullyQualifiedTypeName name="Vista.VistaRegistro"/>
-    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
     <fullyQualifiedTypeName name="Controladores.ControladorBalanceYMisActivos"/>
     <fullyQualifiedTypeName name="Controladores.ControladorTransacciones"/>
     <fullyQualifiedTypeName name="Controladores.ControladorCompra"/>
@@ -19,8 +18,18 @@
     <fullyQualifiedTypeName name="Modelo.DAO.MonedaDAO"/>
     <fullyQualifiedTypeName name="Auxiliar.Activo"/>
     <fullyQualifiedTypeName name="Auxiliar.ModeloActivosTabla"/>
-    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
-    <fullyQualifiedTypeName name="Auxiliar.RoundedButton"/>
     <fullyQualifiedTypeName name="Auxiliar.LineaAmarilla"/>
+    <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+    <fullyQualifiedTypeName name="Auxiliar.ModeloTabla"/>
+    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="Auxiliar.PanelTablas"/>
+    <fullyQualifiedTypeName name="Auxiliar.RoundedTextField"/>
+    <fullyQualifiedTypeName name="Auxiliar.RoundedPasswordField"/>
+    <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
+    <fullyQualifiedTypeName name="etc.Colores"/>
+    <fullyQualifiedTypeName name="Auxiliar.RoundedButton"/>
+    <fullyQualifiedTypeName name="javax.swing.JLabel"/>
+    <fullyQualifiedTypeName name="java.lang.Math"/>
+    <fullyQualifiedTypeName name="etc.fuentes"/>
 </qualifiedTypeNameHistroy>

@@ -38,22 +38,13 @@ public abstract class Panel extends JPanel{
     }
 
 	protected void actualizarPosicion(JComponent element, int x, int y, int eWidth, int eHeight) {
+	
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
         element.setBounds(centerX - (eWidth / 2) + x, centerY - y, eWidth, eHeight);
     }
 	
-	protected RoundedButton createStyledButton(String text, Color bgColor, Color fgColor, Font font, int width, int height) {
-	    RoundedButton button = new RoundedButton(text);
-	    button.setBackground(bgColor);
-	    button.setForeground(fgColor);
-	    button.setFont(font);
-	    button.setBorder(BorderFactory.createEmptyBorder());
-	    button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    button.setFocusPainted(false);
-	    button.setPreferredSize(new Dimension(width, height));
-	    return button;
-	}
+	
 	
 	protected abstract void actualizarPosiciones();
 	

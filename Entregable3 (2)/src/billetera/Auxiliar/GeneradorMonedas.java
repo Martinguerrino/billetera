@@ -3,6 +3,7 @@ package Auxiliar;
 import Modelo.DAO.ActivoDAO;
 import Modelo.DAO.MonedaDAO;
 import Modelo.DAO.MonedaDAOjdbc;
+import etc.TipoMoneda;
 import java.sql.SQLException;
 import java.util.Random;
 
@@ -28,7 +29,7 @@ public class GeneradorMonedas {
         float volatilidad = RANDOM.nextFloat(); // Volatilidad aleatoria entre 0.0 y 1.0
         String nombreIcono = nomenclatura.toLowerCase() + ".png"; // Nombre del icono basado en la nomenclatura
         float stock = RANDOM.nextFloat() * 1000; // Stock aleatorio entre 0 y 1000
-        return new Moneda("Fiat", nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
+        return new Moneda(TipoMoneda.FIAT, nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
     }
 
     public Moneda generarMonedaCripto(int index) {
@@ -38,7 +39,7 @@ public class GeneradorMonedas {
         float volatilidad = RANDOM.nextFloat(); // Volatilidad aleatoria entre 0.0 y 1.0
         String nombreIcono = nomenclatura.toLowerCase() + ".png"; // Nombre del icono basado en la nomenclatura
         float stock = RANDOM.nextFloat() * 1000; // Stock aleatorio entre 0 y 1000
-        return new Moneda("Cripto", nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
+        return new Moneda(TipoMoneda.CRIPTO, nombre, nomenclatura, valorDolar, volatilidad, nombreIcono, stock);
     }
 
     public void generarMonedas(int id_usuario) throws SQLException {

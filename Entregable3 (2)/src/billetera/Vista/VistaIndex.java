@@ -1,17 +1,16 @@
 package Vista;
-import javax.swing.*;
-
 import Auxiliar.LineaAmarilla;
 import Auxiliar.Panel;
 import Auxiliar.RoundedButton;
 import Controladores.ControladorIndex;
-
+import etc.Colores;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
+import javax.swing.*;
 
 public class VistaIndex extends Panel {
 	private LineaAmarilla lnAmarilla;
@@ -23,21 +22,22 @@ public class VistaIndex extends Panel {
     private JLabel labelLogoUser;
     private JLabel labelUser;
 
-    private final Color BINANCE_BG = new Color(30, 32, 38);       // Fondo principal
-    private final Color BINANCE_YELLOW = new Color(252, 213, 53); // Botón principal
-    private final Color BINANCE_INPUT_BG = new Color(43, 49, 57); // Fondo de inputs
+    // Declaración de constantes (mismos nombres que en VistaTransacciones)
+    private static final Color BG_COLOR = Colores.FONDO.getColor();
+    private static final Color TEXT_COLOR = Colores.AMARILLO.getColor();
+    private static final Color BUTTON_COLOR = Colores.AMARILLO.getColor();
 
     public VistaIndex(ControladorIndex miControlador) {
     	super();
         this.miControlador = miControlador;
 
-        Font binanceFont= super.getFont();
+        Font fuente_texto= super.getFont();
 
         // Crear botones
-        btnBalanceActivos = createStyledButton("Balance y Activos", BINANCE_YELLOW, Color.BLACK, binanceFont.deriveFont(Font.BOLD, 16f), 200, 50);
-        btnTransacciones = createStyledButton("Transacciones", BINANCE_YELLOW, Color.BLACK, binanceFont.deriveFont(Font.BOLD, 16f), 200, 50);
-        btnCompra = createStyledButton("Compra", BINANCE_YELLOW, Color.BLACK, binanceFont.deriveFont(Font.BOLD, 16f), 200, 50);
-        btnCotizaciones = createStyledButton("Cotizaciones", BINANCE_YELLOW, Color.BLACK, binanceFont.deriveFont(Font.BOLD, 16f), 200, 50);
+        btnBalanceActivos = new RoundedButton("Balance y activos",150,40);
+        btnTransacciones = new RoundedButton("Transacciones",150,40);
+        btnCompra = new RoundedButton("Comprar",150,40);
+        btnCotizaciones = new RoundedButton("Cotizaciones",150,40);
 
         lnAmarilla= new LineaAmarilla();
         
@@ -52,8 +52,8 @@ public class VistaIndex extends Panel {
         
         labelUser= new JLabel("Bienvenido: "+miControlador.getMiUsuario().getPersona().getNombre() + " " + miControlador.getMiUsuario().getPersona().getApellido());
         labelUser.setAlignmentX(Component.LEFT_ALIGNMENT);
-        labelUser.setForeground(BINANCE_YELLOW);
-        labelUser.setFont(binanceFont.deriveFont(Font.BOLD,15f));
+        labelUser.setForeground(TEXT_COLOR); // Antes: Colores.AMARILLO.getColor()
+        labelUser.setFont(fuente_texto.deriveFont(Font.BOLD,15f));
         
         // Agregar botones a la vista
         add(labelLogoUser);

@@ -1,6 +1,7 @@
 package Modelo.DAO;
 import Auxiliar.Moneda;
 import Modelo.MyConnection;
+import etc.TipoMoneda;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class MonedaDAOjdbc implements MonedaDAO
         {
             while(rs.next())
             {
-                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                Moneda moneda = new Moneda(rs.getInt("ID"),TipoMoneda.valueOf(rs.getString("TIPO")), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 monedas.add(moneda);
             }
         }
@@ -69,7 +70,7 @@ public class MonedaDAOjdbc implements MonedaDAO
         {
             while(rs.next())
             {
-                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                Moneda moneda = new Moneda(rs.getInt("ID"),TipoMoneda.valueOf(rs.getString("TIPO")), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 monedas.add(moneda);
             }
         }
@@ -90,7 +91,7 @@ public class MonedaDAOjdbc implements MonedaDAO
         {
             while(rs.next())
             {
-                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                Moneda moneda = new Moneda(rs.getInt("ID"),TipoMoneda.valueOf(rs.getString("TIPO")), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 monedas.add(moneda);
             }
         }
@@ -112,7 +113,7 @@ public class MonedaDAOjdbc implements MonedaDAO
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             {
-                moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                moneda = new Moneda(rs.getInt("ID"),TipoMoneda.valueOf(rs.getString("TIPO")), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 
             }
         }
@@ -172,7 +173,7 @@ public class MonedaDAOjdbc implements MonedaDAO
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             {
-                moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                moneda = new Moneda(rs.getInt("ID"),TipoMoneda.valueOf(rs.getString("TIPO")), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
             }
         }
         catch(SQLException e)
@@ -209,7 +210,7 @@ public class MonedaDAOjdbc implements MonedaDAO
         {
             while(rs.next())
             {
-                Moneda moneda = new Moneda(rs.getInt("ID"),rs.getString("TIPO"), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
+                Moneda moneda = new Moneda(rs.getInt("ID"),TipoMoneda.valueOf(rs.getString("TIPO")), rs.getString("NOMBRE"), rs.getString("NOMENCLATURA"), rs.getFloat("VALOR_DOLAR"), rs.getFloat("VOLATILIDAD"), rs.getString("NOMBRE_ICONO"), rs.getFloat("STOCK"));
                 monedas.add(moneda);
             }
         }

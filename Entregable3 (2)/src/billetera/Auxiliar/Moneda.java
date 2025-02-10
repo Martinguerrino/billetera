@@ -1,4 +1,7 @@
 package Auxiliar;
+
+import etc.TipoMoneda;
+
 public class Moneda 
 {
     int id;
@@ -10,9 +13,9 @@ public class Moneda
     String nombreIcono;
     float stock;
 
-    public Moneda(int id, String tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad, String nombreIcono, float stock) {
+    public Moneda(int id, TipoMoneda tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad, String nombreIcono, float stock) {
         this.id = id;
-        this.tipo = tipo.toUpperCase();
+        this.tipo = tipo.name();
         this.nombre = nombre.toUpperCase();
         this.nomenclatura = nomenclatura.toUpperCase();
         this.valorDolar = valorDolar;
@@ -25,9 +28,9 @@ public class Moneda
     public Moneda() {
     }
 
-    public Moneda(String tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad,
+    public Moneda(TipoMoneda tipo, String nombre, String nomenclatura, float valorDolar, float volatilidad,
             String nombreIcono, float stock) {
-        this.tipo = tipo.toUpperCase();
+        this.tipo = tipo.name();
         this.nombre = nombre.toUpperCase();
         this.nomenclatura = nomenclatura.toUpperCase();
         this.valorDolar = valorDolar;
@@ -54,8 +57,8 @@ public class Moneda
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo(TipoMoneda tipo) {
+        this.tipo = tipo.name();
     }
 
     public String getNombre() {

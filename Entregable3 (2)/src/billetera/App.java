@@ -1,15 +1,8 @@
-import Vista.VistaLogin;
-
-
+import Auxiliar.GeneradorVentanas;
 import Controladores.ControladorLogin;
 import Modelo.Servicios.ConsultarPrecioCripto;
 import java.util.Timer;
 import java.util.TimerTask;
-import Vista.Ventana.*;
-
-import javax.swing.JFrame;
-
-import Auxiliar.GeneradorVentanas;
 
 public class App {
 	public static void main(String[] args) {

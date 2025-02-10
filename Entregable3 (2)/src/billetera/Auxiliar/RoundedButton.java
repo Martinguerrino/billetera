@@ -1,16 +1,30 @@
 package Auxiliar;
 
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+import etc.Colores;
+import etc.fuentes;
+
 public class RoundedButton extends JButton {
-    public RoundedButton(String label) {
+    public RoundedButton(String label,int width,int height) {
         super(label);
         setContentAreaFilled(false);
+        setBackground(Colores.AMARILLO.getColor());
+	    setForeground(Colores.NEGRO.getColor());
+	    setFont(fuentes.MAIN_FONT.getFont());
+	    setBorder(BorderFactory.createEmptyBorder());
+	    setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    setFocusPainted(false);
+	    setPreferredSize(new Dimension(width, height));
+        
     }
 
     @Override
