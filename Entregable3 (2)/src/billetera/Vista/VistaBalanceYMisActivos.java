@@ -6,6 +6,8 @@ import Auxiliar.PanelTablas;
 import Auxiliar.RoundedButton;
 import Auxiliar.Tabla;
 import Controladores.ControladorBalanceYMisActivos;
+import Excepciones.NoHayMonedasCargadasException;
+import Vista.Ventana.VentanaEmergente;
 import etc.Colores;
 import java.awt.*;
 import java.awt.event.*;
@@ -168,7 +170,8 @@ public class VistaBalanceYMisActivos extends Panel {
     private class LGenerarAleatorio implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
+            
+        	try {
                 if (activoFiat.length == 0) {
                     miControlador.generarDatosDePrueba();
                     activoFiat = miControlador.ObtenerActivosFiat();
@@ -178,7 +181,13 @@ public class VistaBalanceYMisActivos extends Panel {
                     JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this,
                             "Datos de prueba ya generados", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (Exception ex) {
+            }catch(NoHayMonedasCargadasException ex) {
+
+                JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(VistaBalanceYMisActivos.this);
+            	VentanaEmergente.llamarVentanaEmergente("No hay aun monedas cargadas, dirigete a cotizaciones para cargarlas", "No hay monedas", 
+            			owner, Colores.AMARILLO.getColor());
+            }
+        	catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(VistaBalanceYMisActivos.this,
                         "Error al generar datos de prueba: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

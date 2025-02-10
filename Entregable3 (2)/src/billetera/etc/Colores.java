@@ -9,8 +9,9 @@ public enum Colores {
     TEXTO(new Color(234, 236, 239)),
     FONDO(new Color(30,33,39)),
     BOTON(new Color(252, 213, 53)),
-    BOTON_HOVER(new Color(255, 235, 59));
-
+    BOTON_HOVER(new Color(255, 235, 59)),
+	ERROR(new Color(255,0,0));
+	
     private final Color color;
 
     Colores(Color color) {

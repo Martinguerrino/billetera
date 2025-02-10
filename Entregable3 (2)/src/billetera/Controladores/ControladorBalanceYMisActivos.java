@@ -5,6 +5,7 @@ import Auxiliar.GeneradorMonedas;
 import Auxiliar.Moneda;
 import Auxiliar.Transaccion;
 import Auxiliar.Usuario;
+import Excepciones.NoHayMonedasCargadasException;
 import Modelo.DAO.ActivoDAO;
 import Modelo.DAO.FactoryDAO;
 import Modelo.DAO.MonedaDAO;
@@ -124,14 +125,18 @@ public class ControladorBalanceYMisActivos {
     	ventanaInicio.repaint();
     }
 
-	public void generarDatosDePrueba() throws SQLException {
+	public void generarDatosDePrueba() throws SQLException, NoHayMonedasCargadasException {
 		// TODO Auto-generated method stub
 		List<Moneda> fiats= miMonedaDAO.listarMonedasFiat();
 		//cambiar por enum
+		if(fiats.size()==0) {
+			throw new NoHayMonedasCargadasException();
+		}
 		for (Moneda moneda : fiats) {
 			Activo cargarActivo= new Activo(miUsuario,moneda,1.0f + RANDOM.nextFloat() * 50000);
 			miActivoFiatDAO.cargarActivo(cargarActivo);			
 		}
+		
 	}
 	
 	public void exportarTransaccionesACSV(String filePath, Object[][] activosCripto, Object[][] activosFiat) throws SQLException, IOException {
